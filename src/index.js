@@ -1,8 +1,19 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom'
 import './index.css';
-import App from './App';
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
+import linkList from './reducers'
 import registerServiceWorker from './registerServiceWorker';
+import SearchAndResults from "./SearchAndResults";
 
-ReactDOM.render(<App />, document.getElementById('root'));
+let store = createStore(linkList);
+
+render(
+  <Provider store={store}>
+    <SearchAndResults />
+  </Provider>,
+  document.getElementById('root')
+);
+
 registerServiceWorker();
