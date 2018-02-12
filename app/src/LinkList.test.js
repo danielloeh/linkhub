@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import SearchAndResults from "./SearchAndResults";
+import LinkList from "./LinkList";
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
-  ReactDOM.render(<SearchAndResults />, div);
+  ReactDOM.render(<LinkList />, div);
   ReactDOM.unmountComponentAtNode(div);
 });

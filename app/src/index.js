@@ -5,7 +5,7 @@ import {Provider} from "react-redux";
 import {createStore} from "redux";
 import linkList from "./reducers";
 import registerServiceWorker from "./registerServiceWorker";
-import SearchAndResults from "./SearchAndResults";
+import LinkList from "./LinkList";
 
 fetch('http://localhost:5557/api/links')
   .then(function (response) {
@@ -25,7 +25,7 @@ fetch('http://localhost:5557/api/links')
 
     render(
       <Provider store={store}>
-        <SearchAndResults />
+        <LinkList />
       </Provider>,
       document.getElementById('root')
     );
