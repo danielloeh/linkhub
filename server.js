@@ -4,12 +4,13 @@ const http = require("http");
 const express = require("express");
 const fs = require("fs");
 const path = require("path");
+const ConfigReader = require("./server/ConfigReader");
 
 const PORT = 5557;
 
 class LinkListServer {
 
-  constructor() {
+  constructor () {
     const app = express();
 
     LinkListServer.configureEndpoints(app);
@@ -20,14 +21,20 @@ class LinkListServer {
     server.listen(PORT);
   }
 
-  static serveApp(app) {
+  static serveApp (app) {
     const rootDir = path.resolve(path.dirname(module.uri || "."));
-    app.use(express.static(rootDir + '/app/dist'));
+    app.use(express.static(rootDir + '/static'));
   }
 
-  static configureEndpoints(app) {
+  static configureEndpoints (app) {
     console.log(`Configure health endpoints`);
-    app.get("/health", (req, res) => res.send("OK"));
+    app.get("/api/health", (req, res) => res.send("OK"));
+    app.get("/api/links", (req, res) => {
+
+      res.setHeader('content-type', 'text/javascript');
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.send(new ConfigReader().getLinks())
+    });
   }
 }
 

@@ -1,35 +1,46 @@
-import {FILTERED, RESET} from "./actions";
+import {FILTERED, UNFILTERED} from "./actions";
 import {combineReducers} from "redux";
 
-const staticSearchResults = [
-  {
-    url: "http://some-url",
-    name: "My First Link"
-  },
-  {
-    url: "http://some-other-url",
-    name: "My Second Link"
-  }
-];
-
-const initialState = {
-  filteredResults: staticSearchResults,
+const emptyState = {
+  allResults: [],
+  filteredResults: [],
   filterTerm: ''
 };
 
-let containsFilterTerm = function (action) {
-  return (item) => item.name.includes(action.filterTerm) || item.url.includes(action.filterTerm);
+const cntsCaseInsns = (str, term) => str.toLowerCase().indexOf(term.toLowerCase()) !== -1;
+
+const linkItemContainsFilterTerm = (item, filterTerm) => cntsCaseInsns(item.url, filterTerm) || cntsCaseInsns(item.name, filterTerm);
+
+let containsFilterTerm = function (filterTerm) {
+
+  let categoryContainsFilterTerm = (category, filterTerm) => cntsCaseInsns(category.categoryName, filterTerm);
+
+  let oneOfTheLinksContainsFilterTerm = (category, filterTerm) =>
+    category.links.find((item) => linkItemContainsFilterTerm(item, filterTerm));
+
+  return (category) => categoryContainsFilterTerm(category, filterTerm)
+  || oneOfTheLinksContainsFilterTerm(category, filterTerm);
 };
-function filter (state = initialState, action) {
-  console.log("#Reducer state:" + JSON.stringify(state));
-  console.log("#Reducer action:" + JSON.stringify(action));
+
+let toCategoryWithoutUnmatchedLinks = function (filterTerm) {
+  return (category) =>
+    Object.assign({}, category, {
+      links: category.links.filter((item) => cntsCaseInsns(category.categoryName, filterTerm) ||
+      linkItemContainsFilterTerm(item, filterTerm))
+    })
+};
+
+function filter (state = emptyState, action) {
 
   switch (action.type) {
     case FILTERED:
-      const newLinkList =  staticSearchResults.filter(containsFilterTerm(action));
+      const newLinkList = state.allResults
+        .filter(containsFilterTerm(action.filterTerm))
+        .map(toCategoryWithoutUnmatchedLinks(action.filterTerm));
+
       return Object.assign({}, state, {filteredResults: newLinkList, filterTerm: action.filterTerm});
-    case RESET:
-      return Object.assign({}, initialState);
+    case UNFILTERED:
+      return Object.assign({}, state, {filteredResults: state.allResults, filterTerm: ''});
     default:
       return state
   }

@@ -1,18 +1,18 @@
 import {connect} from "react-redux";
 import FilterHub from "./FilterHub";
-import {doFilter} from "./actions";
+import {applyFilter} from "./actions";
 
 const mapStateToProps = state => {
-  console.log("# TLC " + JSON.stringify(state));
   return {
+    allResults: state.filter.allResults,
     filteredResults: state.filter.filteredResults
   }
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onFilterClick: (filterTerm) => {
-      dispatch(doFilter(filterTerm))
+    onFilterChange: (filterTerm) => {
+      dispatch(applyFilter(filterTerm))
     }
   }
 };

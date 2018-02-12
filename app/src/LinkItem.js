@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from 'prop-types';
 
 const LinkItem = ({link}) => {
-  console.log("li : "+ JSON.stringify(link));
   return (
   <div className="linkitem">
     <li>

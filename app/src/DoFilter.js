@@ -1,24 +1,21 @@
 import React from "react";
-import {doFilter, doReset} from "./actions";
+import {applyFilter, displayAll} from "./actions";
 import {connect} from "react-redux";
 
 let DoFilter = ({dispatch}) => {
   let input;
 
-  let onSubmit = e => {
+  let onChange = e => {
     e.preventDefault()
     if (!input.value.trim()) {
-      dispatch(doReset());
+      dispatch(displayAll());
     }
-    dispatch(doFilter(input.value));
+    dispatch(applyFilter(input.value));
   };
 
   return (
     <div>
-      <form onSubmit={onSubmit} >
-        <input ref={node => { input = node}}/>
-        <button type="submit">Filter</button>
-      </form>
+        <input ref={node => { input = node}} onChange={onChange}/>
     </div>
   );
 };

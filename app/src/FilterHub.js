@@ -1,25 +1,15 @@
-import React, {Component} from "react";
-import PropTypes from "prop-types";
+import React from "react";
 import DoFilter from "./DoFilter";
 import FilteredList from "./FilteredList";
-import DoReset from "./DoReset";
+import StateStructure from "./LinkPropTypes";
 
-const LinkHub = ({filteredResults, onFilterClick}) => (
+const LinkHub = ({allResults, filteredResults}) => (
   <div className="FilterHub">
     <DoFilter />
-    <DoReset />
-    <FilteredList filteredResults={filteredResults}/>
+    <FilteredList allResults={allResults} filteredResults={filteredResults}/>
   </div>
 );
 
-LinkHub.propTypes = {
-  filteredResults: PropTypes.arrayOf(
-    PropTypes.shape({
-      url: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired
-    }).isRequired
-  ).isRequired,
-  onFilterClick: PropTypes.func.isRequired
-};
+LinkHub.propTypes = StateStructure;
 
 export default LinkHub;

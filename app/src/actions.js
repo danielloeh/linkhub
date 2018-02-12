@@ -1,15 +1,15 @@
 export const FILTERED = 'FILTERED';
-export const RESET = 'RESET';
+export const UNFILTERED = 'UNFILTERED';
 
-export function doFilter(filterTerm) {
+export function applyFilter(filterTerm) {
   return {
     type: FILTERED,
     filterTerm
   }
 }
 
-export function doReset() {
+export function displayAll() {
   return {
-    type: RESET
+    type: UNFILTERED
   }
 }
