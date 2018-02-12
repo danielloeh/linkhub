@@ -2,6 +2,7 @@ import React from "react";
 import DoFilter from "./DoFilter";
 import FilteredList from "./FilteredList";
 import StateStructure from "./LinkPropTypes";
+import './FilterHub.css';
 
 const LinkHub = ({allResults, filteredResults}) => (
   <div className="FilterHub">

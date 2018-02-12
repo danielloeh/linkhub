@@ -17,9 +17,9 @@ const mapDispatchToProps = dispatch => {
   }
 };
 
-const SearchAndResults = connect(
+const LinkList = connect(
   mapStateToProps,
   mapDispatchToProps
 )(FilterHub);
 
-export default SearchAndResults
+export default LinkList

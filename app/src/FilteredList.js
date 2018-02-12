@@ -1,11 +1,12 @@
 import React from "react";
 import LinkItem from "./LinkItem";
 import PropTypes from "prop-types";
+import "./FilteredList.css";
 
 let FilteredList = ({filteredResults}) => {
   return (
     filteredResults.map((categoryObj, index) => (
-      <div key={index}>
+      <div className="FilteredList" key={index}>
         <h4>{categoryObj.categoryName}</h4>
         <ul>
           {categoryObj.links.map((link, index) => (<LinkItem key={index} link={link}/> ))}
