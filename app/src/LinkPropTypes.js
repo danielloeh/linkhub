@@ -24,7 +24,9 @@ class LinkPropTypes {
             }).isRequired)
         }).isRequired
       ).isRequired,
-      onFilterChange: PropTypes.func.isRequired
+      onFilterChange: PropTypes.func.isRequired,
+      onShowConfig: PropTypes.func.isRequired,
+      onShowLinks: PropTypes.func.isRequired
     }
   }
 }

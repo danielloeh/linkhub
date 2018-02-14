@@ -1,10 +1,11 @@
-import {FILTERED, UNFILTERED} from "./actions";
+import {FILTERED, SHOW_CONFIG, SHOW_LINKS, UNFILTERED} from "./actions";
 import {combineReducers} from "redux";
 
 const emptyState = {
   allResults: [],
   filteredResults: [],
-  filterTerm: ''
+  filterTerm: '',
+  pageState: SHOW_LINKS
 };
 
 const cntsCaseInsns = (str, term) => str.toLowerCase().indexOf(term.toLowerCase()) !== -1;
@@ -46,8 +47,21 @@ function filter (state = emptyState, action) {
   }
 }
 
+function page (state = emptyState, action) {
+
+  switch (action.type) {
+    case SHOW_CONFIG:
+      return Object.assign({}, state, {pageState: SHOW_CONFIG});
+    case SHOW_LINKS:
+      return Object.assign({}, state, {pageState: SHOW_LINKS});
+    default:
+      return state
+  }
+}
+
 const linkList = combineReducers({
-  filter
+  filter,
+  page
 });
 
 export default linkList;

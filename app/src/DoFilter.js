@@ -20,7 +20,7 @@ let DoFilter = ({dispatch}) => {
           <input className="FilterInput effect-2" type="text" placeholder="" ref={node => {
             input = node
           }} onChange={onChange} />
-        <span class="focus-border"></span>
+        <span className="focus-border"></span>
       </div>
     </div>
   );
