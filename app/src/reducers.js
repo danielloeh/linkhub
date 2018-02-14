@@ -51,8 +51,10 @@ function page (state = emptyState, action) {
 
   switch (action.type) {
     case SHOW_CONFIG:
+      console.log("show config");
       return Object.assign({}, state, {pageState: SHOW_CONFIG});
     case SHOW_LINKS:
+      console.log("show links");
       return Object.assign({}, state, {pageState: SHOW_LINKS});
     default:
       return state

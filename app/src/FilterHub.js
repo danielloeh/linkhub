@@ -3,13 +3,21 @@ import DoFilter from "./DoFilter";
 import FilteredList from "./FilteredList";
 import StateStructure from "./LinkPropTypes";
 import './FilterHub.css';
-import ExportButton from "./ExportButton";
+import {SHOW_CONFIG} from "./actions";
+import Config from "./Config";
 
-const LinkHub = ({allResults, filteredResults}) => (
+function Pages(props) {
+  const isLoggedIn = props.pageState === SHOW_CONFIG;
+  if (isLoggedIn) {
+    return <Config allResults={props.allResults} />;
+  }
+  return <FilteredList allResults={props.allResults} filteredResults={props.filteredResults}/>;
+}
+
+const LinkHub = ({allResults, filteredResults, pageState}) => (
   <div className="FilterHub">
     <DoFilter />
-    <ExportButton />
-    <FilteredList allResults={allResults} filteredResults={filteredResults}/>
+    <Pages pageState={pageState} filteredResults={filteredResults} allResults={allResults}/>
   </div>
 );
 

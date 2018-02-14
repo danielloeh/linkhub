@@ -1,0 +1,12 @@
+.config {
+    text-align: center;
+    height:100%;
+}
+
+textarea {
+    width: 80%;
+    height: 80%;
+    border: 3px solid #cccccc;
+    padding: 5px;
+    font-family: Tahoma, sans-serif;
+}

@@ -2,17 +2,26 @@ import React from "react";
 import LinkItem from "./LinkItem";
 import PropTypes from "prop-types";
 import "./FilteredList.css";
+import ExportButton from "./ExportButton";
+
+
+let List = ({filteredResults}) => {
+  return (filteredResults.map((categoryObj, index) => (
+    <div className="FilteredList" key={index}>
+      <h4>{categoryObj.categoryName}</h4>
+      <ul>
+        {categoryObj.links.map((link, index) => (<LinkItem key={index} link={link}/> ))}
+      </ul>
+    </div>
+  )))
+};
 
 let FilteredList = ({filteredResults}) => {
   return (
-    filteredResults.map((categoryObj, index) => (
-      <div className="FilteredList" key={index}>
-        <h4>{categoryObj.categoryName}</h4>
-        <ul>
-          {categoryObj.links.map((link, index) => (<LinkItem key={index} link={link}/> ))}
-        </ul>
-      </div>
-    ))
+    <div>
+      <ExportButton />
+      <List filteredResults={filteredResults} />
+    </div>
   );
 };
 
