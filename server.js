@@ -29,10 +29,14 @@ class LinkListServer {
   static configureEndpoints (app) {
     console.log(`Configure health endpoints`);
     app.get("/api/health", (req, res) => res.send("OK"));
-    app.get("/api/links", (req, res) => {
-
+    app.get("/api/config", (req, res) => {
       res.setHeader('content-type', 'text/javascript');
       res.setHeader('Access-Control-Allow-Origin', '*');
+      res.send(new ConfigReader().getLinks())
+    });
+
+    app.post("/api/config", (req, res) => {
+      console.log("save" + JSON.stringify(req))
       res.send(new ConfigReader().getLinks())
     });
   }

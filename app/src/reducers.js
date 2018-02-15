@@ -1,11 +1,15 @@
-import {FILTERED, SHOW_CONFIG, SHOW_LINKS, UNFILTERED} from "./actions";
+import {
+  CONFIG_FETCHED,
+  FETCH_CONFIG, FETCH_FAILED, FILTERED, SHOW_CONFIG, SHOW_LINKS,
+  UNFILTERED
+} from "./actions";
 import {combineReducers} from "redux";
 
 const emptyState = {
   allResults: [],
   filteredResults: [],
   filterTerm: '',
-  pageState: SHOW_LINKS
+  pageState: SHOW_LINKS,
 };
 
 const cntsCaseInsns = (str, term) => str.toLowerCase().indexOf(term.toLowerCase()) !== -1;
@@ -31,7 +35,7 @@ let toCategoryWithoutUnmatchedLinks = function (filterTerm) {
     })
 };
 
-function filter (state = emptyState, action) {
+ function filter (state = emptyState, action) {
 
   switch (action.type) {
     case FILTERED:
@@ -48,7 +52,7 @@ function filter (state = emptyState, action) {
 }
 
 function page (state = emptyState, action) {
-
+console.log('page ' + JSON.stringify(state))
   switch (action.type) {
     case SHOW_CONFIG:
       console.log("show config");
@@ -61,9 +65,26 @@ function page (state = emptyState, action) {
   }
 }
 
-const linkList = combineReducers({
+function loading (state = emptyState, action) {
+  switch (action.type) {
+    case FETCH_CONFIG:
+      console.log("r: fetch config");
+      return state;
+    case CONFIG_FETCHED:
+      console.log("r: config fetched");
+      return Object.assign({}, state, {allResults: action.configJson, filteredResults: action.configJson});
+    case FETCH_FAILED:
+      console.log("fetch failed" + action.error);
+      return state;
+    default:
+      return state
+  }
+}
+
+const linkListReducers = combineReducers({
   filter,
-  page
+  page,
+  loading
 });
 
-export default linkList;
+export default linkListReducers;

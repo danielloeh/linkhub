@@ -11,7 +11,7 @@ let ShowConfigButton = ({dispatch}) => {
   return (
     <div>
       <form onSubmit={onSubmit}>
-        <button type="submit">Export Config</button>
+        <button type="submit">Edit Config</button>
       </form>
     </div>
   );

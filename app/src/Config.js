@@ -2,12 +2,13 @@ import React from "react";
 import {connect} from "react-redux";
 import "./Config.css";
 import ShowLinksButton from "./ShowLinksButton";
+import SaveConfigButton from "./SaveConfigButton";
 
 let Config = ({dispatch, allResults}) => {
   return (
     <div className="config">
       <ShowLinksButton />
-      <textarea placeholder="some text" width='100%' >{JSON.stringify(allResults)}</textarea>
+      <SaveConfigButton allResults={allResults} />
     </div>
   );
 };

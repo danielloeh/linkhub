@@ -4,8 +4,8 @@ import {applyFilter, showConfig, showLinks} from "./actions";
 
 const mapStateToProps = state => {
   return {
-    allResults: state.filter.allResults,
-    filteredResults: state.filter.filteredResults,
+    allResults: state.loading.allResults,
+    filteredResults: state.loading.filteredResults,
     pageState: state.page.pageState
   }
 };

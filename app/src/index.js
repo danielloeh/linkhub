@@ -2,36 +2,28 @@ import React from "react";
 import {render} from "react-dom";
 import "./index.css";
 import {Provider} from "react-redux";
-import {createStore} from "redux";
-import linkList from "./reducers";
+import {applyMiddleware, createStore} from "redux";
 import registerServiceWorker from "./registerServiceWorker";
 import LinkList from "./LinkList";
+import createSagaMiddleware from "redux-saga";
+import rootSaga from "./sagas";
+import linkListReducers from "./reducers";
+import {fetchConfig} from "./actions";
 
-fetch('http://localhost:5557/api/links')
-  .then(function (response) {
-    return response.json()
-  }).then(function (data) {
+const sagaMiddleware = createSagaMiddleware();
+const store = createStore(
+  linkListReducers,
+  applyMiddleware(sagaMiddleware)
+);
 
-    function createPreloadedState(linksJSON = []){
-      return {
-        filter: {
-          allResults: linksJSON,
-          filteredResults: linksJSON,
-          filterTerm: ''}
-      };
-    }
+sagaMiddleware.run(rootSaga);
+store.dispatch(fetchConfig());
 
-    let store = createStore(linkList, createPreloadedState(data));
-
-    render(
-      <Provider store={store}>
-        <LinkList />
-      </Provider>,
-      document.getElementById('root')
-    );
-
-  }).catch(function () {
-  console.log("error");
-});
+render(
+  <Provider store={store}>
+    <LinkList />
+  </Provider>,
+  document.getElementById('root')
+);
 
 registerServiceWorker();

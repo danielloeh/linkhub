@@ -2,7 +2,7 @@ import React from "react";
 import LinkItem from "./LinkItem";
 import PropTypes from "prop-types";
 import "./FilteredList.css";
-import ExportButton from "./ExportButton";
+import ConfigButton from "./ConfigButton";
 
 
 let List = ({filteredResults}) => {
@@ -19,7 +19,7 @@ let List = ({filteredResults}) => {
 let FilteredList = ({filteredResults}) => {
   return (
     <div>
-      <ExportButton />
+      <ConfigButton />
       <List filteredResults={filteredResults} />
     </div>
   );
