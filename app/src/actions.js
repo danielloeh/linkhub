@@ -11,6 +11,11 @@ export const FETCH_CONFIG = 'FETCH_CONFIG';
 export const CONFIG_FETCHED = 'CONFIG_FETCHED';
 export const FETCH_FAILED = 'FETCH_FAILED';
 
+//saving
+export const SAVE_CONFIG = 'SAVE_CONFIG';
+export const CONFIG_SAVED = 'CONFIG_SAVED';
+export const SAVE_FAILED = 'SAVE_FAILED';
+
 /* filter actions */
 export function applyFilter (filterTerm) {
   return {
@@ -40,7 +45,7 @@ export function showLinks (linksJson) {
   }
 }
 
-/* load stuff */
+/* load config */
 
 export function fetchConfig () {
   return {
@@ -58,6 +63,28 @@ export function configFetched (configJson) {
 export function fetchFailed (error) {
   return {
     type: FETCH_FAILED,
+    error
+  }
+}
+
+/* save config */
+
+export function saveConfig (configJson) {
+  return {
+    type: SAVE_CONFIG,
+    configJson
+  }
+}
+
+export function configSaved () {
+  return {
+    type: CONFIG_SAVED,
+  }
+}
+
+export function saveFailed (error) {
+  return {
+    type: SAVE_FAILED,
     error
   }
 }

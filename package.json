@@ -2,11 +2,12 @@
   "name": "link-list-server",
   "version": "0.0.1",
   "dependencies": {
+    "cors": "^2.8.4",
     "express": "^4.12.3",
     "lodash": "^4.12.0",
+    "nconf": "^0.8.4",
     "q": "^1.3.0",
     "request": "^2.55.0",
-    "nconf": "^0.8.4",
     "ws": "^0.7.1"
   },
   "engines": {
