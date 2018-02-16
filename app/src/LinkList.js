@@ -3,11 +3,18 @@ import FilterHub from "./FilterHub";
 import {applyFilter, showConfig, showLinks} from "./actions";
 
 const mapStateToProps = state => {
+  let filteredResults;
+  if (state.filter.filterTerm ===''){
+    filteredResults = state.loading.allResults;
+  }else{
+    filteredResults = state.filter.filteredResults;
+  }
+
   return {
     allResults: state.loading.allResults,
-    filteredResults: state.loading.filteredResults,
+    filteredResults: filteredResults,
     pageState: state.page.pageState
-  }
+  };
 };
 
 const mapDispatchToProps = dispatch => {

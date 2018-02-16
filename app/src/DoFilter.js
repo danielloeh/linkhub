@@ -3,7 +3,7 @@ import {applyFilter, displayAll} from "./actions";
 import "./DoFilter.css";
 import {connect} from "react-redux";
 
-let DoFilter = ({dispatch}) => {
+let DoFilter = ({dispatch, allResults}) => {
   let input;
 
   let onChange = e => {
@@ -11,7 +11,7 @@ let DoFilter = ({dispatch}) => {
     if (!input.value.trim()) {
       dispatch(displayAll());
     }
-    dispatch(applyFilter(input.value));
+    dispatch(applyFilter(input.value, allResults));
   };
 
   return (

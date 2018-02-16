@@ -1,15 +1,17 @@
-import {
-  CONFIG_FETCHED,
-  FETCH_CONFIG, FETCH_FAILED, FILTERED, SHOW_CONFIG, SHOW_LINKS,
-  UNFILTERED
-} from "./actions";
+import {CONFIG_FETCHED, FETCH_CONFIG, FETCH_FAILED, FILTERED, SHOW_CONFIG, SHOW_LINKS, UNFILTERED} from "./actions";
 import {combineReducers} from "redux";
 
-const emptyState = {
-  allResults: [],
+const emptyFilterState = {
   filteredResults: [],
   filterTerm: '',
+};
+
+const emptyPageState = {
   pageState: SHOW_LINKS,
+};
+
+const emptyLoadingState = {
+  allResults: []
 };
 
 const cntsCaseInsns = (str, term) => str.toLowerCase().indexOf(term.toLowerCase()) !== -1;
@@ -35,24 +37,22 @@ let toCategoryWithoutUnmatchedLinks = function (filterTerm) {
     })
 };
 
- function filter (state = emptyState, action) {
-
+function filter (state = emptyFilterState, action) {
   switch (action.type) {
     case FILTERED:
-      const newLinkList = state.allResults
+      const newLinkList = action.allResults
         .filter(containsFilterTerm(action.filterTerm))
         .map(toCategoryWithoutUnmatchedLinks(action.filterTerm));
 
       return Object.assign({}, state, {filteredResults: newLinkList, filterTerm: action.filterTerm});
     case UNFILTERED:
-      return Object.assign({}, state, {filteredResults: state.allResults, filterTerm: ''});
+      return Object.assign({}, state, {filteredResults: '', filterTerm: ''});
     default:
       return state
   }
 }
 
-function page (state = emptyState, action) {
-console.log('page ' + JSON.stringify(state))
+function page (state = emptyPageState, action) {
   switch (action.type) {
     case SHOW_CONFIG:
       console.log("show config");
@@ -65,16 +65,13 @@ console.log('page ' + JSON.stringify(state))
   }
 }
 
-function loading (state = emptyState, action) {
+function loading (state = emptyLoadingState, action) {
   switch (action.type) {
     case FETCH_CONFIG:
-      console.log("r: fetch config");
       return state;
     case CONFIG_FETCHED:
-      console.log("r: config fetched");
-      return Object.assign({}, state, {allResults: action.configJson, filteredResults: action.configJson});
+      return Object.assign({}, state, {allResults: action.configJson});
     case FETCH_FAILED:
-      console.log("fetch failed" + action.error);
       return state;
     default:
       return state

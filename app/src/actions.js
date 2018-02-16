@@ -17,10 +17,11 @@ export const CONFIG_SAVED = 'CONFIG_SAVED';
 export const SAVE_FAILED = 'SAVE_FAILED';
 
 /* filter actions */
-export function applyFilter (filterTerm) {
+export function applyFilter (filterTerm, allResults) {
   return {
     type: FILTERED,
-    filterTerm
+    filterTerm,
+    allResults
   }
 }
 
