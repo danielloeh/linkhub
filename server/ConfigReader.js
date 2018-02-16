@@ -5,11 +5,20 @@ let content;
 
 module.exports = class ConfigReader {
 
-  constructor() {
+  constructor () {
     content = fs.readFileSync("links.json");
   }
 
-  getLinks() {
+  getLinks () {
     return content;
+  }
+
+  saveConfig (config, sendPositiveResultFn, sendNegResult) {
+    fs.writeFile("links.json", JSON.stringify(config), function (err) {
+      if (err) {
+        sendNegResult();
+      }
+      sendPositiveResultFn();
+    });
   }
 };

@@ -17,15 +17,15 @@ class LinkListServer {
     console.log(`Running Server on port ${PORT}`);
     const app = express();
 
-    app.use(function(req,res, next){
-      if(req.method === "OPTIONS"){  // send out CORS inflight response
+    app.use(function (req, res, next) {
+      if (req.method === "OPTIONS") {  // send out CORS inflight response
         res.header('Access-Control-Allow-Headers', "Origin, X-Requested-With, Content-Type, Accept");
         res.header('Access-Control-Allow-Methods', "POST, GET, OPTIONS, PUT, PATCH, DELETE");
         res.header('Access-Control-Allow-Origin', "*");
         res.header('Access-Control-Allow-Credentials', true);
         return res.sendStatus(200);
       }
-      else{ // Send out cors headers for all other requests
+      else { // Send out cors headers for all other requests
         res.header("Access-Control-Allow-Origin", "*");
         res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
         res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -34,7 +34,7 @@ class LinkListServer {
     });
 
     app.use(bodyParser.json());
-    app.use(bodyParser.urlencoded({strict:false, extended: true }));
+    app.use(bodyParser.urlencoded({strict: false, extended: true}));
 
     LinkListServer.configureEndpoints(app);
     LinkListServer.serveApp(app);
@@ -57,16 +57,23 @@ class LinkListServer {
     });
 
     app.post("/api/config", (req, res, next) => {
-      console.log(JSON.stringify(req.body));
 
-      if (req.body !== null) {
-        res.status(200)
-        res.set('content-type', 'text/plain');
-        res.send('OK');
-      } else {
-        res.status(400).json("Error");
+        const sendPosResult = () => {
+          res.status(200)
+          res.set('content-type', 'text/plain');
+          res.send('OK');
+        };
+
+        const sendNegResult = () => res.status(400).json("Error");
+
+        if (req.body !== null) {
+          new ConfigReader().saveConfig(req.body, sendPosResult, sendNegResult);
+        }
+        else {
+          sendNegResult();
+        }
       }
-    });
+    );
   }
 }
 
