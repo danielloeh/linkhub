@@ -14,6 +14,5 @@ export function postData (url, data) {
     mode: "cors",
   };
 
-  console.log(request);
   return fetch(url, request);
 }

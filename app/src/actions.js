@@ -1,4 +1,5 @@
 // filter
+import {dispatch} from "redux";
 export const FILTERED = 'FILTERED';
 export const UNFILTERED = 'UNFILTERED';
 

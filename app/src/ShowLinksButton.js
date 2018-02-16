@@ -1,10 +1,11 @@
 import React from "react";
-import {showLinks} from "./actions";
+import {fetchConfig, showLinks} from "./actions";
 import {connect} from "react-redux";
 
 let ShowLinksButton = ({dispatch}) => {
   let onSubmit = e => {
-    e.preventDefault()
+    e.preventDefault();
+    dispatch(fetchConfig());
     dispatch(showLinks());
   };
 
