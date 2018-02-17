@@ -12,9 +12,10 @@ const mapStateToProps = state => {
 
   return {
     allResults: state.loading.allResults,
+    categories: state.loading.categories,
     filteredResults: filteredResults,
     pageState: state.page.pageState,
-    alerting: state.alerting
+    alerting: state.alerting,
   };
 };
 

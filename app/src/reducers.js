@@ -2,7 +2,7 @@ import {
   CONFIG_FETCHED,
   FETCH_CONFIG,
   FILTERED,
-  HIDE_ALERT,
+  HIDE_ALERT, SHOW_ADD_LINK,
   SHOW_ALERT,
   SHOW_CONFIG,
   SHOW_LINKS,
@@ -20,7 +20,8 @@ const emptyPageState = {
 };
 
 const emptyLoadingState = {
-  allResults: []
+  allResults: [],
+  categories: [],
 };
 
 const emptyAlertingState = {
@@ -52,6 +53,12 @@ let toCategoryWithoutUnmatchedLinks = function (filterTerm) {
     })
 };
 
+let extractCategories = (allResults) => {
+  let categories = [];
+  allResults.forEach(category => categories.push(category.categoryName));
+  return categories;
+};
+
 function filter (state = emptyFilterState, action) {
   switch (action.type) {
     case FILTERED:
@@ -73,6 +80,8 @@ function page (state = emptyPageState, action) {
       return Object.assign({}, state, {pageState: SHOW_CONFIG});
     case SHOW_LINKS:
       return Object.assign({}, state, {pageState: SHOW_LINKS});
+    case SHOW_ADD_LINK:
+      return Object.assign({}, state, {pageState: SHOW_ADD_LINK});
     default:
       return state
   }
@@ -83,7 +92,7 @@ function loading (state = emptyLoadingState, action) {
     case FETCH_CONFIG:
       return state;
     case CONFIG_FETCHED:
-      return Object.assign({}, state, {allResults: action.configJson});
+      return Object.assign({}, state, {allResults: action.configJson, categories: extractCategories(action.configJson)});
     default:
       return state
   }

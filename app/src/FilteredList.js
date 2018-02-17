@@ -2,7 +2,8 @@ import React from "react";
 import LinkItem from "./LinkItem";
 import PropTypes from "prop-types";
 import "./FilteredList.css";
-import ConfigButton from "./ConfigButton";
+import {showAddLink, showConfig} from "./actions";
+import GenericButton from "./GenericButton";
 
 
 let List = ({filteredResults}) => {
@@ -19,8 +20,9 @@ let List = ({filteredResults}) => {
 let FilteredList = ({filteredResults}) => {
   return (
     <div>
-      <ConfigButton />
-      <List filteredResults={filteredResults} />
+      <GenericButton actions={[showConfig]} label="Edit Config"/>
+      <GenericButton actions={[showAddLink]} label="Add Link"/>
+      <List filteredResults={filteredResults}/>
     </div>
   );
 };

@@ -7,6 +7,7 @@ export const OPEN_LINK = 'OPEN_LINK';
 // pages
 export const SHOW_CONFIG = 'SHOW_CONFIG';
 export const SHOW_LINKS = 'SHOW_LINKS';
+export const SHOW_ADD_LINK = 'SHOW_ADD_LINK';
 
 //loading
 export const FETCH_CONFIG = 'FETCH_CONFIG';
@@ -19,6 +20,9 @@ export const CONFIG_SAVED = 'CONFIG_SAVED';
 // alerts
 export const SHOW_ALERT = 'SHOW_ALERT';
 export const HIDE_ALERT = 'HIDE_ALERT';
+
+// add link
+export const SAVE_LINK = 'SAVE_LINK';
 
 /* filter actions */
 export function applyFilter (filterTerm, allResults) {
@@ -56,6 +60,12 @@ export function showLinks (linksJson) {
   }
 }
 
+export function showAddLink () {
+  return {
+    type: SHOW_ADD_LINK
+  }
+}
+
 /* load config */
 
 export function fetchConfig () {
@@ -86,6 +96,8 @@ export function configSaved () {
   }
 }
 
+/* alerts */
+
 export function showInfoAlert (message) {
   return {
     type: SHOW_ALERT,
@@ -105,5 +117,16 @@ export function showErrorAlert (message) {
 export function hideAlert () {
   return {
     type: HIDE_ALERT
+  }
+}
+
+/* save link */
+
+export function saveLink (category, url, name) {
+  return {
+    type: SAVE_LINK,
+    category,
+    url,
+    name
   }
 }

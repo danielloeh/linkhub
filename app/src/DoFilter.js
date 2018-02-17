@@ -28,7 +28,7 @@ let DoFilter = ({dispatch, allResults}) => {
              onChange={onChange.bind(this)}
              onKeyUp={onKeyUpFilter.bind(this)}/>
       <div className="filter-hint">
-        Hit Enter to follow first link
+        Hit RETURN to open first link in new tab
       </div>
     </Appbar>
   );
