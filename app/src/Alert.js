@@ -19,19 +19,22 @@ let Alert = ({dispatch, show = false, message = '', alertType = ALERT_INFO_TYPE}
 
     if (show) {
       const alertClass = "alert-" + alertType;
-      let label;
+      let label, buttonColor
 
       if (alertType === ALERT_INFO_TYPE) {
-        label = 'Info'
+        label = 'Info';
+        buttonColor = 'primary'; // mui css specific
       } else if (alertType === ALERT_ERROR_TYPE) {
         label = 'Error';
+        buttonColor = 'danger';
       } else {
         label = '';
+        buttonColor = 'info';  // mui css specific
       }
 
       return <div className="alert-panel"><Panel className={alertClass}>
         <div className="alert-message"><span className="mui--text-body1">{label}: {message}</span></div>
-        <Button variant="flat" color="danger" className="hide-button" onClick={onHideClick}>Ok</Button>
+        <Button variant="flat" color={buttonColor} className="hide-button" onClick={onHideClick}>Ok</Button>
       </Panel>
       </div>
     } else {
