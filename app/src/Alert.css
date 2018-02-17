@@ -1,7 +1,26 @@
-.alert-info{
-  background-color: #b9e7c6
+.alert-panel .mui-panel {
+    padding-bottom: 0;
+    padding-top: 0;
 }
 
-.alert-error{
- background-color: #ffbcbe;
+.alert-info {
+    background-color: #b9e7c6
+}
+
+.alert-error {
+    background-color: #ffbcbe;
+    text-align: center;
+}
+
+.hide-button {
+    float: right;
+    padding-right: 2em;
+}
+
+.alert-message {
+    display: flex;
+    align-items: flex-end;
+    height: 2.5em;
+    float: left;
+    width: 90%;
 }

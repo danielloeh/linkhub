@@ -1,14 +1,5 @@
 import {call, put, select, takeLatest} from "redux-saga/effects";
-import {
-  configFetched,
-  configSaved,
-  FETCH_CONFIG,
-  fetchFailed,
-  OPEN_LINK,
-  SAVE_CONFIG,
-  saveFailed, showAlert,
-  showLinks
-} from "./actions";
+import {configFetched, configSaved, FETCH_CONFIG, OPEN_LINK, SAVE_CONFIG, showAlert, showLinks} from "./actions";
 import {postData} from "./httpHelpers";
 import * as selectors from "./selectors";
 

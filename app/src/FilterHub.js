@@ -8,7 +8,7 @@ import Config from "./Config";
 import Alert from './Alert';
 
 function Pages (props) {
-  const showConfig = props.pageState === SHOW_CONFIG;
+  const showConfig = props.pageState === SHOW_CONFIG; // todo: reference state, not action
   if (showConfig) {
     return <Config allResults={props.allResults}/>;
   }
