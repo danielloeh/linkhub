@@ -13,7 +13,8 @@ const mapStateToProps = state => {
   return {
     allResults: state.loading.allResults,
     filteredResults: filteredResults,
-    pageState: state.page.pageState
+    pageState: state.page.pageState,
+    alerting: state.alerting
   };
 };
 

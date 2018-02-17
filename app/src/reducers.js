@@ -1,5 +1,12 @@
 import {
-  CONFIG_FETCHED, FETCH_CONFIG, FETCH_FAILED, FILTERED, OPEN_LINK, SHOW_CONFIG, SHOW_LINKS,
+  CONFIG_FETCHED,
+  FETCH_CONFIG,
+  FETCH_FAILED,
+  FILTERED,
+  HIDE_ALERT,
+  SHOW_ALERT,
+  SHOW_CONFIG,
+  SHOW_LINKS,
   UNFILTERED
 } from "./actions";
 import {combineReducers} from "redux";
@@ -15,6 +22,12 @@ const emptyPageState = {
 
 const emptyLoadingState = {
   allResults: []
+};
+
+const emptyAlertingState = {
+  message: '',
+  alertType: '', // error or info
+  show: false
 };
 
 const cntsCaseInsns = (str, term) => str.toLowerCase().indexOf(term.toLowerCase()) !== -1;
@@ -79,10 +92,22 @@ function loading (state = emptyLoadingState, action) {
   }
 }
 
+function alerting (state = emptyAlertingState, action) {
+  switch (action.type) {
+    case SHOW_ALERT:
+      return Object.assign({}, state, {message: action.message, alertType: action.alertType, show: true});
+    case HIDE_ALERT:
+      return Object.assign({}, state, {show: false});
+    default:
+      return state;
+  }
+}
+
 const linkListReducers = combineReducers({
   filter,
   page,
-  loading
+  loading,
+  alerting
 });
 
 export default linkListReducers;

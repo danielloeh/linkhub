@@ -17,6 +17,10 @@ export const SAVE_CONFIG = 'SAVE_CONFIG';
 export const CONFIG_SAVED = 'CONFIG_SAVED';
 export const SAVE_FAILED = 'SAVE_FAILED';
 
+// alerts
+export const SHOW_ALERT = 'SHOW_ALERT';
+export const HIDE_ALERT = 'HIDE_ALERT';
+
 /* filter actions */
 export function applyFilter (filterTerm, allResults) {
   return {
@@ -94,5 +98,19 @@ export function saveFailed (error) {
   return {
     type: SAVE_FAILED,
     error
+  }
+}
+
+export function showAlert (message, alertType) {
+  return {
+    type: SHOW_ALERT,
+    message,
+    alertType
+  }
+}
+
+export function hideAlert () {
+  return {
+    type: HIDE_ALERT
   }
 }

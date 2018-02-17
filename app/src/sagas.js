@@ -6,7 +6,7 @@ import {
   fetchFailed,
   OPEN_LINK,
   SAVE_CONFIG,
-  saveFailed,
+  saveFailed, showAlert,
   showLinks
 } from "./actions";
 import {postData} from "./httpHelpers";
@@ -15,7 +15,7 @@ import * as selectors from "./selectors";
 const configEndpoint = 'http://localhost:5557/api/config';
 
 const fetchConfig = () => fetch(configEndpoint).then((response) => response.json()).then((data) => data);
-const saveConfig = (data) => postData(configEndpoint, data).then(data => data).catch(error => console.error(error));
+const saveConfig = (data) => postData(configEndpoint, data).then(data => data);
 
 function* onFetchConfig () {
   try {
@@ -23,7 +23,7 @@ function* onFetchConfig () {
     yield put(configFetched(links));
   } catch (e) {
     console.error("Fetch failed" + JSON.stringify(e));
-    yield put(fetchFailed(e));
+    yield put(showAlert("Fetch Failed", "error"));
   }
 }
 
@@ -31,9 +31,10 @@ function* onSaveConfig (action) {
   try {
     yield call(saveConfig, action.configJson);
     yield put(configSaved());
+    yield put(showAlert("Config Saved", "info"));
   } catch (e) {
     console.error("Save Failed" + JSON.stringify(e));
-    yield put(saveFailed(e));
+    yield put(showAlert("Save Failed", "error"));
   }
 }
 
