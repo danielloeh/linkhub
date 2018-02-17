@@ -13,16 +13,21 @@ let ConfigEditor = ({dispatch, allResults}) => {
   };
 
   let onSubmit = () => {
-    dispatch(saveConfig(input.value));
+    if (input) {
+      dispatch(saveConfig(input.value));
+    }
+  };
+
+  let onChange = (ev) => {
+    input = ev.target;
   };
 
   return (
     <div className="config-editor">
-        <TextArea rows={prettyPrint(allResults).split(/\r\n|\r|\n/).length} defaultValue={prettyPrint(allResults)}
-                  placeholder="Place your config" width='80%' ref={node => {
-          input = node
-        }}/>
       <Button color="primary" onClick={onSubmit}>Save Config</Button>
+      <TextArea rows={prettyPrint(allResults).split(/\r\n|\r|\n/).length} defaultValue={prettyPrint(allResults)}
+                placeholder="Place your config" width='80%' onChange={onChange.bind(this)}/>
+
     </div>
   );
 };
