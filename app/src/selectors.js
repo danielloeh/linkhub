@@ -1,0 +1,1 @@
+export const filteredResults = (state) => state.filter.filteredResults;

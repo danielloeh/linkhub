@@ -2,29 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4c9eb6c2-3072-4d42-a84a-1f027b805ef1" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/ConfigButton.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/ConfigEditor.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/ShowLinksButton.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/package-lock.json" afterPath="$PROJECT_DIR$/app/package-lock.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/package.json" afterPath="$PROJECT_DIR$/app/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/public/index.html" afterPath="$PROJECT_DIR$/app/public/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/Config.css" afterPath="$PROJECT_DIR$/app/src/Config.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/ConfigButton.js" afterPath="$PROJECT_DIR$/app/src/ConfigButton.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/ConfigEditor.js" afterPath="$PROJECT_DIR$/app/src/ConfigEditor.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/DoFilter.css" afterPath="$PROJECT_DIR$/app/src/DoFilter.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/DoFilter.js" afterPath="$PROJECT_DIR$/app/src/DoFilter.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/FilterHub.css" afterPath="$PROJECT_DIR$/app/src/FilterHub.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/FilterHub.js" afterPath="$PROJECT_DIR$/app/src/FilterHub.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/FilteredList.css" afterPath="$PROJECT_DIR$/app/src/FilteredList.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/FilteredList.js" afterPath="$PROJECT_DIR$/app/src/FilteredList.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/LinkList.js" afterPath="$PROJECT_DIR$/app/src/LinkList.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/ShowLinksButton.js" afterPath="$PROJECT_DIR$/app/src/ShowLinksButton.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/actions.js" afterPath="$PROJECT_DIR$/app/src/actions.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/index.css" afterPath="$PROJECT_DIR$/app/src/index.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/links.json" afterPath="$PROJECT_DIR$/links.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package-lock.json" afterPath="$PROJECT_DIR$/package-lock.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -37,42 +15,34 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="LinkItem.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/LinkItem.css">
+      <file leaf-file-name="links.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/links.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+            <state relative-caret-position="0">
+              <caret line="0" column="364" lean-forward="false" selection-start-line="0" selection-start-column="364" selection-end-line="0" selection-end-column="364" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ConfigEditor.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/ConfigEditor.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="19" column="20" lean-forward="false" selection-start-line="19" selection-start-column="20" selection-end-line="19" selection-end-column="20" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ConfigEditor.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/ConfigEditor.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="3" column="1" lean-forward="true" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="actions.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="actions.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/actions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="1" column="16" lean-forward="false" selection-start-line="1" selection-start-column="16" selection-end-line="1" selection-end-column="16" />
+            <state relative-caret-position="253">
+              <caret line="34" column="24" lean-forward="false" selection-start-line="34" selection-start-column="24" selection-end-line="34" selection-end-column="24" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LinkItem.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/LinkItem.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="118">
+              <caret line="10" column="54" lean-forward="true" selection-start-line="10" selection-start-column="54" selection-end-line="10" selection-end-column="54" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -87,24 +57,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FilterHub.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/FilterHub.js">
+      <file leaf-file-name="reducers.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/reducers.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="73">
-              <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#26#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="180">
+              <caret line="16" column="12" lean-forward="false" selection-start-line="16" selection-start-column="2" selection-end-line="16" selection-end-column="12" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LinkList.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/LinkList.js">
+      <file leaf-file-name="FilterHub.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/FilterHub.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="2" column="19" lean-forward="false" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
-              <folding />
+            <state relative-caret-position="238">
+              <caret line="18" column="12" lean-forward="false" selection-start-line="18" selection-start-column="12" selection-end-line="18" selection-end-column="12" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -112,8 +82,8 @@
       <file leaf-file-name="DoFilter.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/DoFilter.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+            <state relative-caret-position="163">
+              <caret line="27" column="53" lean-forward="false" selection-start-line="27" selection-start-column="53" selection-end-line="27" selection-end-column="53" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -121,22 +91,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="input.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/node_modules/muicss/lib/react/input.js">
+      <file leaf-file-name="DoFilter.css" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/DoFilter.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="24" column="67" lean-forward="false" selection-start-line="24" selection-start-column="59" selection-end-line="24" selection-end-column="67" />
+            <state relative-caret-position="45">
+              <caret line="3" column="29" lean-forward="false" selection-start-line="3" selection-start-column="29" selection-end-line="3" selection-end-column="29" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DoFilter.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/DoFilter.css">
+      <file leaf-file-name="sagas.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/sagas.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="21" lean-forward="false" selection-start-line="4" selection-start-column="21" selection-end-line="4" selection-end-column="21" />
-              <folding />
+            <state relative-caret-position="357">
+              <caret line="44" column="23" lean-forward="false" selection-start-line="44" selection-start-column="23" selection-end-line="44" selection-end-column="23" />
+              <folding>
+                <element signature="e#0#65#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -173,8 +145,8 @@
       <find>F</find>
       <find>FilterInput</find>
       <find>filter-hub</find>
-      <find>filter-input</find>
       <find>ref</find>
+      <find>filter-input</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -195,8 +167,6 @@
         <option value="$PROJECT_DIR$/app/src/SearchAndResults.js" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/app/src/LinkList.test.js" />
-        <option value="$PROJECT_DIR$/app/src/LinkItem.css" />
-        <option value="$PROJECT_DIR$/app/src/LinkItem.js" />
         <option value="$PROJECT_DIR$/TODO.md" />
         <option value="$PROJECT_DIR$/app/src/LinkPropTypes.js" />
         <option value="$PROJECT_DIR$/app/src/ExportButton.js" />
@@ -205,11 +175,9 @@
         <option value="$PROJECT_DIR$/app/src/middleware.js" />
         <option value="$PROJECT_DIR$/app/src/configureStore.js" />
         <option value="$PROJECT_DIR$/app/src/index.js" />
-        <option value="$PROJECT_DIR$/app/src/sagas.js" />
         <option value="$PROJECT_DIR$/links.json" />
         <option value="$PROJECT_DIR$/server.js" />
         <option value="$PROJECT_DIR$/app/src/httpHelpers.js" />
-        <option value="$PROJECT_DIR$/app/src/reducers.js" />
         <option value="$PROJECT_DIR$/server/ConfigReader.js" />
         <option value="$PROJECT_DIR$/app/src/SaveConfigButton.js" />
         <option value="$PROJECT_DIR$/app/public/index.html" />
@@ -223,13 +191,18 @@
         <option value="$PROJECT_DIR$/app/src/Config.css" />
         <option value="$PROJECT_DIR$/app/src/Config.js" />
         <option value="$PROJECT_DIR$/app/src/ConfigEditor.js" />
-        <option value="$PROJECT_DIR$/app/src/ConfigEditor.css" />
         <option value="$PROJECT_DIR$/app/src/FilterHub.css" />
-        <option value="$PROJECT_DIR$/app/src/DoFilter.css" />
-        <option value="$PROJECT_DIR$/app/src/DoFilter.js" />
         <option value="$PROJECT_DIR$/app/src/FilterHub.js" />
         <option value="$PROJECT_DIR$/app/src/LinkList.js" />
+        <option value="$PROJECT_DIR$/app/src/LinkItem.js" />
+        <option value="$PROJECT_DIR$/app/src/LinkItem.css" />
+        <option value="$PROJECT_DIR$/app/src/ConfigEditor.css" />
+        <option value="$PROJECT_DIR$/app/src/DoFilter.js" />
         <option value="$PROJECT_DIR$/app/src/actions.js" />
+        <option value="$PROJECT_DIR$/app/src/reducers.js" />
+        <option value="$PROJECT_DIR$/app/src/selectors.js" />
+        <option value="$PROJECT_DIR$/app/src/sagas.js" />
+        <option value="$PROJECT_DIR$/app/src/DoFilter.css" />
       </list>
     </option>
   </component>
@@ -997,12 +970,12 @@
       <option name="presentableId" value="Default" />
       <updated>1518423674092</updated>
       <workItem from="1518423676222" duration="26048000" />
-      <workItem from="1518646942049" duration="31968000" />
+      <workItem from="1518646942049" duration="34881000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="58016000" />
+    <option name="totallyTimeSpent" value="60929000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="805" extended-state="6" />
@@ -1101,7 +1074,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/DoReset.js" />
     <entry file="file://$PROJECT_DIR$/app/config/jest/cssTransform.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1177,16 +1149,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/LinkItem.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="51" lean-forward="false" selection-start-line="8" selection-start-column="51" selection-end-line="8" selection-end-column="51" />
-          <folding>
-            <element signature="e#0#26#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/TODO.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
@@ -1211,47 +1173,47 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1518892652000" expanded="true" signature="90582:90599" ph="..." />
-            <marker date="1518892652000" expanded="true" signature="90582:90617" ph="..." />
-            <marker date="1518892652000" expanded="true" signature="90582:90630" ph="..." />
-            <marker date="1518892652000" expanded="true" signature="90582:90645" ph="..." />
-            <marker date="1518892652000" expanded="true" signature="90680:93223" ph="..." />
-            <marker date="1518892652000" expanded="true" signature="90693:93208" ph="..." />
-            <marker date="1518892652000" expanded="true" signature="90747:91042" ph="..." />
-            <marker date="1518892652000" expanded="true" signature="90766:91027" ph="..." />
-            <marker date="1518892652000" expanded="true" signature="90829:91007" ph="..." />
-            <marker date="1518892652000" expanded="true" signature="90869:90973" ph="..." />
-            <marker date="1518892652000" expanded="true" signature="90890:90951" ph="..." />
-            <marker date="1518892652000" expanded="true" signature="91092:91419" ph="..." />
-            <marker date="1518892652000" expanded="true" signature="91111:91404" ph="..." />
-            <marker date="1518892652000" expanded="true" signature="91206:91384" ph="..." />
-            <marker date="1518892652000" expanded="true" signature="91246:91350" ph="..." />
-            <marker date="1518892652000" expanded="true" signature="91267:91328" ph="..." />
-            <marker date="1518892652000" expanded="true" signature="91470:91824" ph="..." />
-            <marker date="1518892652000" expanded="true" signature="91489:91809" ph="..." />
-            <marker date="1518892652000" expanded="true" signature="91611:91789" ph="..." />
-            <marker date="1518892652000" expanded="true" signature="91651:91755" ph="..." />
-            <marker date="1518892652000" expanded="true" signature="91672:91733" ph="..." />
-            <marker date="1518892652000" expanded="true" signature="91867:92173" ph="..." />
-            <marker date="1518892652000" expanded="true" signature="91886:92158" ph="..." />
-            <marker date="1518892652000" expanded="true" signature="91960:92138" ph="..." />
-            <marker date="1518892652000" expanded="true" signature="92000:92104" ph="..." />
-            <marker date="1518892652000" expanded="true" signature="92021:92082" ph="..." />
-            <marker date="1518892652000" expanded="true" signature="92224:92536" ph="..." />
-            <marker date="1518892652000" expanded="true" signature="92243:92521" ph="..." />
-            <marker date="1518892652000" expanded="true" signature="92323:92501" ph="..." />
-            <marker date="1518892652000" expanded="true" signature="92363:92467" ph="..." />
-            <marker date="1518892652000" expanded="true" signature="92384:92445" ph="..." />
-            <marker date="1518892652000" expanded="true" signature="92571:92877" ph="..." />
-            <marker date="1518892652000" expanded="true" signature="92590:92862" ph="..." />
-            <marker date="1518892652000" expanded="true" signature="92664:92842" ph="..." />
-            <marker date="1518892652000" expanded="true" signature="92704:92808" ph="..." />
-            <marker date="1518892652000" expanded="true" signature="92725:92786" ph="..." />
-            <marker date="1518892652000" expanded="true" signature="92929:93194" ph="..." />
-            <marker date="1518892652000" expanded="true" signature="92948:93179" ph="..." />
-            <marker date="1518892652000" expanded="true" signature="92981:93159" ph="..." />
-            <marker date="1518892652000" expanded="true" signature="93021:93125" ph="..." />
-            <marker date="1518892652000" expanded="true" signature="93042:93103" ph="..." />
+            <marker date="1518895598000" expanded="true" signature="87793:87810" ph="..." />
+            <marker date="1518895598000" expanded="true" signature="87793:87828" ph="..." />
+            <marker date="1518895598000" expanded="true" signature="87793:87841" ph="..." />
+            <marker date="1518895598000" expanded="true" signature="87793:87856" ph="..." />
+            <marker date="1518895598000" expanded="true" signature="87891:90434" ph="..." />
+            <marker date="1518895598000" expanded="true" signature="87904:90419" ph="..." />
+            <marker date="1518895598000" expanded="true" signature="87958:88253" ph="..." />
+            <marker date="1518895598000" expanded="true" signature="87977:88238" ph="..." />
+            <marker date="1518895598000" expanded="true" signature="88040:88218" ph="..." />
+            <marker date="1518895598000" expanded="true" signature="88080:88184" ph="..." />
+            <marker date="1518895598000" expanded="true" signature="88101:88162" ph="..." />
+            <marker date="1518895598000" expanded="true" signature="88303:88630" ph="..." />
+            <marker date="1518895598000" expanded="true" signature="88322:88615" ph="..." />
+            <marker date="1518895598000" expanded="true" signature="88417:88595" ph="..." />
+            <marker date="1518895598000" expanded="true" signature="88457:88561" ph="..." />
+            <marker date="1518895598000" expanded="true" signature="88478:88539" ph="..." />
+            <marker date="1518895598000" expanded="true" signature="88681:89035" ph="..." />
+            <marker date="1518895598000" expanded="true" signature="88700:89020" ph="..." />
+            <marker date="1518895598000" expanded="true" signature="88822:89000" ph="..." />
+            <marker date="1518895598000" expanded="true" signature="88862:88966" ph="..." />
+            <marker date="1518895598000" expanded="true" signature="88883:88944" ph="..." />
+            <marker date="1518895598000" expanded="true" signature="89078:89384" ph="..." />
+            <marker date="1518895598000" expanded="true" signature="89097:89369" ph="..." />
+            <marker date="1518895598000" expanded="true" signature="89171:89349" ph="..." />
+            <marker date="1518895598000" expanded="true" signature="89211:89315" ph="..." />
+            <marker date="1518895598000" expanded="true" signature="89232:89293" ph="..." />
+            <marker date="1518895598000" expanded="true" signature="89435:89747" ph="..." />
+            <marker date="1518895598000" expanded="true" signature="89454:89732" ph="..." />
+            <marker date="1518895598000" expanded="true" signature="89534:89712" ph="..." />
+            <marker date="1518895598000" expanded="true" signature="89574:89678" ph="..." />
+            <marker date="1518895598000" expanded="true" signature="89595:89656" ph="..." />
+            <marker date="1518895598000" expanded="true" signature="89782:90088" ph="..." />
+            <marker date="1518895598000" expanded="true" signature="89801:90073" ph="..." />
+            <marker date="1518895598000" expanded="true" signature="89875:90053" ph="..." />
+            <marker date="1518895598000" expanded="true" signature="89915:90019" ph="..." />
+            <marker date="1518895598000" expanded="true" signature="89936:89997" ph="..." />
+            <marker date="1518895598000" expanded="true" signature="90140:90405" ph="..." />
+            <marker date="1518895598000" expanded="true" signature="90159:90390" ph="..." />
+            <marker date="1518895598000" expanded="true" signature="90192:90370" ph="..." />
+            <marker date="1518895598000" expanded="true" signature="90232:90336" ph="..." />
+            <marker date="1518895598000" expanded="true" signature="90253:90314" ph="..." />
           </folding>
         </state>
       </provider>
@@ -1327,34 +1289,6 @@
         <state relative-caret-position="219">
           <caret line="80" column="0" lean-forward="false" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/sagas.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="1" lean-forward="false" selection-start-line="17" selection-start-column="1" selection-end-line="17" selection-end-column="1" />
-          <folding>
-            <element signature="e#0#57#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/links.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="479" lean-forward="false" selection-start-line="0" selection-start-column="479" selection-end-line="0" selection-end-column="479" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/reducers.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="2" lean-forward="false" selection-start-line="14" selection-start-column="2" selection-end-line="14" selection-end-column="2" />
-          <folding>
-            <element signature="e#0#116#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1484,14 +1418,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/LinkItem.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/ConfigEditor.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
@@ -1500,18 +1426,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/ConfigEditor.css">
+    <entry file="file://$PROJECT_DIR$/app/src/LinkList.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="1" lean-forward="true" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/DoFilter.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="21" lean-forward="false" selection-start-line="4" selection-start-column="21" selection-end-line="4" selection-end-column="21" />
+        <state relative-caret-position="30">
+          <caret line="2" column="19" lean-forward="false" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
           <folding />
         </state>
       </provider>
@@ -1524,13 +1442,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/DoFilter.js">
+    <entry file="file://$PROJECT_DIR$/app/src/ConfigEditor.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="75">
+          <caret line="5" column="14" lean-forward="false" selection-start-line="5" selection-start-column="1" selection-end-line="5" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/LinkItem.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1542,28 +1466,82 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/FilterHub.js">
+    <entry file="file://$PROJECT_DIR$/app/src/LinkItem.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="73">
-          <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+        <state relative-caret-position="118">
+          <caret line="10" column="54" lean-forward="true" selection-start-line="10" selection-start-column="54" selection-end-line="10" selection-end-column="54" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/LinkList.js">
+    <entry file="file://$PROJECT_DIR$/app/src/actions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="19" lean-forward="false" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
+        <state relative-caret-position="253">
+          <caret line="34" column="24" lean-forward="false" selection-start-line="34" selection-start-column="24" selection-end-line="34" selection-end-column="24" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/actions.js">
+    <entry file="file://$PROJECT_DIR$/app/src/reducers.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="16" lean-forward="false" selection-start-line="1" selection-start-column="16" selection-end-line="1" selection-end-column="16" />
+        <state relative-caret-position="180">
+          <caret line="16" column="12" lean-forward="false" selection-start-line="16" selection-start-column="2" selection-end-line="16" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/links.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="364" lean-forward="false" selection-start-line="0" selection-start-column="364" selection-end-line="0" selection-end-column="364" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/selectors.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="28" lean-forward="false" selection-start-line="0" selection-start-column="28" selection-end-line="0" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/sagas.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="44" column="23" lean-forward="false" selection-start-line="44" selection-start-column="23" selection-end-line="44" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#65#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/FilterHub.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="18" column="12" lean-forward="false" selection-start-line="18" selection-start-column="12" selection-end-line="18" selection-end-column="12" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/DoFilter.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="163">
+          <caret line="27" column="53" lean-forward="false" selection-start-line="27" selection-start-column="53" selection-end-line="27" selection-end-column="53" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/DoFilter.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="29" lean-forward="false" selection-start-line="3" selection-start-column="29" selection-end-line="3" selection-end-column="29" />
           <folding />
         </state>
       </provider>

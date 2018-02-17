@@ -1,7 +1,15 @@
-
 .filter-input {
     height: 20px;
-    width: 100px;
-    padding: 1.5rem 8rem;
+    width: 300px;
+    padding: 2rem 2rem 2rem 8em;
+    display: inline-block;
+}
 
+.filter-input input {
+    color: white;
+    font-size: 14px;
+}
+
+.filter-hint {
+    display: inline-block;
 }

@@ -1,6 +1,7 @@
 // filter
 export const FILTERED = 'FILTERED';
 export const UNFILTERED = 'UNFILTERED';
+export const OPEN_LINK = 'OPEN_LINK';
 
 // pages
 export const SHOW_CONFIG = 'SHOW_CONFIG';
@@ -28,6 +29,12 @@ export function applyFilter (filterTerm, allResults) {
 export function displayAll () {
   return {
     type: UNFILTERED
+  }
+}
+
+export function openLink () {
+  return {
+    type: OPEN_LINK
   }
 }
 

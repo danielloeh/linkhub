@@ -1,4 +1,7 @@
-import {CONFIG_FETCHED, FETCH_CONFIG, FETCH_FAILED, FILTERED, SHOW_CONFIG, SHOW_LINKS, UNFILTERED} from "./actions";
+import {
+  CONFIG_FETCHED, FETCH_CONFIG, FETCH_FAILED, FILTERED, OPEN_LINK, SHOW_CONFIG, SHOW_LINKS,
+  UNFILTERED
+} from "./actions";
 import {combineReducers} from "redux";
 
 const emptyFilterState = {

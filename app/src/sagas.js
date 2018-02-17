@@ -1,6 +1,16 @@
-import {call, put, takeLatest} from "redux-saga/effects";
-import {configFetched, configSaved, FETCH_CONFIG, fetchFailed, SAVE_CONFIG, saveFailed} from "./actions";
+import {call, put, select, takeLatest} from "redux-saga/effects";
+import {
+  configFetched,
+  configSaved,
+  FETCH_CONFIG,
+  fetchFailed,
+  OPEN_LINK,
+  SAVE_CONFIG,
+  saveFailed,
+  showLinks
+} from "./actions";
 import {postData} from "./httpHelpers";
+import * as selectors from "./selectors";
 
 const configEndpoint = 'http://localhost:5557/api/config';
 
@@ -27,9 +37,18 @@ function* onSaveConfig (action) {
   }
 }
 
+function* onOpenLink () {
+  const filteredResults = yield select(selectors.filteredResults);
+  if (filteredResults.length > 0) {
+    window.open(filteredResults[0].links[0].url);
+  }
+  yield put(showLinks());
+}
+
 function* rootSaga () {
   yield takeLatest(FETCH_CONFIG, onFetchConfig);
   yield takeLatest(SAVE_CONFIG, onSaveConfig);
+  yield takeLatest(OPEN_LINK, onOpenLink);
 }
 
 export default rootSaga;

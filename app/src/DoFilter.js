@@ -1,5 +1,5 @@
 import React from "react";
-import {applyFilter, displayAll} from "./actions";
+import {applyFilter, displayAll, openLink} from "./actions";
 import "./DoFilter.css";
 import {connect} from "react-redux";
 import Appbar from "muicss/lib/react/appbar";
@@ -14,9 +14,23 @@ let DoFilter = ({dispatch, allResults}) => {
     dispatch(applyFilter(ev.target.value, allResults));
   };
 
+  let onKeyUpFilter = (ev) => {
+    ev.preventDefault();
+
+    if (ev.keyCode === 13) {
+      dispatch(openLink());
+
+    }
+  };
+
   return (
     <Appbar>
-      <Input placeholder="type to filter" className="filter-input" type="text" onChange={onChange.bind(this)}/>
+      <Input placeholder="type to filter" className="filter-input" type="text"
+             onChange={onChange.bind(this)}
+             onKeyUp={onKeyUpFilter.bind(this)}/>
+      <div className="filter-hint">
+        Hit Enter to follow first link
+      </div>
     </Appbar>
   );
 };
