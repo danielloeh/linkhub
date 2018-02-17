@@ -10,11 +10,12 @@ import "./AddLink.css";
 let AddLink = ({dispatch, categories}) => {
   let name, url, category;
 
-  let onSubmit = () => {
+  let onAddLinkClick = (ev) => {
+    ev.preventDefault();
     if (url && name) {
       dispatch(addLink(category, url, name));
     } else {
-      dispatch(showErrorAlert("Add link failed"));
+      dispatch(showErrorAlert("Validation failed"));
     }
   };
 
@@ -54,7 +55,7 @@ let AddLink = ({dispatch, categories}) => {
           </Select>
           <Input placeholder="Name" className="add-link-input" type="text" onChange={onChangeName.bind(this)}/>
           <Input placeholder="URL" className="add-link-input" type="text" onChange={onChangeURL.bind(this)}/>
-          <Button color="primary" onClick={onSubmit}>Add Link</Button>
+          <Button color="primary" onClick={onAddLinkClick.bind(this)}>Add Link</Button>
         </Form>
       </div>
     </div>

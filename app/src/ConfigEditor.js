@@ -1,6 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
-import {saveConfig, showAlert, showErrorAlert} from "./actions";
+import {saveConfig, showErrorAlert} from "./actions";
 import Button from "muicss/lib/react/button";
 import TextArea from "muicss/lib/react/textarea";
 import "./ConfigEditor.css";

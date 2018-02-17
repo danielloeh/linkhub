@@ -2,7 +2,8 @@ import {
   CONFIG_FETCHED,
   FETCH_CONFIG,
   FILTERED,
-  HIDE_ALERT, SHOW_ADD_LINK,
+  HIDE_ALERT,
+  SHOW_ADD_LINK,
   SHOW_ALERT,
   SHOW_CONFIG,
   SHOW_LINKS,
@@ -75,6 +76,9 @@ function filter (state = emptyFilterState, action) {
 }
 
 function page (state = emptyPageState, action) {
+
+  console.log(JSON.stringify(action));
+
   switch (action.type) {
     case SHOW_CONFIG:
       return Object.assign({}, state, {pageState: SHOW_CONFIG});
@@ -92,7 +96,10 @@ function loading (state = emptyLoadingState, action) {
     case FETCH_CONFIG:
       return state;
     case CONFIG_FETCHED:
-      return Object.assign({}, state, {allResults: action.configJson, categories: extractCategories(action.configJson)});
+      return Object.assign({}, state, {
+        allResults: action.configJson,
+        categories: extractCategories(action.configJson)
+      });
     default:
       return state
   }

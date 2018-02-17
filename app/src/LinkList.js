@@ -4,9 +4,9 @@ import {applyFilter, showConfig, showLinks} from "./actions";
 
 const mapStateToProps = state => {
   let filteredResults;
-  if (state.filter.filterTerm ===''){
+  if (state.filter.filterTerm === '') {
     filteredResults = state.loading.allResults;
-  }else{
+  } else {
     filteredResults = state.filter.filteredResults;
   }
 

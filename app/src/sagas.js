@@ -2,7 +2,6 @@ import {call, put, select, takeLatest} from "redux-saga/effects";
 import {
   ADD_LINK,
   configFetched,
-  configSaved,
   FETCH_CONFIG,
   OPEN_LINK,
   SAVE_CONFIG,
@@ -31,7 +30,7 @@ function* onFetchConfig () {
 function* onSaveConfig (action) {
   try {
     yield call(saveConfigToBackend, action.configJson);
-    yield put(configSaved());
+    yield put(showLinks());
     yield put(showInfoAlert("Config Saved"));
   } catch (e) {
     console.error("Save Failed" + JSON.stringify(e));
@@ -50,6 +49,7 @@ function* onOpenLink () {
 function* onAddLink (category, url, name) {
   try {
     yield call(() => console.log(category + url + name));
+    yield put(showLinks());
     yield put(showInfoAlert("Link Added"));
   } catch (e) {
     console.error("Add Link Failed" + JSON.stringify(e));
