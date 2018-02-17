@@ -8,15 +8,15 @@ import Config from "./Config";
 import Alert from "./Alert";
 import AddLink from "./AddLink";
 
-function Pages (props) {
-  switch (props.pageState) {
+function Pages ({allResults, filteredResults, pageState, categories}) {
+  switch (pageState) {
     case SHOW_CONFIG:
-      return <Config allResults={props.allResults}/>;
+      return <Config allResults={allResults}/>;
     case SHOW_ADD_LINK:
-      return <AddLink categories={props.categories}/>;
+      return <AddLink categories={categories}/>;
     case SHOW_LINKS:
     default:
-      return <FilteredList allResults={props.allResults} filteredResults={props.filteredResults}/>;
+      return <FilteredList allResults={allResults} filteredResults={filteredResults}/>;
   }
 }
 
@@ -24,7 +24,7 @@ const LinkHub = ({allResults, filteredResults, pageState, alerting, categories})
   <div className="filter-hub">
     <DoFilter allResults={allResults}/>
     <Alert message={alerting.message} show={alerting.show} alertType={alerting.alertType}/>
-    <Pages pageState={pageState} filteredResults={filteredResults} allResults={allResults}/>
+    <Pages pageState={pageState} filteredResults={filteredResults} allResults={allResults} categories={categories}/>
   </div>
 );
 

@@ -1,11 +1,11 @@
 import {call, put, select, takeLatest} from "redux-saga/effects";
 import {
+  ADD_LINK,
   configFetched,
   configSaved,
   FETCH_CONFIG,
   OPEN_LINK,
   SAVE_CONFIG,
-  showAlert,
   showErrorAlert,
   showInfoAlert,
   showLinks
@@ -15,12 +15,12 @@ import * as selectors from "./selectors";
 
 const configEndpoint = 'http://localhost:5557/api/config';
 
-const fetchConfig = () => fetch(configEndpoint).then((response) => response.json()).then((data) => data);
-const saveConfig = (data) => postData(configEndpoint, data).then(data => data);
+const fetchConfigFromBackend = () => fetch(configEndpoint).then((response) => response.json()).then((data) => data);
+const saveConfigToBackend = (data) => postData(configEndpoint, data).then(data => data);
 
 function* onFetchConfig () {
   try {
-    const links = yield call(fetchConfig);
+    const links = yield call(fetchConfigFromBackend);
     yield put(configFetched(links));
   } catch (e) {
     console.error("Fetch failed" + JSON.stringify(e));
@@ -30,7 +30,7 @@ function* onFetchConfig () {
 
 function* onSaveConfig (action) {
   try {
-    yield call(saveConfig, action.configJson);
+    yield call(saveConfigToBackend, action.configJson);
     yield put(configSaved());
     yield put(showInfoAlert("Config Saved"));
   } catch (e) {
@@ -47,10 +47,21 @@ function* onOpenLink () {
   yield put(showLinks());
 }
 
+function* onAddLink (category, url, name) {
+  try {
+    yield call(() => console.log(category + url + name));
+    yield put(showInfoAlert("Link Added"));
+  } catch (e) {
+    console.error("Add Link Failed" + JSON.stringify(e));
+    yield put(showErrorAlert("Add Link Failed"));
+  }
+}
+
 function* rootSaga () {
   yield takeLatest(FETCH_CONFIG, onFetchConfig);
   yield takeLatest(SAVE_CONFIG, onSaveConfig);
   yield takeLatest(OPEN_LINK, onOpenLink);
+  yield takeLatest(ADD_LINK, onAddLink);
 }
 
 export default rootSaga;

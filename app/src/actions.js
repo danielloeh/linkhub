@@ -22,7 +22,7 @@ export const SHOW_ALERT = 'SHOW_ALERT';
 export const HIDE_ALERT = 'HIDE_ALERT';
 
 // add link
-export const SAVE_LINK = 'SAVE_LINK';
+export const ADD_LINK = 'ADD_LINK';
 
 /* filter actions */
 export function applyFilter (filterTerm, allResults) {
@@ -122,9 +122,9 @@ export function hideAlert () {
 
 /* save link */
 
-export function saveLink (category, url, name) {
+export function addLink (category, url, name) {
   return {
-    type: SAVE_LINK,
+    type: ADD_LINK,
     category,
     url,
     name
