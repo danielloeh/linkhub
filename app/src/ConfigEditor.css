@@ -1,6 +1,7 @@
 .config-editor {
     width: 80%;
     margin: 0 auto;
+    padding-top: .8em;
 }
 
 .config-editor .mui-textfield > input, .mui-textfield > textarea {

@@ -25,7 +25,7 @@ let DoFilter = ({dispatch, allResults}) => {
 
   return (
     <Appbar>
-      <Input placeholder="type to filter" className="filter-input" type="text"
+      <Input autoFocus placeholder="type to filter" className="filter-input" type="text"
              onChange={onChange.bind(this)}
              onKeyUp={onKeyUpFilter.bind(this)}/>
       <div className="filter-hint">

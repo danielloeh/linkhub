@@ -12,7 +12,9 @@ let ShowLinksButton = ({dispatch}) => {
   };
 
   return (
-    <Button className='link-switch-button' color="primary" onClick={onSubmit}>Show Links</Button>
+    <div className='link-switch-button'>
+      <Button color="primary" onClick={onSubmit}>Show Links</Button>
+    </div>
   );
 };
 

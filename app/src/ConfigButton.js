@@ -11,7 +11,9 @@ let ShowConfigButton = ({dispatch}) => {
   };
 
   return (
-    <Button className='switch-button' color="primary" onClick={onSubmit}> Edit Config</Button>
+    <div className='switch-button'>
+      <Button color="primary" onClick={onSubmit}> Edit Config</Button>
+    </div>
   );
 };
 
