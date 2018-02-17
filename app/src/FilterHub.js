@@ -15,7 +15,7 @@ function Pages (props) {
 }
 
 const LinkHub = ({allResults, filteredResults, pageState}) => (
-  <div className="FilterHub">
+  <div className="filter-hub">
     <DoFilter allResults={allResults} />
     <Pages pageState={pageState} filteredResults={filteredResults} allResults={allResults}/>
   </div>

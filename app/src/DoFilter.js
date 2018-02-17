@@ -2,27 +2,22 @@ import React from "react";
 import {applyFilter, displayAll} from "./actions";
 import "./DoFilter.css";
 import {connect} from "react-redux";
+import Appbar from "muicss/lib/react/appbar";
+import Input from "muicss/lib/react/input";
 
 let DoFilter = ({dispatch, allResults}) => {
-  let input;
 
-  let onChange = e => {
-    e.preventDefault();
-    if (!input.value.trim()) {
+  let onChange = (ev) => {
+    if (!ev.target.value.trim()) {
       dispatch(displayAll());
     }
-    dispatch(applyFilter(input.value, allResults));
+    dispatch(applyFilter(ev.target.value, allResults));
   };
 
   return (
-    <div className="FilterHeader">
-      <div className="input-effect">
-          <input className="FilterInput effect-2" type="text" placeholder="" ref={node => {
-            input = node
-          }} onChange={onChange} />
-        <span className="focus-border"></span>
-      </div>
-    </div>
+    <Appbar>
+      <Input placeholder="type to filter" className="filter-input" type="text" onChange={onChange.bind(this)}/>
+    </Appbar>
   );
 };
 

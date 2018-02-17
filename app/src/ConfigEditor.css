@@ -1,0 +1,11 @@
+.config-editor {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.mui-textfield > input, .mui-textfield > textarea {
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    line-height: 20px !important;
+    background-color: #eee;
+}

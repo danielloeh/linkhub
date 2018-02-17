@@ -7,7 +7,7 @@ import ConfigButton from "./ConfigButton";
 
 let List = ({filteredResults}) => {
   return (filteredResults.map((categoryObj, index) => (
-    <div className="FilteredList" key={index}>
+    <div className="filtered-list mui--text-body1" key={index}>
       <h4>{categoryObj.categoryName}</h4>
       <ul>
         {categoryObj.links.map((link, index) => (<LinkItem key={index} link={link}/> ))}

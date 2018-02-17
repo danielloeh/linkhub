@@ -1,20 +1,18 @@
 import React from "react";
 import {fetchConfig, showLinks} from "./actions";
 import {connect} from "react-redux";
+import Button from "muicss/lib/react/button";
+import './ShowLinksButton.css';
 
 let ShowLinksButton = ({dispatch}) => {
-  let onSubmit = e => {
-    e.preventDefault();
+
+  let onSubmit = () => {
     dispatch(fetchConfig());
     dispatch(showLinks());
   };
 
   return (
-    <div>
-      <form onSubmit={onSubmit}>
-        <button type="submit">Show Links</button>
-      </form>
-    </div>
+    <Button className='link-switch-button' color="primary" onClick={onSubmit}>Show Links</Button>
   );
 };
 

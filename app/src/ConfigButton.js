@@ -1,19 +1,17 @@
 import React from "react";
 import {showConfig} from "./actions";
 import {connect} from "react-redux";
+import Button from "muicss/lib/react/button";
+import "./ConfigButton.css";
 
 let ShowConfigButton = ({dispatch}) => {
+
   let onSubmit = e => {
-    e.preventDefault()
     dispatch(showConfig());
   };
 
   return (
-    <div>
-      <form onSubmit={onSubmit}>
-        <button type="submit">Edit Config</button>
-      </form>
-    </div>
+    <Button className='switch-button' color="primary" onClick={onSubmit}> Edit Config</Button>
   );
 };
 

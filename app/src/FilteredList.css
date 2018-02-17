@@ -1,8 +1,9 @@
-.FilteredList {
-  width: 80%;
-  margin: 0 auto;
+.filtered-list {
+    width: 80%;
+    margin: 0 auto;
+    padding-top: 1em;
 }
 
 h4 {
- margin-bottom: 0;
+    margin-bottom: 0;
 }

@@ -1,6 +1,6 @@
 import {connect} from "react-redux";
 import FilterHub from "./FilterHub";
-import {applyFilter, fetchConfig, showConfig, showLinks} from "./actions";
+import {applyFilter, showConfig, showLinks} from "./actions";
 
 const mapStateToProps = state => {
   let filteredResults;

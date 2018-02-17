@@ -1,32 +1,7 @@
-.FilterHeader {
-    text-align: center;
-    background-color: #6a9dcb;
-    height: 1.7rem;
-    padding: 1rem 0;
-}
 
-.input-effect {
-    width: 8rem;
-    margin: 0 0 auto 10%;
-    position: relative;
-}
-
-.FilterInput {
+.filter-input {
     height: 20px;
-}
+    width: 100px;
+    padding: 1.5rem 8rem;
 
-.effect-2 ~ .focus-border {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    width: 0;
-    height: 2px;
-    background-color: #3523af;
-    transition: 0.4s;
-}
-
-.effect-2:focus ~ .focus-border {
-    width: 100%;
-    transition: 0.4s;
-    left: 0;
 }
