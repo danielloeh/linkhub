@@ -2,13 +2,13 @@ import React from "react";
 import {connect} from "react-redux";
 import "./Config.css";
 import ShowLinksButton from "./ShowLinksButton";
-import SaveConfigButton from "./SaveConfigButton";
+import ConfigEditor from "./ConfigEditor";
 
 let Config = ({dispatch, allResults}) => {
   return (
     <div className="config">
       <ShowLinksButton />
-      <SaveConfigButton allResults={allResults} />
+      <ConfigEditor allResults={allResults}/>
     </div>
   );
 };
