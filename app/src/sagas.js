@@ -1,5 +1,15 @@
 import {call, put, select, takeLatest} from "redux-saga/effects";
-import {configFetched, configSaved, FETCH_CONFIG, OPEN_LINK, SAVE_CONFIG, showAlert, showLinks} from "./actions";
+import {
+  configFetched,
+  configSaved,
+  FETCH_CONFIG,
+  OPEN_LINK,
+  SAVE_CONFIG,
+  showAlert,
+  showErrorAlert,
+  showInfoAlert,
+  showLinks
+} from "./actions";
 import {postData} from "./httpHelpers";
 import * as selectors from "./selectors";
 
@@ -14,7 +24,7 @@ function* onFetchConfig () {
     yield put(configFetched(links));
   } catch (e) {
     console.error("Fetch failed" + JSON.stringify(e));
-    yield put(showAlert("Fetch Failed", "error"));
+    yield put(showErrorAlert("Fetch Failed"));
   }
 }
 
@@ -22,10 +32,10 @@ function* onSaveConfig (action) {
   try {
     yield call(saveConfig, action.configJson);
     yield put(configSaved());
-    yield put(showAlert("Config Saved", "info"));
+    yield put(showInfoAlert("Config Saved"));
   } catch (e) {
     console.error("Save Failed" + JSON.stringify(e));
-    yield put(showAlert("Save Failed", "error"));
+    yield put(showErrorAlert("Save Failed"));
   }
 }
 

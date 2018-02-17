@@ -1,4 +1,5 @@
 // filter
+import {ALERT_ERROR_TYPE, ALERT_INFO_TYPE} from "./Alert";
 export const FILTERED = 'FILTERED';
 export const UNFILTERED = 'UNFILTERED';
 export const OPEN_LINK = 'OPEN_LINK';
@@ -10,12 +11,10 @@ export const SHOW_LINKS = 'SHOW_LINKS';
 //loading
 export const FETCH_CONFIG = 'FETCH_CONFIG';
 export const CONFIG_FETCHED = 'CONFIG_FETCHED';
-export const FETCH_FAILED = 'FETCH_FAILED';
 
 //saving
 export const SAVE_CONFIG = 'SAVE_CONFIG';
 export const CONFIG_SAVED = 'CONFIG_SAVED';
-export const SAVE_FAILED = 'SAVE_FAILED';
 
 // alerts
 export const SHOW_ALERT = 'SHOW_ALERT';
@@ -72,13 +71,6 @@ export function configFetched (configJson) {
   }
 }
 
-export function fetchFailed (error) {
-  return {
-    type: FETCH_FAILED,
-    error
-  }
-}
-
 /* save config */
 
 export function saveConfig (configJson) {
@@ -94,18 +86,19 @@ export function configSaved () {
   }
 }
 
-export function saveFailed (error) {
+export function showInfoAlert (message) {
   return {
-    type: SAVE_FAILED,
-    error
+    type: SHOW_ALERT,
+    alertType: ALERT_INFO_TYPE,
+    message,
   }
 }
 
-export function showAlert (message, alertType) {
+export function showErrorAlert (message) {
   return {
     type: SHOW_ALERT,
+    alertType: ALERT_ERROR_TYPE,
     message,
-    alertType
   }
 }
 

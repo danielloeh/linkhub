@@ -1,7 +1,6 @@
 import {
   CONFIG_FETCHED,
   FETCH_CONFIG,
-  FETCH_FAILED,
   FILTERED,
   HIDE_ALERT,
   SHOW_ALERT,
@@ -85,8 +84,6 @@ function loading (state = emptyLoadingState, action) {
       return state;
     case CONFIG_FETCHED:
       return Object.assign({}, state, {allResults: action.configJson});
-    case FETCH_FAILED:
-      return state;
     default:
       return state
   }

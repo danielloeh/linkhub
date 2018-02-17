@@ -6,7 +6,10 @@ import Button from "muicss/lib/react/button";
 import "./Alert.css";
 import {hideAlert} from "./actions";
 
-let Alert = ({dispatch, show = false, message = '', alertType = 'info'}) => {
+export const ALERT_ERROR_TYPE = 'error';
+export const ALERT_INFO_TYPE = 'info';
+
+let Alert = ({dispatch, show = false, message = '', alertType = ALERT_INFO_TYPE}) => {
 
   let onHideClick = () => {
     dispatch(hideAlert());
@@ -18,9 +21,9 @@ let Alert = ({dispatch, show = false, message = '', alertType = 'info'}) => {
       const alertClass = "alert-" + alertType;
       let label;
 
-      if (alertType === 'info') {
+      if (alertType === ALERT_INFO_TYPE) {
         label = 'Info'
-      } else if (alertType === 'error') {
+      } else if (alertType === ALERT_ERROR_TYPE) {
         label = 'Error';
       } else {
         label = '';
@@ -28,7 +31,7 @@ let Alert = ({dispatch, show = false, message = '', alertType = 'info'}) => {
 
       return <div className="alert-panel"><Panel className={alertClass}>
         <div className="alert-message"><span className="mui--text-body1">{label}: {message}</span></div>
-        <Button variant="flat" color="danger" className="hide-button" onClick={onHideClick}>Hide</Button>
+        <Button variant="flat" color="danger" className="hide-button" onClick={onHideClick}>Ok</Button>
       </Panel>
       </div>
     } else {

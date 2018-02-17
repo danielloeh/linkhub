@@ -1,6 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
-import {saveConfig} from "./actions";
+import {saveConfig, showAlert, showErrorAlert} from "./actions";
 import Button from "muicss/lib/react/button";
 import TextArea from "muicss/lib/react/textarea";
 import "./ConfigEditor.css";
@@ -15,6 +15,8 @@ let ConfigEditor = ({dispatch, allResults}) => {
   let onSubmit = () => {
     if (input) {
       dispatch(saveConfig(input.value));
+    } else {
+      dispatch(showErrorAlert("Nothing to save"));
     }
   };
 
