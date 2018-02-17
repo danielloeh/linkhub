@@ -12,9 +12,23 @@ let ConfigEditor = ({dispatch, allResults}) => {
     return JSON.stringify(json, undefined, 4);
   };
 
+  function validateJson (jsonToValidate) {
+    try {
+      JSON.parse(jsonToValidate);
+    } catch (e) {
+      return e.message;
+    }
+    return '';
+  }
+
   let onSubmit = () => {
-    if (input) {
-      dispatch(saveConfig(input.value));
+    if (input && input.value.trim().length > 0) {
+      const result = validateJson(input.value);
+      if (result === '') {
+        dispatch(saveConfig(input.value));
+      } else {
+        dispatch(showErrorAlert(result));
+      }
     } else {
       dispatch(showErrorAlert("Nothing to save"));
     }

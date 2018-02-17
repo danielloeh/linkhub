@@ -19,7 +19,6 @@ let DoFilter = ({dispatch, allResults}) => {
 
     if (ev.keyCode === 13) {
       dispatch(openLink());
-
     }
   };
 
