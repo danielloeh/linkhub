@@ -76,9 +76,6 @@ function filter (state = emptyFilterState, action) {
 }
 
 function page (state = emptyPageState, action) {
-
-  console.log(JSON.stringify(action));
-
   switch (action.type) {
     case SHOW_CONFIG:
       return Object.assign({}, state, {pageState: SHOW_CONFIG});

@@ -15,17 +15,25 @@ import * as selectors from "./selectors";
 const configEndpoint = 'http://localhost:5557/api/config';
 const linkEndpoint = 'http://localhost:5557/api/links';
 
-const fetchConfigFromBackend = () => fetch(configEndpoint).then((response) => response.json()).then((data) => data);
-const saveConfigToBackend = (data) => postData(configEndpoint, data).then((response) => response.json()).then((data) => data);
-const addLinkToBackend = (data) => postData(linkEndpoint, data).then((response) => response.json()).then((data) => data);
+
+const checkResponse = (response) => {
+  if(response.status !== 200){
+    throw Error(response.status + " " + response.statusText);
+  }
+  return response.json()
+};
+
+const fetchConfigFromBackend = () => fetch(configEndpoint).then(checkResponse);
+const saveConfigToBackend = (data) => postData(configEndpoint, data).then(checkResponse);
+const addLinkToBackend = (data) => postData(linkEndpoint, data).then(checkResponse);
 
 function* onFetchConfig () {
   try {
     const links = yield call(fetchConfigFromBackend);
     yield put(configFetched(links));
   } catch (e) {
-    console.error("Fetch failed" + JSON.stringify(e));
-    yield put(showErrorAlert("Fetch Failed"));
+    console.error("Load Config Failed" + e.message);
+    yield put(showErrorAlert("Load Config Failed: " + e.message));
   }
 }
 
@@ -36,8 +44,8 @@ function* onSaveConfig (action) {
     yield put(showLinks());
     yield put(showInfoAlert("Config Saved"));
   } catch (e) {
-    console.error("Save Failed" + JSON.stringify(e));
-    yield put(showErrorAlert("Save Failed"));
+    console.error("Save Config Failed" + e.message);
+    yield put(showErrorAlert("Save Config Failed: " + e.message));
   }
 }
 
@@ -57,8 +65,8 @@ function* onAddLink (action) {
     yield put(showLinks());
     yield put(showInfoAlert("Link Added"));
   } catch (e) {
-    console.error("Add Link Failed" + JSON.stringify(e));
-    yield put(showErrorAlert("Add Link Failed"));
+    console.error("Add Link Failed" + e.message);
+    yield put(showErrorAlert("Add Link Failed: " + e.message));
   }
 }
 

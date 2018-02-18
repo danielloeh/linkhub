@@ -6,17 +6,25 @@ import {addLink, fetchConfig, showErrorAlert, showLinks} from "./actions";
 import {Button, Form, Input, Option, Select} from "muicss/react";
 import GenericButton from "./GenericButton";
 import "./AddLink.css";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
+import Joi from "joi";
 
 let AddLink = ({dispatch, categories}) => {
   let name, url, category = categories[0];
 
+  const linkSchema = Joi.object().keys({
+    url: Joi.string().uri().min(1).max(150).required(),
+    name: Joi.string().token().min(1).max(150).required()
+  });
+
   let onAddLinkClick = (ev) => {
     ev.preventDefault();
-    if (url && name) {
+    const result = Joi.validate({url: url, name: name}, linkSchema);
+
+    if (result.error === null) {
       dispatch(addLink(category, url, name));
     } else {
-      dispatch(showErrorAlert("Validation failed"));
+      dispatch(showErrorAlert("Validation failed: " + result.error.details[0].message));
     }
   };
 

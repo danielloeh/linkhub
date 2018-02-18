@@ -4,6 +4,15 @@ import {saveConfig, showErrorAlert} from "./actions";
 import Button from "muicss/lib/react/button";
 import TextArea from "muicss/lib/react/textarea";
 import "./ConfigEditor.css";
+import Joi from "joi";
+
+const configSchema = Joi.array().items(Joi.object().keys({
+  categoryName: Joi.string().token().min(1).max(50).required(),
+  links: Joi.array().items(Joi.object().keys({
+    url: Joi.string().uri().required(),
+    name: Joi.string().required()
+  }))
+}));
 
 let ConfigEditor = ({dispatch, allResults}) => {
   let input;
@@ -15,6 +24,10 @@ let ConfigEditor = ({dispatch, allResults}) => {
   function validateJson (jsonToValidate) {
     try {
       JSON.parse(jsonToValidate);
+      const result = Joi.validate(jsonToValidate, configSchema);
+      if (result.error !== null) {
+        return "Validation failed: " + result.error.details[0].message;
+      }
     } catch (e) {
       return e.message;
     }
