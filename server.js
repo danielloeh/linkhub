@@ -51,23 +51,39 @@ class LinkListServer {
     console.log(`Configure health endpoints`);
     app.get("/api/health", (req, res, next) => res.send("OK"));
     app.get("/api/config", (req, res, next) => {
-      res.setHeader('content-type', 'text/javascript');
-      res.setHeader('Access-Control-Allow-Origin', '*');
       res.send(new ConfigReader().getLinks())
     });
 
-    app.post("/api/config", (req, res, next) => {
+    app.post("/api/config", (req, res) => {
 
-        const sendPosResult = () => {
-          res.status(200)
-          res.set('content-type', 'text/plain');
-          res.send('OK');
+      const sendPosResult = (payload) => {
+        res.status(200)
+        res.set('content-type', 'application/json');
+        res.send(payload);
+      };
+
+      const sendNegResult = () => res.status(400).json("Error");
+
+      if (req.body !== null) {
+        new ConfigReader().saveConfig(req.body, sendPosResult, sendNegResult);
+      }
+      else {
+        sendNegResult();
+      }
+    });
+
+    app.post("/api/links", (req, res) => {
+
+        const sendPosResult = (payload) => {
+          res.status(200);
+          res.set('content-type', 'application/json');
+          res.send(payload);
         };
 
         const sendNegResult = () => res.status(400).json("Error");
 
         if (req.body !== null) {
-          new ConfigReader().saveConfig(req.body, sendPosResult, sendNegResult);
+          new ConfigReader().addLink(req.body, sendPosResult, sendNegResult);
         }
         else {
           sendNegResult();

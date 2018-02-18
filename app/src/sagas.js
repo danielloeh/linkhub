@@ -13,9 +13,11 @@ import {postData} from "./httpHelpers";
 import * as selectors from "./selectors";
 
 const configEndpoint = 'http://localhost:5557/api/config';
+const linkEndpoint = 'http://localhost:5557/api/links';
 
 const fetchConfigFromBackend = () => fetch(configEndpoint).then((response) => response.json()).then((data) => data);
-const saveConfigToBackend = (data) => postData(configEndpoint, data).then(data => data);
+const saveConfigToBackend = (data) => postData(configEndpoint, data).then((response) => response.json()).then((data) => data);
+const addLinkToBackend = (data) => postData(linkEndpoint, data).then((response) => response.json()).then((data) => data);
 
 function* onFetchConfig () {
   try {
@@ -29,7 +31,8 @@ function* onFetchConfig () {
 
 function* onSaveConfig (action) {
   try {
-    yield call(saveConfigToBackend, action.configJson);
+    const updatedConfig = yield call(saveConfigToBackend, action.configJson);
+    yield put(configFetched(updatedConfig));
     yield put(showLinks());
     yield put(showInfoAlert("Config Saved"));
   } catch (e) {
@@ -41,14 +44,16 @@ function* onSaveConfig (action) {
 function* onOpenLink () {
   const filteredResults = yield select(selectors.filteredResults);
   if (filteredResults.length > 0) {
-    window.open(filteredResults[0].links[0].url);
+    window.open(filteredResults[0].links[0].url, '_blank');
   }
   yield put(showLinks());
 }
 
-function* onAddLink (category, url, name) {
+function* onAddLink (action) {
   try {
-    yield call(() => console.log(category + url + name));
+    const linkPayload = {category: action.category, url: action.url, name: action.name};
+    const updatedLinks = yield call(addLinkToBackend, JSON.stringify(linkPayload));
+    yield put(configFetched(updatedLinks));
     yield put(showLinks());
     yield put(showInfoAlert("Link Added"));
   } catch (e) {

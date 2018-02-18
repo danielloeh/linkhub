@@ -6,9 +6,10 @@ import {addLink, fetchConfig, showErrorAlert, showLinks} from "./actions";
 import {Button, Form, Input, Option, Select} from "muicss/react";
 import GenericButton from "./GenericButton";
 import "./AddLink.css";
+import PropTypes from 'prop-types';
 
 let AddLink = ({dispatch, categories}) => {
-  let name, url, category;
+  let name, url, category = categories[0];
 
   let onAddLinkClick = (ev) => {
     ev.preventDefault();
@@ -39,7 +40,6 @@ let AddLink = ({dispatch, categories}) => {
   };
 
   let onChangeDropDown = (ev) => {
-    console.log(ev.target.value)
     if (ev.target.value.trim()) {
       category = ev.target.value;
     }
@@ -62,6 +62,11 @@ let AddLink = ({dispatch, categories}) => {
   );
 };
 
+AddLink.propTypes = {
+  categories: PropTypes.arrayOf(
+    PropTypes.string.isRequired
+  ).isRequired
+};
 
 AddLink = connect()(AddLink);
 

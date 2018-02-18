@@ -6,8 +6,7 @@ const LinkItem = ({link}) => {
   return (
     <div className="LinkItem">
       <li>
-        <a href={link.url}>{link.name}&nbsp;
-
+        <a href={link.url} target="'_blank'">{link.name}&nbsp;
           <div className="mui--text-caption link-url">({link.url})</div>
         </a>
       </li>
