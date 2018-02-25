@@ -18,7 +18,6 @@ module.exports = class ConfigReader {
   constructor () {
     const jsonString = fs.readFileSync(configFile);
 
-    console.log(configFile);
     const result = Joi.validate(JSON.parse(jsonString), configSchema);
     if (result.error !== null) {
       console.error("Invalid config format: " + result.error.details[0].message);

@@ -20,6 +20,10 @@ It will display all the links configured in `links.json`
 
 `./app/npm start`
 
+## Testing
+
+* Console: `npm test` (will spawn a watched)
+* Intellij: Make sure to set your working directory to `<rootdir>/app` to pickup the right package.json and add `--env=jsdom` to the jest run parameters.
 
 ### TODO:
 
@@ -30,3 +34,4 @@ It will display all the links configured in `links.json`
 - escape + X for deleting search
 - how to page
 - news running text
+- testing

@@ -39,9 +39,10 @@ export function displayAll () {
   }
 }
 
-export function openLink () {
+export function openLink (number) {
   return {
-    type: OPEN_LINK
+    type: OPEN_LINK,
+    number
   }
 }
 

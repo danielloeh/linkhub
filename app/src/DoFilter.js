@@ -7,32 +7,40 @@ import Input from "muicss/lib/react/input";
 
 let DoFilter = ({dispatch, allResults}) => {
 
-  let onChange = (ev) => {
-    if (!ev.target.value.trim()) {
-      dispatch(displayAll());
-    }
-    dispatch(applyFilter(ev.target.value, allResults));
-  };
+    let onChange = (ev) => {
+      if (!ev.target.value.trim()) {
+        dispatch(displayAll());
+      }
+      dispatch(applyFilter(ev.target.value, allResults));
+    };
 
-  let onKeyUpFilter = (ev) => {
-    ev.preventDefault();
+    let onKeyUpFilter = (ev) => {
+      console.log(ev.shiftKey + "/" + ev.keyCode);
 
-    if (ev.keyCode === 13) {
-      dispatch(openLink());
-    }
-  };
+      if (ev.keyCode === 13) {
+        ev.preventDefault();
+        dispatch(openLink(1));
+      }
+      else if (ev.shiftKey && (ev.keyCode >= 49 && ev.keyCode <= 52)) {
+        ev.preventDefault();
+        dispatch(openLink(ev.keyCode - 49));
+      } else {
 
-  return (
-    <Appbar>
-      <Input autoFocus placeholder="type to filter" className="filter-input" type="text"
-             onChange={onChange.bind(this)}
-             onKeyUp={onKeyUpFilter.bind(this)}/>
-      <div className="filter-hint">
-        Hit RETURN to open first link in new tab
-      </div>
-    </Appbar>
-  );
-};
+      }
+    };
+
+    return (
+      <Appbar>
+        <Input autoFocus placeholder="type to filter" className="filter-input" type="text"
+               onChange={onChange.bind(this)}
+               onKeyDown={onKeyUpFilter.bind(this)}/>
+        <div className="filter-hint">
+          Hit RETURN or SHIFT+number to open first links
+        </div>
+      </Appbar>
+    );
+  }
+;
 
 DoFilter = connect()(DoFilter);
 

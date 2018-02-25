@@ -17,7 +17,7 @@ const linkEndpoint = 'http://localhost:5557/api/links';
 
 
 const checkResponse = (response) => {
-  if(response.status !== 200){
+  if (response.status !== 200) {
     throw Error(response.status + " " + response.statusText);
   }
   return response.json()
@@ -49,10 +49,13 @@ function* onSaveConfig (action) {
   }
 }
 
-function* onOpenLink () {
+function* onOpenLink (action) {
   const filteredResults = yield select(selectors.filteredResults);
-  if (filteredResults.length > 0) {
-    window.open(filteredResults[0].links[0].url, '_blank');
+  const allResults = yield select(selectors.allResults);
+  if (filteredResults.length > 0 && filteredResults[0].links.length >= action.number) {
+    window.open(filteredResults[0].links[action.number - 1].url, '_blank');
+  } else if (allResults.length > 0 && allResults[0].links.length >= action.number) {
+    window.open(allResults[0].links[action.number - 1].url, '_blank');
   }
   yield put(showLinks());
 }

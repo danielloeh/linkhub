@@ -1,14 +1,24 @@
-.LinkItem {
+.link-item {
 
 }
 
 .link-url {
     display: inline-block;
     color: #6a9dcb;
+}
 
+.highlighted {
+    border: 1px dashed #6a9dcb;
 }
 
 a {
     color: #000;
     padding: 1px;
+}
+
+.quick-access{
+    display: inline-block;
+    color: #6a9dcb;
+    font-weight: bold;
+    padding-left: 0.4em;
 }
