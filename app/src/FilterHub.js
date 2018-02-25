@@ -1,5 +1,5 @@
 import React from "react";
-import DoFilter from "./FilterBar";
+import FilterBar from "./FilterBar";
 import FilteredList from "./FilteredList";
 import StateStructure from "./LinkPropTypes";
 import "./FilterHub.css";
@@ -22,7 +22,7 @@ function Pages ({allResults, filteredResults, pageState, categories}) {
 
 const LinkHub = ({allResults, filteredResults, pageState, alerting, categories}) => (
   <div className="filter-hub">
-    <DoFilter allResults={allResults}/>
+    <FilterBar allResults={allResults}/>
     <Alert message={alerting.message} show={alerting.show} alertType={alerting.alertType}/>
     <Pages pageState={pageState} filteredResults={filteredResults} allResults={allResults} categories={categories}/>
   </div>

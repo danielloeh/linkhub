@@ -8,10 +8,11 @@ import Input from "muicss/lib/react/input";
 let FilterBar = ({dispatch, allResults}) => {
 
     let onChange = (ev) => {
-      if (!ev.target.value.trim()) {
+      if (ev.target.value.trim()) {
+        dispatch(applyFilter(ev.target.value, allResults));
+      } else {
         dispatch(displayAll());
       }
-      dispatch(applyFilter(ev.target.value, allResults));
     };
 
     let onKeyUpFilter = (ev) => {
