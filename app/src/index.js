@@ -4,7 +4,7 @@ import "./index.css";
 import {Provider} from "react-redux";
 import {applyMiddleware, createStore} from "redux";
 import registerServiceWorker from "./registerServiceWorker";
-import LinkList from "./LinkList";
+import LinkList from "./PropMapper";
 import createSagaMiddleware from "redux-saga";
 import rootSaga from "./sagas";
 import linkListReducers from "./reducers";

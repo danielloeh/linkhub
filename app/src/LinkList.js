@@ -1,41 +1,45 @@
-import {connect} from "react-redux";
-import FilterHub from "./FilterHub";
-import {applyFilter, showConfig, showLinks} from "./actions";
+import React from "react";
+import LinkItem from "./LinkItem";
+import PropTypes from "prop-types";
+import "./LinkList.css";
+import {showAddLink, showConfig} from "./actions";
+import GenericButton from "./GenericButton";
 
-const mapStateToProps = state => {
-  let filteredResults;
-  if (state.filter.filterTerm === '') {
-    filteredResults = state.loading.allResults;
-  } else {
-    filteredResults = state.filter.filteredResults;
-  }
+const createQuickAccess = (categoryIndex, itemIndex) => (categoryIndex === 0 && itemIndex < 5) ? {key: itemIndex+1} : null;
 
-  return {
-    allResults: state.loading.allResults,
-    categories: state.loading.categories,
-    filteredResults: filteredResults,
-    pageState: state.page.pageState,
-    alerting: state.alerting,
-  };
+let List = ({filteredResults}) => {
+  return (filteredResults.map((categoryObj, categoryIndex) => (
+    <div className="link-list-category mui--text-body1" key={categoryIndex}>
+      <h4>{categoryObj.categoryName}</h4>
+      <ul>
+        {categoryObj.links.map((link, index) =>
+          (<LinkItem key={index} link={link} quickAccess={createQuickAccess(categoryIndex, index)}/> ))}
+      </ul>
+    </div>
+  )))
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onFilterChange: (filterTerm) => {
-      dispatch(applyFilter(filterTerm))
-    },
-    onShowConfig: () => {
-      dispatch(showConfig())
-    },
-    onShowLinks: () => {
-      dispatch(showLinks());
-    },
-  }
+let LinkList = ({filteredResults}) => {
+  return (
+    <div>
+      <GenericButton actions={[showConfig]} label="Edit Config"/>
+      <GenericButton actions={[showAddLink]} label="Add Link"/>
+      <List filteredResults={filteredResults}/>
+    </div>
+  );
 };
 
-const LinkList = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(FilterHub);
+LinkList.propTypes = {
+  filteredResults: PropTypes.arrayOf(
+    PropTypes.shape({
+      categoryName: PropTypes.string.isRequired,
+      links: PropTypes.arrayOf(
+        PropTypes.shape({
+          url: PropTypes.string.isRequired,
+          name: PropTypes.string.isRequired
+        }).isRequired)
+    }).isRequired
+  ).isRequired
+};
 
-export default LinkList
+export default LinkList;

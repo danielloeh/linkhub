@@ -1,8 +1,8 @@
 import React from "react";
 import FilterBar from "./FilterBar";
-import FilteredList from "./FilteredList";
+import LinkList from "./LinkList";
 import StateStructure from "./LinkPropTypes";
-import "./FilterHub.css";
+import "./LinkHub.css";
 import {SHOW_ADD_LINK, SHOW_CONFIG, SHOW_LINKS} from "./actions";
 import Config from "./Config";
 import Alert from "./Alert";
@@ -16,7 +16,7 @@ function Pages ({allResults, filteredResults, pageState, categories}) {
       return <AddLink categories={categories}/>;
     case SHOW_LINKS:
     default:
-      return <FilteredList allResults={allResults} filteredResults={filteredResults}/>;
+      return <LinkList allResults={allResults} filteredResults={filteredResults}/>;
   }
 }
 

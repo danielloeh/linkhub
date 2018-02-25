@@ -27,7 +27,7 @@ it('has quick access if property is set', () => {
 
   let quickAccess = linkItemWrapper.find('.quick-access');
   expect(quickAccess.length).toBe(1);
-  expect(quickAccess.text()).toBe("[key » 3]");
+  expect(quickAccess.text()).toBe("[key » shift+3]");
 });
 
 it('does not have quick access if property is not set', () => {
