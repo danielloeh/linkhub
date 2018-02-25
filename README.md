@@ -27,7 +27,6 @@ It will display all the links configured in `links.json`
 
 ### TODO:
 
-- keyboard shortcuts (1-4) and highlighting
 - delete links
 - notes
 - preview

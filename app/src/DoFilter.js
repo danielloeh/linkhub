@@ -15,15 +15,13 @@ let DoFilter = ({dispatch, allResults}) => {
     };
 
     let onKeyUpFilter = (ev) => {
-      console.log(ev.shiftKey + "/" + ev.keyCode);
-
       if (ev.keyCode === 13) {
         ev.preventDefault();
         dispatch(openLink(1));
       }
       else if (ev.shiftKey && (ev.keyCode >= 49 && ev.keyCode <= 52)) {
         ev.preventDefault();
-        dispatch(openLink(ev.keyCode - 49));
+        dispatch(openLink(ev.keyCode - 48));
       } else {
 
       }
