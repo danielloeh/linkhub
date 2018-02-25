@@ -6,7 +6,7 @@ let content;
 const configFile = "links.json";
 
 const configSchema = Joi.array().items(Joi.object().keys({
-  categoryName: Joi.string().token().min(1).max(50).required(),
+  categoryName: Joi.string().min(1).max(50).required(),
   links: Joi.array().items(Joi.object().keys({
     url: Joi.string().uri().required(),
     name: Joi.string().required()
@@ -18,6 +18,7 @@ module.exports = class ConfigReader {
   constructor () {
     const jsonString = fs.readFileSync(configFile);
 
+    console.log(configFile);
     const result = Joi.validate(JSON.parse(jsonString), configSchema);
     if (result.error !== null) {
       console.error("Invalid config format: " + result.error.details[0].message);

@@ -4,12 +4,8 @@ services:
   app:
     build: ./app/
     ports:
-     - "3333:3333"
-    volumes:
-     - .:/code
+     - "3000:3000"
   server:
       build: .
       ports:
        - "5557:5557"
-      volumes:
-       - .:/code

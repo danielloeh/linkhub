@@ -14,7 +14,7 @@ let AddLink = ({dispatch, categories}) => {
 
   const linkSchema = Joi.object().keys({
     url: Joi.string().uri().min(1).max(150).required(),
-    name: Joi.string().token().min(1).max(150).required()
+    name: Joi.string().min(1).max(150).required()
   });
 
   let onAddLinkClick = (ev) => {

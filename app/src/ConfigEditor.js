@@ -7,7 +7,7 @@ import "./ConfigEditor.css";
 import Joi from "joi";
 
 const configSchema = Joi.array().items(Joi.object().keys({
-  categoryName: Joi.string().token().min(1).max(50).required(),
+  categoryName: Joi.string().min(1).max(50).required(),
   links: Joi.array().items(Joi.object().keys({
     url: Joi.string().uri().required(),
     name: Joi.string().required()
