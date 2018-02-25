@@ -15,6 +15,9 @@ import * as selectors from "./selectors";
 const configEndpoint = 'http://localhost:5557/api/config';
 const linkEndpoint = 'http://localhost:5557/api/links';
 
+let openUrlInNewTab = (linkList, number) => {
+  window.open(linkList[0].links[number - 1].url, '_blank');
+};
 
 const checkResponse = (response) => {
   if (response.status !== 200) {
@@ -50,12 +53,15 @@ function* onSaveConfig (action) {
 }
 
 function* onOpenLink (action) {
+
+
   const filteredResults = yield select(selectors.filteredResults);
   const allResults = yield select(selectors.allResults);
+
   if (filteredResults.length > 0 && filteredResults[0].links.length >= action.number) {
-    window.open(filteredResults[0].links[action.number - 1].url, '_blank');
+    openUrlInNewTab(filteredResults, action.number);
   } else if (allResults.length > 0 && allResults[0].links.length >= action.number) {
-    window.open(allResults[0].links[action.number - 1].url, '_blank');
+    openUrlInNewTab(allResults, action.number);
   }
   yield put(showLinks());
 }
