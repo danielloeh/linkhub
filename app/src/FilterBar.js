@@ -1,11 +1,11 @@
 import React from "react";
 import {applyFilter, displayAll, openLink} from "./actions";
-import "./DoFilter.css";
+import "./FilterBar.css";
 import {connect} from "react-redux";
 import Appbar from "muicss/lib/react/appbar";
 import Input from "muicss/lib/react/input";
 
-let DoFilter = ({dispatch, allResults}) => {
+let FilterBar = ({dispatch, allResults}) => {
 
     let onChange = (ev) => {
       if (!ev.target.value.trim()) {
@@ -40,6 +40,6 @@ let DoFilter = ({dispatch, allResults}) => {
   }
 ;
 
-DoFilter = connect()(DoFilter);
+FilterBar = connect()(FilterBar);
 
-export default DoFilter
+export default FilterBar

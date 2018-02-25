@@ -1,5 +1,5 @@
 import React from "react";
-import DoFilter from "./DoFilter";
+import DoFilter from "./FilterBar";
 import FilteredList from "./FilteredList";
 import StateStructure from "./LinkPropTypes";
 import "./FilterHub.css";

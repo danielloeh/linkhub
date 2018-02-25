@@ -1,5 +1,5 @@
 import React from "react";
-import "./DoFilter.css";
+import "./FilterBar.css";
 import {connect} from "react-redux";
 import Panel from "muicss/lib/react/panel";
 import Button from "muicss/lib/react/button";

@@ -1,5 +1,5 @@
 import React from "react";
-import "./DoFilter.css";
+import "./FilterBar.css";
 import {connect} from "react-redux";
 import "./Alert";
 import {addLink, fetchConfig, showErrorAlert, showLinks} from "./actions";

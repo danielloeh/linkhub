@@ -22,7 +22,7 @@ It will display all the links configured in `links.json`
 
 ## Testing
 
-* Console: `npm test` (will spawn a watched)
+* Console: `npm test` (will spawn a watcher)
 * Intellij: Make sure to set your working directory to `<rootdir>/app` to pickup the right package.json and add `--env=jsdom` to the jest run parameters.
 
 ### TODO:
@@ -33,4 +33,4 @@ It will display all the links configured in `links.json`
 - escape + X for deleting search
 - how to page
 - news running text
-- testing
+- toggle help
