@@ -7,7 +7,7 @@ import {Button, Form, Input, Option, Select} from "muicss/react";
 import GenericButton from "./GenericButton";
 import "./AddLink.css";
 import PropTypes from "prop-types";
-import Joi from "joi";
+import Joi from "joi-browser";
 
 let AddLink = ({dispatch, categories}) => {
   let name, url, category = categories[0];

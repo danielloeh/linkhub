@@ -12,8 +12,9 @@ import {
 import {postData} from "./httpHelpers";
 import * as selectors from "./selectors";
 
-const configEndpoint = 'http://localhost:5557/api/config';
-const linkEndpoint = 'http://localhost:5557/api/links';
+let server = window.location.origin;
+const configEndpoint = server + '/api/config';
+const linkEndpoint = server + '/api/links';
 
 let openUrlInNewTab = (linkList, number) => {
   window.open(linkList[0].links[number - 1].url, '_blank');

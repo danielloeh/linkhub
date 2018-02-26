@@ -80,7 +80,7 @@ module.exports = function (proxy, allowedHost) {
     },
     public: allowedHost,
     proxy: {
-      '/api/*': 'http://localhost:5557'
+      '/api/*': 'http://localhost:8080'
     }
     ,
     before(app) {

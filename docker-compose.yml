@@ -1,11 +1,7 @@
 version: '2'
 
 services:
-  app:
-    build: ./app/
-    ports:
-     - "3000:3000"
-  server:
+  linkhub:
       build: .
       ports:
-       - "5557:5557"
+       - "8080:8080"

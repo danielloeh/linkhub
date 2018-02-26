@@ -27,7 +27,7 @@
     "fs-extra": "3.0.1",
     "html-webpack-plugin": "2.29.0",
     "jest": "20.0.4",
-    "joi": "^13.1.2",
+    "joi-browser": "^13.0.1",
     "muicss": "^0.9.36",
     "object-assign": "4.1.1",
     "postcss-flexbugs-fixes": "3.2.0",

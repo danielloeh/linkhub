@@ -1,6 +1,6 @@
 "use strict"
 const fs = require('fs');
-const Joi = require('joi');
+const Joi = require('joi-browser');
 
 let content;
 const configFile = "links.json";

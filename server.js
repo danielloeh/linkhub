@@ -9,7 +9,7 @@ const ConfigReader = require("./server/ConfigReader");
 
 const util = require("util");
 
-const PORT = 5557;
+const PORT = 8080;
 
 class LinkListServer {
 
@@ -44,7 +44,7 @@ class LinkListServer {
 
   static serveApp (app) {
     const rootDir = path.resolve(path.dirname(module.uri || "."));
-    app.use(express.static(rootDir + '/static'));
+    app.use(express.static(rootDir + '/app/build'));
   }
 
   static configureEndpoints (app) {

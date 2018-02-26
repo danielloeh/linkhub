@@ -4,7 +4,7 @@ import {saveConfig, showErrorAlert} from "./actions";
 import Button from "muicss/lib/react/button";
 import TextArea from "muicss/lib/react/textarea";
 import "./ConfigEditor.css";
-import Joi from "joi";
+import Joi from "joi-browser";
 
 const configSchema = Joi.array().items(Joi.object().keys({
   categoryName: Joi.string().min(1).max(50).required(),
