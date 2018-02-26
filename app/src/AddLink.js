@@ -61,9 +61,9 @@ let AddLink = ({dispatch, categories}) => {
           <Select defaultValue={categories[0]} onChange={onChangeDropDown.bind(this)}>
             <SelectItems categories={categories}/>
           </Select>
-          <Input placeholder="Name" className="add-link-input" type="text" onChange={onChangeName.bind(this)}/>
-          <Input placeholder="URL" className="add-link-input" type="text" onChange={onChangeURL.bind(this)}/>
-          <Button color="primary" onClick={onAddLinkClick.bind(this)}>Add Link</Button>
+          <Input id="name-input" placeholder="Name" className="add-link-input" type="text" onChange={onChangeName.bind(this)}/>
+          <Input id="url-input" placeholder="URL" className="add-link-input" type="text" onChange={onChangeURL.bind(this)}/>
+          <Button id="add-link-submit" color="primary" onClick={onAddLinkClick.bind(this)}>Add Link</Button>
         </Form>
       </div>
     </div>
