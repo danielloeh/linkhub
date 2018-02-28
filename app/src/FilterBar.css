@@ -8,7 +8,6 @@
 .filter-input {
     margin: 0;
     padding: 0;
-    flex-grow: 1;
 }
 
 .filter-input input {
@@ -17,6 +16,7 @@
     background-color: #BBDEFB;
 }
 
-.filter-hint{
+.filter-hint {
+    margin: 0 0.3em;
     flex-grow: 1;
 }

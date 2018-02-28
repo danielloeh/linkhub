@@ -31,7 +31,6 @@ Here its other way around: the backend will deliver the minified and packaged fr
 - delete links
 - notes
 - preview
-- escape + X for deleting search
 - how to page
 - news running text
 - toggle help

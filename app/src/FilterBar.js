@@ -17,11 +17,18 @@ let FilterBar = ({dispatch, allResults}) => {
     };
 
     let onKeyUpFilter = (ev) => {
-      if (ev.keyCode === 13) {
+      if (ev.keyCode === 13) { //enter
         ev.preventDefault();
         dispatch(openLink(1));
       }
-      else if (ev.shiftKey && (ev.keyCode >= 49 && ev.keyCode <= 52)) {
+
+      if (ev.keyCode === 27) { //escape
+        ev.preventDefault();
+        ev.target.value = "";
+        dispatch(displayAll());
+      }
+
+      else if (ev.shiftKey && (ev.keyCode >= 49 && ev.keyCode <= 52)) { // 1 - 4
         ev.preventDefault();
         dispatch(openLink(ev.keyCode - 48));
       } else {
@@ -35,6 +42,16 @@ let FilterBar = ({dispatch, allResults}) => {
         <Input autoFocus placeholder="Search categories, names and URLs" className="filter-input" type="text"
                onChange={onChange.bind(this)}
                onKeyDown={onKeyUpFilter.bind(this)}/>
+        <div className="filter-hint mui--text-caption" style={{display: "flex", flexDirection: "row", flexGrow: 1}}>
+          <div style={{display: "flex", flexDirection: "column"}}>
+            <span>Enter - Follow first link</span>
+            <span>Shift + [1-5] - Follow 1-5th link</span>
+          </div>
+          <div style={{display: "flex", flexDirection: "column"}}>
+            <span>Esc - Delete Filter</span>
+            <span>&nbsp;</span>
+          </div>
+        </div>
         <GenericButton id="add-link" size="small" actions={[showAddLink]} label="Add Link"/>
         <GenericButton id="edit-config" size="small" actions={[showConfig]} label="Edit Config"/>
       </Appbar>

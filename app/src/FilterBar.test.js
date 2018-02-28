@@ -114,3 +114,26 @@ it('dispatches display all actions when text input cleared', () => {
 });
 
 
+it('clear input on escape', () => {
+  const someResults = [];
+
+  const store = mockStore({});
+
+  const linkItemWrapper = mount(<Provider store={store}><FilterBar allResults={someResults}/></Provider>);
+
+  let enterKeyCode = 27;
+  let eventMock = {keyCode: enterKeyCode, preventDefault: jest.fn(), target: {value: "some-text"}};
+
+  linkItemWrapper.find(Input).prop('onChange')({target: {value: "some-text"}});
+
+  let filterInput = linkItemWrapper.find(Input);
+  filterInput.prop('onKeyDown')(eventMock);
+
+
+  expect(eventMock.preventDefault.mock.calls.length).toBe(1);
+  expect(store.getActions()).toEqual([
+    {"allResults": someResults, "filterTerm": "some-text", "type": "FILTERED"},
+    {"type": "UNFILTERED"}]);
+});
+
+
