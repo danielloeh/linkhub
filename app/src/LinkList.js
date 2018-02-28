@@ -2,10 +2,8 @@ import React from "react";
 import LinkItem from "./LinkItem";
 import PropTypes from "prop-types";
 import "./LinkList.css";
-import {showAddLink, showConfig} from "./actions";
-import GenericButton from "./GenericButton";
 
-const createQuickAccess = (categoryIndex, itemIndex) => (categoryIndex === 0 && itemIndex < 5) ? {key: itemIndex+1} : null;
+const createQuickAccess = (categoryIndex, itemIndex) => (categoryIndex === 0 && itemIndex < 5) ? {key: itemIndex + 1} : null;
 
 let List = ({filteredResults}) => {
   return (filteredResults.map((categoryObj, categoryIndex) => (
@@ -22,8 +20,6 @@ let List = ({filteredResults}) => {
 let LinkList = ({filteredResults}) => {
   return (
     <div>
-      <GenericButton actions={[showConfig]} label="Edit Config"/>
-      <GenericButton actions={[showAddLink]} label="Add Link"/>
       <List filteredResults={filteredResults}/>
     </div>
   );

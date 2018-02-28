@@ -2,9 +2,8 @@ import React from "react";
 import "./FilterBar.css";
 import {connect} from "react-redux";
 import "./Alert";
-import {addLink, fetchConfig, showErrorAlert, showLinks} from "./actions";
+import {addLink, showErrorAlert} from "./actions";
 import {Button, Form, Input, Option, Select} from "muicss/react";
-import GenericButton from "./GenericButton";
 import "./AddLink.css";
 import PropTypes from "prop-types";
 import Joi from "joi-browser";
@@ -55,7 +54,6 @@ let AddLink = ({dispatch, categories}) => {
 
   return (
     <div>
-      <GenericButton actions={[fetchConfig, showLinks]} label="Show Links"/>
       <div className="add-link">
         <Form>
           <Select defaultValue={categories[0]} onChange={onChangeDropDown.bind(this)}>

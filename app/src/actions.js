@@ -91,12 +91,6 @@ export function saveConfig (configJson) {
   }
 }
 
-export function configSaved () {
-  return {
-    type: CONFIG_SAVED,
-  }
-}
-
 /* alerts */
 
 export function showInfoAlert (message) {

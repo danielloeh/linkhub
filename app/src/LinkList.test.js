@@ -1,14 +1,13 @@
 import React from "react";
 import LinkList from "./LinkList";
 import LinkItem from "./LinkItem";
-import GenericButton from "./GenericButton";
 import {mount} from "enzyme";
 import configureMockStore from "redux-mock-store";
 import {Provider} from "react-redux";
 
 const mockStore = configureMockStore([]);
 
-it('renders the link items and the buttons', () => {
+it('renders the link items', () => {
   const store = mockStore({});
   const someResults = [{
     categoryName: "some-category",
@@ -32,7 +31,6 @@ it('renders the link items and the buttons', () => {
       <LinkList filteredResults={someResults}/>
     </Provider>);
 
-  expect(linkItem.find(GenericButton).length).toBe(2);
   expect(linkItem.find(".link-list-category").length).toBe(2);
   expect(linkItem.find("h4").length).toBe(2);
   expect(linkItem.find("h4").at(0).text()).toEqual("some-category");

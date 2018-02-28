@@ -41,12 +41,9 @@ it('dispatches validation failed action if no data provided', () => {
     preventDefault: jest.fn()
   };
 
-  console.log(addLinkWrapper.children().debug());
-
   addLinkWrapper.find(Button).filter("#add-link-submit").prop("onClick")(eventMock);
 
   expect(eventMock.preventDefault.mock.calls.length).toBe(1);
-
   expect(store.getActions()).toEqual([{
     type: "SHOW_ALERT",
     alertType: "error",

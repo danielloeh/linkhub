@@ -1,15 +1,22 @@
+.app-bar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    min-height: 40px;
+}
+
 .filter-input {
-    height: 20px;
-    width: 300px;
-    padding: 2rem 2rem 0 8em;
-    display: inline-block;
+    margin: 0;
+    padding: 0;
+    flex-grow: 1;
 }
 
 .filter-input input {
-    color: white;
+    width: 400px;
     font-size: 14px;
+    background-color: #BBDEFB;
 }
 
-.filter-hint {
-    display: inline-block;
+.filter-hint{
+    flex-grow: 1;
 }

@@ -54,8 +54,6 @@ function* onSaveConfig (action) {
 }
 
 function* onOpenLink (action) {
-
-
   const filteredResults = yield select(selectors.filteredResults);
   const allResults = yield select(selectors.allResults);
 

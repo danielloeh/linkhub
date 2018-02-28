@@ -1,9 +1,10 @@
 import React from "react";
-import {applyFilter, displayAll, openLink} from "./actions";
+import {applyFilter, displayAll, fetchConfig, openLink, showAddLink, showConfig, showLinks} from "./actions";
 import "./FilterBar.css";
 import {connect} from "react-redux";
 import Appbar from "muicss/lib/react/appbar";
 import Input from "muicss/lib/react/input";
+import GenericButton from "./GenericButton";
 
 let FilterBar = ({dispatch, allResults}) => {
 
@@ -29,13 +30,13 @@ let FilterBar = ({dispatch, allResults}) => {
     };
 
     return (
-      <Appbar>
-        <Input autoFocus placeholder="type to filter" className="filter-input" type="text"
+      <Appbar className="app-bar mui--bg-primary">
+        <GenericButton id="home" size="small" actions={[fetchConfig, showLinks]} label="Home"/>
+        <Input autoFocus placeholder="Search categories, names and URLs" className="filter-input" type="text"
                onChange={onChange.bind(this)}
                onKeyDown={onKeyUpFilter.bind(this)}/>
-        <div className="filter-hint">
-          Hit RETURN or SHIFT+number to open first links
-        </div>
+        <GenericButton id="add-link" size="small" actions={[showAddLink]} label="Add Link"/>
+        <GenericButton id="edit-config" size="small" actions={[showConfig]} label="Edit Config"/>
       </Appbar>
     );
   }
