@@ -3,7 +3,6 @@ const fs = require('fs');
 const Joi = require('joi-browser');
 
 let content;
-const configFile = "links.json";
 
 const configSchema = Joi.array().items(Joi.object().keys({
   categoryName: Joi.string().min(1).max(50).required(),
@@ -15,7 +14,10 @@ const configSchema = Joi.array().items(Joi.object().keys({
 
 module.exports = class ConfigReader {
 
-  constructor () {
+  constructor (configFile) {
+
+    this.configFile = configFile;
+
     const jsonString = fs.readFileSync(configFile);
 
     const result = Joi.validate(JSON.parse(jsonString), configSchema);
@@ -36,7 +38,7 @@ module.exports = class ConfigReader {
     const result = Joi.validate(config, configSchema);
 
     if (result.error === null) {
-      fs.writeFile(configFile, JSON.stringify(config), function (err) {
+      fs.writeFile(this.configFile, JSON.stringify(config), function (err) {
         if (!err) {
           sendPositiveResultFn(config);
         } else {
@@ -52,7 +54,7 @@ module.exports = class ConfigReader {
 
   addLink (linkPayload, sendPositiveResultFn, sendNegResult) {
 
-    const jsonString = fs.readFileSync(configFile);
+    const jsonString = fs.readFileSync(this.configFile);
 
     const result = Joi.validate(JSON.parse(jsonString), configSchema);
 
@@ -64,7 +66,7 @@ module.exports = class ConfigReader {
         return category;
       });
 
-      fs.writeFile(configFile, JSON.stringify(updatedContent), function (err) {
+      fs.writeFile(this.configFile, JSON.stringify(updatedContent), function (err) {
         if (!err) {
           sendPositiveResultFn(updatedContent);
         } else {

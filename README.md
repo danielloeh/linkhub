@@ -32,5 +32,14 @@ Here its other way around: the backend will deliver the minified and packaged fr
 - notes
 - preview
 - how to page
-- news running text
+- news running text (gh integration)
 - toggle help
+   
+- settings page
+    - checkbox when submitting the config
+    - support: how to set it up
+    -> check if api key exists
+        - git integration: api_key and git_repo
+        -> button for connection test
+        
+- news page

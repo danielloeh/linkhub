@@ -6,16 +6,20 @@ const bodyParser = require("body-parser");
 const fs = require("fs");
 const path = require("path");
 const ConfigReader = require("./server/ConfigReader");
-
+const GitReader = require("./server/GitReader");
 const util = require("util");
 
 const PORT = 8080;
+
 
 class LinkListServer {
 
   constructor () {
     console.log(`Running Server on port ${PORT}`);
     const app = express();
+
+    this.configReader = new ConfigReader("links.json");
+    this.gitReader = GitReader.checkGitConnection(process.env.GIT_PROJECT);
 
     app.use(function (req, res, next) {
       if (req.method === "OPTIONS") {  // send out CORS inflight response
@@ -36,22 +40,24 @@ class LinkListServer {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({strict: false, extended: true}));
 
-    LinkListServer.configureEndpoints(app);
-    LinkListServer.serveApp(app);
+    this.configureEndpoints(app);
+    this.serveApp(app);
 
     app.listen(PORT);
   }
 
-  static serveApp (app) {
+  serveApp (app) {
     const rootDir = path.resolve(path.dirname(module.uri || "."));
     app.use(express.static(rootDir + '/app/build'));
   }
 
-  static configureEndpoints (app) {
-    console.log(`Configure health endpoints`);
+  configureEndpoints (app) {
     app.get("/api/health", (req, res, next) => res.send("OK"));
+
+    app.get("/api/git", (req, res, next) => res.send(this.gitReader.getProject()));
+
     app.get("/api/config", (req, res, next) => {
-      res.send(new ConfigReader().getLinks())
+      res.send(this.configReader.getLinks())
     });
 
     app.post("/api/config", (req, res) => {
@@ -65,7 +71,7 @@ class LinkListServer {
       const sendNegResult = () => res.status(400).json("Error");
 
       if (req.body !== null) {
-        new ConfigReader().saveConfig(req.body, sendPosResult, sendNegResult);
+        this.configReader.saveConfig(req.body, sendPosResult, sendNegResult);
       }
       else {
         sendNegResult();
