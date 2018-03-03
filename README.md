@@ -30,14 +30,10 @@ Here its other way around: the backend will deliver the minified and packaged fr
 
 - delete links
 - notes
-- preview
-- how to page
 - news running text (gh integration)
 - toggle help
    
-- disable save button until callback successful
-- checkbox for saving to git
+- checkbox for saving to git [fix function]
 - git settings page
-- note that not persisted
         
 - news page
