@@ -7,7 +7,7 @@ import Input from "muicss/lib/react/input";
 import Button from "muicss/lib/react/button";
 import GenericButton from "./GenericButton";
 
-let FilterBar = ({dispatch, allResults, connectedToGit}) => {
+let FilterBar = ({dispatch, allResults, gitConnection}) => {
 
     let onChange = (ev) => {
       if (ev.target.value.trim()) {
@@ -37,11 +37,11 @@ let FilterBar = ({dispatch, allResults, connectedToGit}) => {
       }
     };
 
-    console.log(connectedToGit);
-
     let gitIcon;
-    if (connectedToGit) {
-      gitIcon = <Button size="small" style={{"backgroundColor": "green"}} disabled={true}>GIT</Button>
+    if (gitConnection.connected && gitConnection.upToDate) {
+      gitIcon = <Button size="small" className="git-ok" disabled={true}>GIT</Button>
+    } else if (gitConnection.connected && !gitConnection.upToDate) {
+      gitIcon = <Button size="small" className="git-not-up-to-date" disabled={true}>GIT</Button>
     } else {
       gitIcon = <Button color="accent" size="small" disabled={true}>GIT</Button>
     }

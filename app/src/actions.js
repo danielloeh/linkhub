@@ -138,10 +138,11 @@ export function checkGitConnection () {
   }
 }
 
-export function gitConnectionChecked (connected, remoteUrl) {
+export function gitConnectionChecked ({connected, remoteUrl, upToDate}) {
   return {
     type: GIT_CONNECTION_CHECKED,
     connected,
-    remoteUrl
+    remoteUrl,
+    upToDate
   }
 }

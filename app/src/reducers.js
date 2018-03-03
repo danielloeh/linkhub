@@ -33,7 +33,8 @@ const emptyAlertingState = {
 
 const emptyGitState = {
   connected: false,
-  remoteUrl: ''
+  remoteUrl: '',
+  upToDate: false
 };
 
 const cntsCaseInsns = (str, term) => str.toLowerCase().indexOf(term.toLowerCase()) !== -1;
@@ -121,7 +122,7 @@ function alerting (state = emptyAlertingState, action) {
 function git (state = emptyGitState, action) {
   switch (action.type) {
     case GIT_CONNECTION_CHECKED:
-      return Object.assign({}, state, {connected: action.connected});
+      return Object.assign({}, state, {connected: action.connected, upToDate:action.upToDate, url: action.url});
     default:
       return state;
   }

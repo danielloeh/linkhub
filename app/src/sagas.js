@@ -72,7 +72,7 @@ function* onOpenLink (action) {
 function* onCheckGitConnection () {
   try {
     const gitConnectionResult = yield call(checkGitConnection);
-    yield put(gitConnectionChecked(gitConnectionResult.connected, gitConnectionResult.url));
+    yield put(gitConnectionChecked(gitConnectionResult));
   } catch (e) {
     console.error("Cant check git connection: " + e.message);
     yield put(showErrorAlert("Checking git connection failed: " + e.message));

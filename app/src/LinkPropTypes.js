@@ -26,7 +26,12 @@ class LinkPropTypes {
       ).isRequired,
       onFilterChange: PropTypes.func.isRequired,
       onShowConfig: PropTypes.func.isRequired,
-      onShowLinks: PropTypes.func.isRequired
+      onShowLinks: PropTypes.func.isRequired,
+      gitConnection: PropTypes.shape({
+        connected: PropTypes.boolean.isRequired,
+        upToDate: PropTypes.boolean.isRequired,
+        url: PropTypes.string.isRequired,
+      }).isRequired
     }
   }
 }

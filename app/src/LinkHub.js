@@ -20,9 +20,9 @@ function Pages ({allResults, filteredResults, pageState, categories}) {
   }
 }
 
-const LinkHub = ({allResults, filteredResults, pageState, alerting, categories, connectedToGit}) => (
+const LinkHub = ({allResults, filteredResults, pageState, alerting, categories, gitConnection}) => (
   <div className="filter-hub">
-    <FilterBar allResults={allResults} connectedToGit={connectedToGit}/>
+    <FilterBar allResults={allResults} gitConnection={gitConnection}/>
     <Alert message={alerting.message} show={alerting.show} alertType={alerting.alertType}/>
     <Pages pageState={pageState} filteredResults={filteredResults} allResults={allResults} categories={categories}/>
   </div>
