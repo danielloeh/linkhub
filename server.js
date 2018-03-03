@@ -11,6 +11,14 @@ const util = require("util");
 
 const PORT = 8080;
 
+const sendPosResultBuilder = (res, payload) => {
+  console.log(payload);
+  res.status(200);
+  res.set('content-type', 'application/json');
+  res.send(payload);
+};
+
+const sendNegResultBuilder = (res) => res.status(400).json("Error");
 
 class LinkListServer {
 
@@ -54,21 +62,24 @@ class LinkListServer {
   configureEndpoints (app) {
     app.get("/api/health", (req, res, next) => res.send("OK"));
 
-    app.get("/api/git", (req, res, next) => res.send(this.gitReader.getProject()));
 
-    app.get("/api/config", (req, res, next) => {
+    app.get("/api/git", (req, res, next) => res.send(this.gitReader.getProject()));
+    app.get("/api/git/check", (req, res) => {
+
+      const sendPosResult = (payload) => sendPosResultBuilder(res, payload);
+      const sendNegResult = () => sendNegResultBuilder(res);
+
+      this.gitReader.checkConnection(sendPosResult, sendNegResult);
+    });
+
+    app.get("/api/config", (req, res) => {
       res.send(this.configReader.getLinks())
     });
 
     app.post("/api/config", (req, res) => {
 
-      const sendPosResult = (payload) => {
-        res.status(200)
-        res.set('content-type', 'application/json');
-        res.send(payload);
-      };
-
-      const sendNegResult = () => res.status(400).json("Error");
+      const sendPosResult = (payload) => sendPosResultBuilder(res, payload);
+      const sendNegResult = () => sendNegResultBuilder(res);
 
       if (req.body !== null) {
         this.configReader.saveConfig(req.body, sendPosResult, sendNegResult);
