@@ -37,7 +37,7 @@ let Alert = ({dispatch, show = false, message = '', alertType = ALERT_INFO_TYPE}
       }
 
       return <div className="alert-panel"><Panel className={alertClass}>
-        <div className="alert-message"><span className="mui--text-body1">{label}: {message}</span></div>
+        <div className="alert-message"><span className="mui--text-button">{label}: {message}</span></div>
         <Button variant="flat" color={buttonColor} className="hide-button" onClick={onHideClick}>Ok</Button>
       </Panel>
       </div>
