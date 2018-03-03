@@ -10,9 +10,11 @@ module.exports = class GitReader {
     this.configfile = configfile;
     this.connected = false;
     this.upToDate = false;
+
+    this.checkConnection();
   }
 
-  checkConnection (sendPosResult, sendNegResult) {
+  checkConnectionAndReturnResult (sendPosResult, sendNegResult) {
     git.checkIsRepo((err, isRepo) => {
       if (!err && isRepo) {
         git.listRemote(['-q', '--refs'], (err, result) => {
@@ -31,19 +33,36 @@ module.exports = class GitReader {
     });
   }
 
+  checkConnection () {
+    git.checkIsRepo((err, isRepo) => {
+      if (!err && isRepo) {
+        git.listRemote(['-q', '--refs'], (err, result) => {
+          if (result) {
+            this.connected = true;
+            git.log(["origin/master", "-1", '--pretty=format:"%h"'], (err, masterResult) => {
+                git.log(["-1", '--pretty=format:"%h"'], (err, localResult) => {
+                  if (!err) {
+                    if (localResult.latest.hash === masterResult.latest.hash) {
+                      this.upToDate = true;
+                    }
+                  }
+                })
+              }
+            );
+          } else {
+          }
+        });
+      }
+    });
+  }
+
   commitConfig (sendPosResult, sendNegResult, config) {
     if (this.connected && this.upToDate) {
-      git.silent(true)
-        .add([this.configfile])
-        .commit([`"Updating ${this.configfile}"`])
-        .push([])
-        .then(() => {
+      git.add(this.configfile)
+        .commit(`"Updating ${this.configfile}"`)
+        .push(['origin', 'master'], () => {
           console.log(`Commit of  ${this.configfile} successful.`);
           sendPosResult(config);
-        })
-        .catch((err) => {
-          console.error('Git commit: ', err);
-          sendNegResult();
         });
     } else {
       console.log(`Not connected (${this.connected}) or not uptodate (${this.upToDate}). Not committing.`);

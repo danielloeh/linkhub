@@ -27,7 +27,11 @@ class LinkListServer {
 
     const config_file = "links.json";
     this.configReader = new ConfigReader(config_file);
-    this.gitReader = GitReader.createGitReader({username: process.env.GIT_USERNAME, password: process.env.GIT_PASSWORD, configfile: config_file});
+    this.gitReader = GitReader.createGitReader({
+      username: process.env.GIT_USERNAME,
+      password: process.env.GIT_PASSWORD,
+      configfile: config_file
+    });
 
     app.use(function (req, res, next) {
       if (req.method === "OPTIONS") {  // send out CORS inflight response
@@ -68,7 +72,7 @@ class LinkListServer {
       const sendPosResult = (payload) => sendPosResultBuilder(res, payload);
       const sendNegResult = () => sendNegResultBuilder(res);
 
-      this.gitReader.checkConnection(sendPosResult, sendNegResult);
+      this.gitReader.checkConnectionAndReturnResult(sendPosResult, sendNegResult);
     });
 
     app.get("/api/config", (req, res) => {
