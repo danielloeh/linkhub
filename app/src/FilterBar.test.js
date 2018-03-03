@@ -16,7 +16,7 @@ describe("Filterbar test", () => {
 
   const gitConnection = {
     connected: false,
-    url: "some-url",
+    remoteUrl: "some-url",
     upToDate: false
   };
 
@@ -181,7 +181,7 @@ describe("Filterbar test", () => {
 
     const gitConnectionOk = {
       connected: true,
-      url: "some-url",
+      remoteUrl: "some-url",
       upToDate: true
     };
 
@@ -201,7 +201,7 @@ describe("Filterbar test", () => {
 
     const gitConnectionNotUpToDate = {
       connected: true,
-      url: "some-url",
+      remoteUrl: "some-url",
       upToDate: false
     };
 

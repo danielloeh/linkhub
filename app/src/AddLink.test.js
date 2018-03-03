@@ -16,7 +16,7 @@ describe("AddLink test", () => {
 
   const gitConnection = {
     connected: false,
-    url: "some-url",
+    remoteUrl: "some-url",
     upToDate: false
   };
 

@@ -6,7 +6,7 @@ import "./GitSettings.css";
 import PropTypes from "prop-types";
 import {Button, Panel} from "muicss/react";
 
-let GitSettings = ({dispatch, gitConnection}) => {
+let GitSettings = ({gitConnection}) => {
 
   let connectedColor = gitConnection.connected ? "status-green" : "status-red";
   let connectedNotes = gitConnection.connected ?
@@ -22,7 +22,7 @@ let GitSettings = ({dispatch, gitConnection}) => {
     <div className="git-settings">
       <Panel>
         <div className="git-status">Remote Git URL:
-          <div  className="remote-url-text"><a href={gitConnection.remoteUrl} target="#">{gitConnection.remoteUrl}</a></div>
+          <div  className="remote-url-text"><a id="remote-url-link" href={gitConnection.remoteUrl} target="#">{gitConnection.remoteUrl}</a></div>
         </div>
         <div className="mui--text-menu git-notes">The data will get synced to this repository.</div>
       </Panel>
