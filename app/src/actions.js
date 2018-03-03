@@ -24,6 +24,10 @@ export const HIDE_ALERT = 'HIDE_ALERT';
 // add link
 export const ADD_LINK = 'ADD_LINK';
 
+// git connection
+export const GIT_CONNECTION_CHECKED = 'GIT_CONNECTION_CHECKED';
+export const CHECK_GIT_CONNECTION = 'CHECK_GIT_CONNECTION';
+
 /* filter actions */
 export function applyFilter (filterTerm, allResults) {
   return {
@@ -123,5 +127,21 @@ export function addLink (category, url, name) {
     category,
     url,
     name
+  }
+}
+
+/* git connection */
+
+export function checkGitConnection () {
+  return {
+    type: CHECK_GIT_CONNECTION
+  }
+}
+
+export function gitConnectionChecked (connected, remoteUrl) {
+  return {
+    type: GIT_CONNECTION_CHECKED,
+    connected,
+    remoteUrl
   }
 }

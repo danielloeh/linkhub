@@ -12,7 +12,6 @@ const util = require("util");
 const PORT = 8080;
 
 const sendPosResultBuilder = (res, payload) => {
-  console.log(payload);
   res.status(200);
   res.set('content-type', 'application/json');
   res.send(payload);
@@ -27,7 +26,7 @@ class LinkListServer {
     const app = express();
 
     this.configReader = new ConfigReader("links.json");
-    this.gitReader = GitReader.checkGitConnection(process.env.GIT_PROJECT);
+    this.gitReader = GitReader.createGitReader(process.env.GIT_PROJECT);
 
     app.use(function (req, res, next) {
       if (req.method === "OPTIONS") {  // send out CORS inflight response
@@ -63,7 +62,6 @@ class LinkListServer {
     app.get("/api/health", (req, res, next) => res.send("OK"));
 
 
-    app.get("/api/git", (req, res, next) => res.send(this.gitReader.getProject()));
     app.get("/api/git/check", (req, res) => {
 
       const sendPosResult = (payload) => sendPosResultBuilder(res, payload);
@@ -91,13 +89,8 @@ class LinkListServer {
 
     app.post("/api/links", (req, res) => {
 
-        const sendPosResult = (payload) => {
-          res.status(200);
-          res.set('content-type', 'application/json');
-          res.send(payload);
-        };
-
-        const sendNegResult = () => res.status(400).json("Error");
+        const sendPosResult = (payload) => sendPosResultBuilder(res, payload);
+        const sendNegResult = () => sendNegResultBuilder(res);
 
         if (req.body !== null) {
           new ConfigReader().addLink(req.body, sendPosResult, sendNegResult);

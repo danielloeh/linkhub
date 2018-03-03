@@ -1,8 +1,10 @@
 import {call, put, select, takeLatest} from "redux-saga/effects";
 import {
   ADD_LINK,
+  CHECK_GIT_CONNECTION,
   configFetched,
   FETCH_CONFIG,
+  gitConnectionChecked,
   OPEN_LINK,
   SAVE_CONFIG,
   showErrorAlert,
@@ -15,6 +17,7 @@ import * as selectors from "./selectors";
 let server = window.location.origin;
 const configEndpoint = server + '/api/config';
 const linkEndpoint = server + '/api/links';
+const gitCheckEndpoint = server + '/api/git/check';
 
 let openUrlInNewTab = (linkList, number) => {
   window.open(linkList[0].links[number - 1].url, '_blank');
@@ -28,6 +31,7 @@ const checkResponse = (response) => {
 };
 
 const fetchConfigFromBackend = () => fetch(configEndpoint).then(checkResponse);
+const checkGitConnection = () => fetch(gitCheckEndpoint).then(checkResponse);
 const saveConfigToBackend = (data) => postData(configEndpoint, data).then(checkResponse);
 const addLinkToBackend = (data) => postData(linkEndpoint, data).then(checkResponse);
 
@@ -65,6 +69,16 @@ function* onOpenLink (action) {
   yield put(showLinks());
 }
 
+function* onCheckGitConnection () {
+  try {
+    const gitConnectionResult = yield call(checkGitConnection);
+    yield put(gitConnectionChecked(gitConnectionResult.connected, gitConnectionResult.url));
+  } catch (e) {
+    console.error("Cant check git connection: " + e.message);
+    yield put(showErrorAlert("Checking git connection failed: " + e.message));
+  }
+}
+
 function* onAddLink (action) {
   try {
     const linkPayload = {category: action.category, url: action.url, name: action.name};
@@ -83,6 +97,7 @@ function* rootSaga () {
   yield takeLatest(SAVE_CONFIG, onSaveConfig);
   yield takeLatest(OPEN_LINK, onOpenLink);
   yield takeLatest(ADD_LINK, onAddLink);
+  yield takeLatest(CHECK_GIT_CONNECTION, onCheckGitConnection);
 }
 
 export default rootSaga;

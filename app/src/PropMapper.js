@@ -16,6 +16,7 @@ const mapStateToProps = state => {
     filteredResults: filteredResults,
     pageState: state.page.pageState,
     alerting: state.alerting,
+    connectedToGit: state.git.connected
   };
 };
 

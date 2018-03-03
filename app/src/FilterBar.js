@@ -4,9 +4,10 @@ import "./FilterBar.css";
 import {connect} from "react-redux";
 import Appbar from "muicss/lib/react/appbar";
 import Input from "muicss/lib/react/input";
+import Button from "muicss/lib/react/button";
 import GenericButton from "./GenericButton";
 
-let FilterBar = ({dispatch, allResults}) => {
+let FilterBar = ({dispatch, allResults, connectedToGit}) => {
 
     let onChange = (ev) => {
       if (ev.target.value.trim()) {
@@ -36,6 +37,15 @@ let FilterBar = ({dispatch, allResults}) => {
       }
     };
 
+    console.log(connectedToGit);
+
+    let gitIcon;
+    if (connectedToGit) {
+      gitIcon = <Button size="small" style={{"backgroundColor": "green"}} disabled={true}>GIT</Button>
+    } else {
+      gitIcon = <Button color="accent" size="small" disabled={true}>GIT</Button>
+    }
+
     return (
       <Appbar className="app-bar mui--bg-primary">
         <GenericButton id="home" size="small" actions={[fetchConfig, showLinks]} label="Home"/>
@@ -52,6 +62,7 @@ let FilterBar = ({dispatch, allResults}) => {
             <span>&nbsp;</span>
           </div>
         </div>
+        {gitIcon}
         <GenericButton id="add-link" size="small" actions={[showAddLink]} label="Add Link"/>
         <GenericButton id="edit-config" size="small" actions={[showConfig]} label="Edit Config"/>
       </Appbar>

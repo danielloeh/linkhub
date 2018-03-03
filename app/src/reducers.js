@@ -1,7 +1,7 @@
 import {
   CONFIG_FETCHED,
   FETCH_CONFIG,
-  FILTERED,
+  FILTERED, GIT_CONNECTION_CHECKED,
   HIDE_ALERT,
   SHOW_ADD_LINK,
   SHOW_ALERT,
@@ -29,6 +29,11 @@ const emptyAlertingState = {
   message: '',
   alertType: '', // error or info
   show: false
+};
+
+const emptyGitState = {
+  connected: false,
+  remoteUrl: ''
 };
 
 const cntsCaseInsns = (str, term) => str.toLowerCase().indexOf(term.toLowerCase()) !== -1;
@@ -113,11 +118,21 @@ function alerting (state = emptyAlertingState, action) {
   }
 }
 
+function git (state = emptyGitState, action) {
+  switch (action.type) {
+    case GIT_CONNECTION_CHECKED:
+      return Object.assign({}, state, {connected: action.connected});
+    default:
+      return state;
+  }
+}
+
 const linkListReducers = combineReducers({
   filter,
   page,
   loading,
-  alerting
+  alerting,
+  git
 });
 
 export default linkListReducers;

@@ -1,37 +1,36 @@
 "use strict";
 
-const git = require('simple-git')
+const git = require('simple-git')();
 
 module.exports = class GitReader {
 
-  constructor (gitProject = '') {
-    this.project = gitProject;
-  }
-
-  getProject () {
-    return this.project;
+  constructor (username, password) {
+    this.username = username;
+    this.password = password;
   }
 
   checkConnection (sendPosResult, sendNegResult) {
-    console.log("check repo");
-    git().checkIsRepo((err, isRepo) => {
-      console.log("check repo2");
-      if(!err){
-        isRepo ? sendPosResult({"isRepo": true}) : sendNegResult();
-      } else{
-        console.error(`Cant check connection: ${err}`,);
+    git.checkIsRepo((err, isRepo) => {
+      if (!err && isRepo) {
+        git.listRemote(['-q', '--refs'], (err, result) => {
+          if (result) {
+            console.log(`Connection to remote git established`);
+            sendPosResult({"connected": true, "remoteUrl": "some-url"});
+          } else {
+            sendPosResult({"connected": false, "remoteUrl": "some-url"});
+          }
+        });
+      } else {
+        console.error(`Could not check if its a git repo ${err}`);
         sendNegResult();
       }
     });
   }
 
-
-  static checkGitConnection (gitProject) {
-    if (gitProject.trim() === '') {
-      console.warn("No gitproject setup. Please pass GIT_PROJECT env variable");
-    } else {
-      console.warn("Git Project found");
-      return new GitReader(gitProject);
+  static createGitReader ({username = '', password = ''}) {
+    if (username.trim() === '' || password.trim() === '') {
+      console.warn("No GIT credentials found.");
     }
+    return new GitReader(username, password);
   }
 };
