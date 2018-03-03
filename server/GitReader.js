@@ -19,7 +19,6 @@ module.exports = class GitReader {
       if (!err && isRepo) {
         git.listRemote(['-q', '--refs'], (err, result) => {
           if (result) {
-            console.log(`Connection to remote git established`);
             this.connected = true;
             this.checkRevisionAndSendResult(sendPosResult, sendNegResult);
           } else {
@@ -38,12 +37,17 @@ module.exports = class GitReader {
       if (!err && isRepo) {
         git.listRemote(['-q', '--refs'], (err, result) => {
           if (result) {
+            console.log(`Connection to remote git established`);
             this.connected = true;
             git.log(["origin/master", "-1", '--pretty=format:"%h"'], (err, masterResult) => {
                 git.log(["-1", '--pretty=format:"%h"'], (err, localResult) => {
                   if (!err) {
                     if (localResult.latest.hash === masterResult.latest.hash) {
+                      console.log(`Git: local has same revision as origin/master ${masterResult.latest.hash}`);
                       this.upToDate = true;
+                    } else {
+                      console.log(`Git: local has a different version as origin/master ${localResult.latest.hash}/${masterResult.latest.hash}`);
+                      this.upToDate = false;
                     }
                   }
                 })
@@ -76,10 +80,8 @@ module.exports = class GitReader {
           if (!err) {
             if (localResult.latest.hash === masterResult.latest.hash) {
               this.upToDate = true;
-              console.log(`Git: local has same revision as origin/master ${masterResult.latest.hash}`);
               sendPosResult({"connected": true, "remoteUrl": "some-url", "upToDate": true});
             } else {
-              console.log(`Git: local has a different version as origin/master ${localResult.latest.hash}/${masterResult.latest.hash}`);
               sendPosResult({"connected": true, "remoteUrl": "some-url", "upToDate": false});
             }
           } else {

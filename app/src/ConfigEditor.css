@@ -10,3 +10,13 @@
     line-height: 20px !important;
     background-color: #eee;
 }
+
+.save-config {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.git-checkbox{
+    padding-right: 1em;
+}

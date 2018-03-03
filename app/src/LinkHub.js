@@ -13,7 +13,7 @@ function Pages ({allResults, filteredResults, pageState, categories, gitConnecti
     case SHOW_CONFIG:
       return <Config allResults={allResults} gitConnection={gitConnection}/>;
     case SHOW_ADD_LINK:
-      return <AddLink categories={categories}/>;
+      return <AddLink categories={categories} gitConnection={gitConnection}/>;
     case SHOW_LINKS:
     default:
       return <LinkList allResults={allResults} filteredResults={filteredResults}/>;

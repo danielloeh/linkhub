@@ -3,12 +3,12 @@ import "./FilterBar.css";
 import {connect} from "react-redux";
 import "./Alert";
 import {addLink, showErrorAlert} from "./actions";
-import {Button, Form, Input, Option, Select} from "muicss/react";
+import {Button, Form, Input, Option, Select, Checkbox} from "muicss/react";
 import "./AddLink.css";
 import PropTypes from "prop-types";
 import Joi from "joi-browser";
 
-let AddLink = ({dispatch, categories}) => {
+let AddLink = ({dispatch, categories, gitConnection}) => {
   let name, url, category = categories[0];
 
   const linkSchema = Joi.object().keys({
@@ -52,6 +52,8 @@ let AddLink = ({dispatch, categories}) => {
     }
   };
 
+  const goodToPush = gitConnection.connected && gitConnection.upToDate;
+
   return (
     <div>
       <div className="add-link">
@@ -61,7 +63,10 @@ let AddLink = ({dispatch, categories}) => {
           </Select>
           <Input id="name-input" placeholder="Name" className="add-link-input" type="text" onChange={onChangeName.bind(this)}/>
           <Input id="url-input" placeholder="URL" className="add-link-input" type="text" onChange={onChangeURL.bind(this)}/>
-          <Button id="add-link-submit" color="primary" onClick={onAddLinkClick.bind(this)}>Add Link</Button>
+          <div className="save-config">
+            <Checkbox className="git-checkbox" name="inputA1" label="Save to Git" defaultChecked={goodToPush} disabled={!goodToPush} />
+            <Button id="add-link-submit" color="primary" onClick={onAddLinkClick.bind(this)}>Add Link</Button>
+          </div>
         </Form>
       </div>
     </div>

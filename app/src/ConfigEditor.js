@@ -56,8 +56,10 @@ let ConfigEditor = ({dispatch, allResults, gitConnection}) => {
 
   return (
     <div className="config-editor">
-      <Button color="primary" onClick={onSubmit}>Save Config</Button>
-      <Checkbox name="inputA1" label="Save to Git" defaultChecked={goodToPush} disabled={!goodToPush} />
+      <div className="save-config">
+        <Checkbox className="git-checkbox" name="inputA1" label="Save to Git" defaultChecked={goodToPush} disabled={!goodToPush} />
+        <Button color="primary" onClick={onSubmit}>Save Config</Button>
+      </div>
       <TextArea rows={prettyPrint(allResults).split(/\r\n|\r|\n/).length} defaultValue={prettyPrint(allResults)}
                 placeholder="Place your config" width='80%' onChange={onChange.bind(this)}/>
 
