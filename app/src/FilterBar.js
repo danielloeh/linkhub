@@ -1,5 +1,8 @@
 import React from "react";
-import {applyFilter, displayAll, fetchConfig, openLink, showAddLink, showConfig, showLinks} from "./actions";
+import {
+  applyFilter, displayAll, fetchConfig, openLink, showAddLink, showConfig, showGitSettings,
+  showLinks
+} from "./actions";
 import "./FilterBar.css";
 import {connect} from "react-redux";
 import Appbar from "muicss/lib/react/appbar";
@@ -61,7 +64,7 @@ let FilterBar = ({dispatch, allResults, gitConnection}) => {
             <span>&nbsp;</span>
           </div>
         </div>
-        <GenericButton id="git-status" size="small" actions={[]} additionalClasses={gitButtonColor} label="GIT"/>
+        <GenericButton id="git-status" size="small" actions={[showGitSettings]} additionalClasses={gitButtonColor} label="GIT"/>
         <GenericButton id="add-link" size="small" actions={[showAddLink]} label="Add Link"/>
         <GenericButton id="edit-config" size="small" actions={[showConfig]} label="Edit Config"/>
       </Appbar>

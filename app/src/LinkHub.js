@@ -3,10 +3,11 @@ import FilterBar from "./FilterBar";
 import LinkList from "./LinkList";
 import StateStructure from "./LinkPropTypes";
 import "./LinkHub.css";
-import {SHOW_ADD_LINK, SHOW_CONFIG, SHOW_LINKS} from "./actions";
+import {SHOW_ADD_LINK, SHOW_CONFIG, SHOW_GIT_SETTINGS, SHOW_LINKS} from "./actions";
 import Config from "./Config";
 import Alert from "./Alert";
 import AddLink from "./AddLink";
+import GitSettings from "./GitSettings";
 
 function Pages ({allResults, filteredResults, pageState, categories, gitConnection, saving}) {
   switch (pageState) {
@@ -14,6 +15,8 @@ function Pages ({allResults, filteredResults, pageState, categories, gitConnecti
       return <Config allResults={allResults} gitConnection={gitConnection} saving={saving}/>;
     case SHOW_ADD_LINK:
       return <AddLink categories={categories} gitConnection={gitConnection} saving={saving}/>;
+    case SHOW_GIT_SETTINGS:
+      return <GitSettings gitConnection={gitConnection}/>;
     case SHOW_LINKS:
     default:
       return <LinkList allResults={allResults} filteredResults={filteredResults}/>;

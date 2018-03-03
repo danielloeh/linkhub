@@ -1,0 +1,21 @@
+.git-settings {
+  width: 80%;
+  margin: 0 auto;
+  padding-top: 2em;
+}
+
+.status-green{
+  background-color: #b9e7c6;
+  opacity: 1 !important;
+  border: 1px solid #6B767C;
+}
+
+.status-red{
+  background-color: #ffbcbe;
+  opacity: 1 !important;
+  border: 1px solid #6B767C;
+}
+
+.git-notes{
+  color: #6a9dcb;
+}

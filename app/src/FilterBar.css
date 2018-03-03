@@ -23,12 +23,15 @@
 
 .git-ok {
     background-color: #b9e7c6;
+    color: #3a58af;
 }
 
 .git-not-up-to-date {
     background-color: #FFFF52;
+    color: #3a58af;
 }
 
 .git-disconnected {
     background-color: #ffbcbe;
+    color: #3a58af;
 }

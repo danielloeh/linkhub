@@ -6,7 +6,7 @@ import {
   HIDE_ALERT, SAVING_CONFIG,
   SHOW_ADD_LINK,
   SHOW_ALERT,
-  SHOW_CONFIG,
+  SHOW_CONFIG, SHOW_GIT_SETTINGS,
   SHOW_LINKS,
   UNFILTERED
 } from "./actions";
@@ -94,6 +94,8 @@ function page (state = emptyPageState, action) {
       return Object.assign({}, state, {pageState: SHOW_LINKS});
     case SHOW_ADD_LINK:
       return Object.assign({}, state, {pageState: SHOW_ADD_LINK});
+    case SHOW_GIT_SETTINGS:
+      return Object.assign({}, state, {pageState: SHOW_GIT_SETTINGS});
     default:
       return state
   }

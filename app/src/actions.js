@@ -8,6 +8,7 @@ export const OPEN_LINK = 'OPEN_LINK';
 export const SHOW_CONFIG = 'SHOW_CONFIG';
 export const SHOW_LINKS = 'SHOW_LINKS';
 export const SHOW_ADD_LINK = 'SHOW_ADD_LINK';
+export const SHOW_GIT_SETTINGS = 'SHOW_GIT_SETTINGS';
 
 //loading
 export const FETCH_CONFIG = 'FETCH_CONFIG';
@@ -73,6 +74,13 @@ export function showAddLink () {
     type: SHOW_ADD_LINK
   }
 }
+
+export function showGitSettings () {
+  return {
+    type: SHOW_GIT_SETTINGS
+  }
+}
+
 
 /* load config */
 
