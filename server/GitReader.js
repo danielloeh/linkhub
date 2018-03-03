@@ -1,6 +1,6 @@
 "use strict";
 
-const git = require('simple-git')();
+const git = require('simple-git/promise')();
 
 module.exports = class GitReader {
 
@@ -8,6 +8,7 @@ module.exports = class GitReader {
     this.username = username;
     this.password = password;
     this.configfile = configfile;
+    this.remoteUrl = '';
     this.connected = false;
     this.upToDate = false;
 
@@ -15,27 +16,28 @@ module.exports = class GitReader {
   }
 
   checkConnectionAndReturnResult (sendPosResult, sendNegResult) {
-    git.checkIsRepo((err, isRepo) => {
-      if (!err && isRepo) {
-        git.listRemote(['-q', '--refs'], (err, result) => {
-          if (result) {
-            this.connected = true;
-            this.checkRevisionAndSendResult(sendPosResult, sendNegResult);
-          } else {
-            sendPosResult({"connected": false, "remoteUrl": "some-url", "upToDate": false});
-          }
-        });
+    git.checkIsRepo().then(() => {
+      return git.remote(["-v", "get-url", "origin"]);
+    }).then((url) => {
+      this.remoteUrl = url;
+      return git.listRemote(['-q', '--refs']);
+    }).then((remoteLists) => {
+      if (remoteLists) {
+        this.connected = true;
+        this.checkRevisionAndSendResult(sendPosResult, sendNegResult);
       } else {
-        console.error(`Could not check if its a git repo ${err}`);
-        sendNegResult();
+        sendPosResult({"connected": false, "remoteUrl": "some-url", "upToDate": false});
       }
-    });
+    }).catch((err) => {
+      console.error(`Could not check if its a git repo $ {err}`);
+      sendNegResult();
+    })
   }
 
   checkConnection () {
-    git.checkIsRepo((err, isRepo) => {
-      if (!err && isRepo) {
-        git.listRemote(['-q', '--refs'], (err, result) => {
+    git.checkIsRepo().then(isRepo => {
+      if (isRepo) {
+        git.listRemote(['-q', '--refs']).then(result => {
           if (result) {
             console.log(`Connection to remote git established`);
             this.connected = true;
@@ -53,7 +55,6 @@ module.exports = class GitReader {
                 })
               }
             );
-          } else {
           }
         });
       }
@@ -75,22 +76,27 @@ module.exports = class GitReader {
   };
 
   checkRevisionAndSendResult (sendPosResult, sendNegResult) {
-    git.log(["origin/master", "-1", '--pretty=format:"%h"'], (err, masterResult) => {
-        git.log(["-1", '--pretty=format:"%h"'], (err, localResult) => {
-          if (!err) {
+    let masterResultLet;
+
+    git.log(["origin/master", "-1", '--pretty=format:"%h"'])
+      .then((masterResult) => {
+        masterResultLet = masterResult;
+        return git.log(["-1", '--pretty=format:"%h"'])
+          .then((localResult) => {
             if (localResult.latest.hash === masterResult.latest.hash) {
               this.upToDate = true;
               sendPosResult({"connected": true, "remoteUrl": "some-url", "upToDate": true});
             } else {
               sendPosResult({"connected": true, "remoteUrl": "some-url", "upToDate": false});
             }
-          } else {
+          }).catch((err) => {
             console.error(`Git: Couldnt get versions with git log: ${err}`);
             sendNegResult();
-          }
-        })
-      }
-    );
+          });
+      }).catch((err) => {
+      console.error(`Git: Couldnt get versions with git log: ${err}`);
+      sendNegResult();
+    });
   }
 
   static createGitReader ({username = '', password = '', configfile = ''}) {

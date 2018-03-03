@@ -17,7 +17,7 @@ let GitSettings = ({dispatch, gitConnection}) => {
     "The local data is not in sync with the remote version. Please deploy the latest version to make persistent saves.";
 
   let upToDateColor = gitConnection.upToDate ? "status-green" : "status-red";
-  
+
   return (
     <div className="git-settings">
       <Panel>
