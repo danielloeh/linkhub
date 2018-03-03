@@ -62,11 +62,11 @@ module.exports = class GitReader {
         .commit(`"Updating ${this.configfile}"`)
         .push(['origin', 'master'], () => {
           console.log(`Commit of  ${this.configfile} successful.`);
-          sendPosResult(config);
+          sendPosResult({config: config, persistedInGit: true});
         });
     } else {
       console.log(`Not connected (${this.connected}) or not uptodate (${this.upToDate}). Not committing.`);
-      sendPosResult(config);
+      sendPosResult({config: config, persistedInGit: false});
     }
   };
 

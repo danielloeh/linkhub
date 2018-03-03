@@ -8,6 +8,7 @@ import {hideAlert} from "./actions";
 
 export const ALERT_ERROR_TYPE = 'error';
 export const ALERT_INFO_TYPE = 'info';
+export const ALERT_WARN_TYPE = 'warn';
 
 let Alert = ({dispatch, show = false, message = '', alertType = ALERT_INFO_TYPE}) => {
 
@@ -27,8 +28,11 @@ let Alert = ({dispatch, show = false, message = '', alertType = ALERT_INFO_TYPE}
       } else if (alertType === ALERT_ERROR_TYPE) {
         label = 'Error';
         buttonColor = 'danger';
+      } else if (alertType === ALERT_WARN_TYPE) {
+        label = 'Warn';
+        buttonColor = 'warn';
       } else {
-        label = '';
+        label = 'Info';
         buttonColor = 'info';  // mui css specific
       }
 

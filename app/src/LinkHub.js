@@ -8,10 +8,10 @@ import Config from "./Config";
 import Alert from "./Alert";
 import AddLink from "./AddLink";
 
-function Pages ({allResults, filteredResults, pageState, categories}) {
+function Pages ({allResults, filteredResults, pageState, categories, gitConnection}) {
   switch (pageState) {
     case SHOW_CONFIG:
-      return <Config allResults={allResults}/>;
+      return <Config allResults={allResults} gitConnection={gitConnection}/>;
     case SHOW_ADD_LINK:
       return <AddLink categories={categories}/>;
     case SHOW_LINKS:
@@ -24,7 +24,8 @@ const LinkHub = ({allResults, filteredResults, pageState, alerting, categories, 
   <div className="filter-hub">
     <FilterBar allResults={allResults} gitConnection={gitConnection}/>
     <Alert message={alerting.message} show={alerting.show} alertType={alerting.alertType}/>
-    <Pages pageState={pageState} filteredResults={filteredResults} allResults={allResults} categories={categories}/>
+    <Pages pageState={pageState} filteredResults={filteredResults} allResults={allResults} categories={categories}
+           gitConnection={gitConnection}/>
   </div>
 );
 

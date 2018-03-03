@@ -2,6 +2,7 @@ import React from "react";
 import {connect} from "react-redux";
 import {saveConfig, showErrorAlert} from "./actions";
 import Button from "muicss/lib/react/button";
+import Checkbox from "muicss/lib/react/checkbox";
 import TextArea from "muicss/lib/react/textarea";
 import "./ConfigEditor.css";
 import Joi from "joi-browser";
@@ -14,7 +15,7 @@ const configSchema = Joi.array().items(Joi.object().keys({
   }))
 }));
 
-let ConfigEditor = ({dispatch, allResults}) => {
+let ConfigEditor = ({dispatch, allResults, gitConnection}) => {
   let input;
 
   const prettyPrint = (json) => {
@@ -51,9 +52,12 @@ let ConfigEditor = ({dispatch, allResults}) => {
     input = ev.target;
   };
 
+  const goodToPush = gitConnection.connected && gitConnection.upToDate;
+
   return (
     <div className="config-editor">
       <Button color="primary" onClick={onSubmit}>Save Config</Button>
+      <Checkbox name="inputA1" label="Save to Git" defaultChecked={goodToPush} disabled={!goodToPush} />
       <TextArea rows={prettyPrint(allResults).split(/\r\n|\r|\n/).length} defaultValue={prettyPrint(allResults)}
                 placeholder="Place your config" width='80%' onChange={onChange.bind(this)}/>
 

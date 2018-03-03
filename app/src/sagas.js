@@ -9,7 +9,7 @@ import {
   SAVE_CONFIG,
   showErrorAlert,
   showInfoAlert,
-  showLinks
+  showLinks, showWarnAlert
 } from "./actions";
 import {postData} from "./httpHelpers";
 import * as selectors from "./selectors";
@@ -48,9 +48,13 @@ function* onFetchConfig () {
 function* onSaveConfig (action) {
   try {
     const updatedConfig = yield call(saveConfigToBackend, action.configJson);
-    yield put(configFetched(updatedConfig));
+    yield put(configFetched(updatedConfig.config));
     yield put(showLinks());
-    yield put(showInfoAlert("Config Saved"));
+    if (updatedConfig.persistedInGit) {
+      yield put(showInfoAlert("Config Saved (Persisted in Git)"));
+    } else {
+      yield put(showWarnAlert("Config Saved (Not persisted in Git. Please persist manually.)"));
+    }
   } catch (e) {
     console.error("Save Config Failed" + e.message);
     yield put(showErrorAlert("Save Config Failed: " + e.message));

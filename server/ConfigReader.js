@@ -42,8 +42,6 @@ module.exports = class ConfigReader {
         if (!err) {
 
           gitReader.commitConfig(sendPositiveResultFn, sendNegResult, config);
-
-          // sendPositiveResultFn(config);
         } else {
           console.error("Cant write file:  " + err);
           sendNegResult();

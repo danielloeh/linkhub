@@ -1,5 +1,5 @@
 // filter
-import {ALERT_ERROR_TYPE, ALERT_INFO_TYPE} from "./Alert";
+import {ALERT_ERROR_TYPE, ALERT_INFO_TYPE, ALERT_WARN_TYPE} from "./Alert";
 export const FILTERED = 'FILTERED';
 export const UNFILTERED = 'UNFILTERED';
 export const OPEN_LINK = 'OPEN_LINK';
@@ -101,6 +101,14 @@ export function showInfoAlert (message) {
   return {
     type: SHOW_ALERT,
     alertType: ALERT_INFO_TYPE,
+    message,
+  }
+}
+
+export function showWarnAlert (message) {
+  return {
+    type: SHOW_ALERT,
+    alertType: ALERT_WARN_TYPE,
     message,
   }
 }

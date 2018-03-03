@@ -36,5 +36,8 @@ Here its other way around: the backend will deliver the minified and packaged fr
 - toggle help
    
 - disable save button until callback successful
+- checkbox for saving to git
+- git settings page
+- note that not persisted
         
 - news page
