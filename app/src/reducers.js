@@ -127,7 +127,7 @@ function alerting (state = emptyAlertingState, action) {
 function git (state = emptyGitState, action) {
   switch (action.type) {
     case GIT_CONNECTION_CHECKED:
-      return Object.assign({}, state, {connected: action.connected, upToDate:action.upToDate, url: action.url});
+      return Object.assign({}, state, {connected: action.connected, upToDate:action.upToDate, remoteUrl: action.remoteUrl});
     default:
       return state;
   }

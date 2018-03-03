@@ -83,7 +83,7 @@ AddLink.propTypes = {
   gitConnection: PropTypes.shape({
     connected: PropTypes.bool.isRequired,
     upToDate: PropTypes.bool.isRequired,
-    url: PropTypes.string.isRequired,
+    remoteUrl: PropTypes.string.isRequired,
   }).isRequired,
   saving: PropTypes.bool.isRequired
 };
