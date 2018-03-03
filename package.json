@@ -16,6 +16,6 @@
     "node": "9.5.0"
   },
   "scripts": {
-    "start": "GIT_PROJECT=$GIT_PROJECT node server.js"
+    "start": "GIT_USERNAME=$GIT_USERNAME GIT_PASSWORD=$GIT_PASSWORD node server.js"
   }
 }

@@ -26,7 +26,7 @@ class LinkListServer {
     const app = express();
 
     this.configReader = new ConfigReader("links.json");
-    this.gitReader = GitReader.createGitReader(process.env.GIT_PROJECT);
+    this.gitReader = GitReader.createGitReader({username: process.env.GIT_USERNAME, password: process.env.GIT_PASSWORD});
 
     app.use(function (req, res, next) {
       if (req.method === "OPTIONS") {  // send out CORS inflight response
