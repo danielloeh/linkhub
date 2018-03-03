@@ -3,10 +3,10 @@ import {connect} from "react-redux";
 import "./Config.css";
 import ConfigEditor from "./ConfigEditor";
 
-let Config = ({dispatch, allResults, gitConnection}) => {
+let Config = ({dispatch, allResults, gitConnection, saving}) => {
   return (
     <div className="config">
-      <ConfigEditor allResults={allResults} gitConnection={gitConnection} />
+      <ConfigEditor allResults={allResults} gitConnection={gitConnection} saving={saving}/>
     </div>
   );
 };

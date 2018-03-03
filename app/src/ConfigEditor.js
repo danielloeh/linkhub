@@ -15,10 +15,8 @@ const configSchema = Joi.array().items(Joi.object().keys({
   }))
 }));
 
-let ConfigEditor = ({dispatch, allResults, gitConnection}) => {
+let ConfigEditor = ({dispatch, allResults, gitConnection, saving = false}) => {
   let input;
-
-  let disabled = false;
 
   const prettyPrint = (json) => {
     return JSON.stringify(json, undefined, 4);
@@ -41,8 +39,6 @@ let ConfigEditor = ({dispatch, allResults, gitConnection}) => {
     if (input && input.value.trim().length > 0) {
       const result = validateJson(input.value);
       if (result === '') {
-        disabled = true;
-        document.getElementById('save-config-button').setAttribute("disabled","true");
         dispatch(saveConfig(input.value));
       } else {
         dispatch(showErrorAlert(result));
@@ -62,7 +58,7 @@ let ConfigEditor = ({dispatch, allResults, gitConnection}) => {
     <div className="config-editor">
       <div className="save-config">
         <Checkbox className="git-checkbox" name="inputA1" label="Save to Git" defaultChecked={goodToPush} disabled={!goodToPush} />
-        <Button disabled={disabled} id="save-config-button" color="primary" onClick={onSubmit}>Save Config</Button>
+        <Button disabled={saving} id="save-config-button" color="primary" onClick={onSubmit}>Save Config</Button>
       </div>
       <TextArea rows={prettyPrint(allResults).split(/\r\n|\r|\n/).length} defaultValue={prettyPrint(allResults)}
                 placeholder="Place your config" width='80%' onChange={onChange.bind(this)}/>

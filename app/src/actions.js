@@ -15,7 +15,6 @@ export const CONFIG_FETCHED = 'CONFIG_FETCHED';
 
 //saving
 export const SAVE_CONFIG = 'SAVE_CONFIG';
-export const CONFIG_SAVED = 'CONFIG_SAVED';
 
 // alerts
 export const SHOW_ALERT = 'SHOW_ALERT';
@@ -27,6 +26,10 @@ export const ADD_LINK = 'ADD_LINK';
 // git connection
 export const GIT_CONNECTION_CHECKED = 'GIT_CONNECTION_CHECKED';
 export const CHECK_GIT_CONNECTION = 'CHECK_GIT_CONNECTION';
+
+// save config
+export const SAVING_CONFIG = 'SAVING_CONFIG';
+export const CONFIG_SAVED = 'CONFIG_SAVED';
 
 /* filter actions */
 export function applyFilter (filterTerm, allResults) {
@@ -152,5 +155,19 @@ export function gitConnectionChecked ({connected, remoteUrl, upToDate}) {
     connected,
     remoteUrl,
     upToDate
+  }
+}
+
+/* saving config*/
+
+export function savingConfig () {
+  return {
+    type: SAVING_CONFIG
+  }
+}
+
+export function configSaved () {
+  return {
+    type: CONFIG_SAVED
   }
 }

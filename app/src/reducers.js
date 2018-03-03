@@ -1,9 +1,9 @@
 import {
-  CONFIG_FETCHED,
+  CONFIG_FETCHED, CONFIG_SAVED,
   FETCH_CONFIG,
   FILTERED,
   GIT_CONNECTION_CHECKED,
-  HIDE_ALERT,
+  HIDE_ALERT, SAVING_CONFIG,
   SHOW_ADD_LINK,
   SHOW_ALERT,
   SHOW_CONFIG,
@@ -35,7 +35,12 @@ const emptyAlertingState = {
 const emptyGitState = {
   connected: false,
   remoteUrl: '',
-  upToDate: false
+  upToDate: false,
+  saving: false
+};
+
+const emptySavingState = {
+  saving: false
 };
 
 const cntsCaseInsns = (str, term) => str.toLowerCase().indexOf(term.toLowerCase()) !== -1;
@@ -73,7 +78,6 @@ function filter (state = emptyFilterState, action) {
       const newLinkList = action.allResults
         .filter(containsFilterTerm(action.filterTerm))
         .map(toCategoryWithoutUnmatchedLinks(action.filterTerm));
-
       return Object.assign({}, state, {filteredResults: newLinkList, filterTerm: action.filterTerm});
     case UNFILTERED:
       return Object.assign({}, state, {filteredResults: '', filterTerm: ''});
@@ -129,12 +133,24 @@ function git (state = emptyGitState, action) {
   }
 }
 
+function saving (state = emptySavingState, action) {
+  switch (action.type) {
+    case SAVING_CONFIG:
+      return Object.assign({}, state, {saving: true});
+    case CONFIG_SAVED:
+      return Object.assign({}, state, {saving: false});
+    default:
+      return state;
+  }
+}
+
 const linkListReducers = combineReducers({
   filter,
   page,
   loading,
   alerting,
-  git
+  git,
+  saving
 });
 
 export default linkListReducers;

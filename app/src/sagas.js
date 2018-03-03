@@ -2,11 +2,11 @@ import {call, put, select, takeLatest} from "redux-saga/effects";
 import {
   ADD_LINK,
   CHECK_GIT_CONNECTION,
-  configFetched,
+  configFetched, configSaved,
   FETCH_CONFIG,
   gitConnectionChecked,
   OPEN_LINK,
-  SAVE_CONFIG,
+  SAVE_CONFIG, savingConfig,
   showErrorAlert,
   showInfoAlert,
   showLinks, showWarnAlert
@@ -47,6 +47,7 @@ function* onFetchConfig () {
 
 function* onSaveConfig (action) {
   try {
+    yield put(savingConfig());
     const updatedConfig = yield call(saveConfigToBackend, action.configJson);
     yield put(configFetched(updatedConfig.config));
     yield put(showLinks());
@@ -55,9 +56,11 @@ function* onSaveConfig (action) {
     } else {
       yield put(showWarnAlert("Config Saved (Not persisted in Git. Please persist manually.)"));
     }
+    yield put(configSaved());
   } catch (e) {
     console.error("Save Config Failed" + e.message);
     yield put(showErrorAlert("Save Config Failed: " + e.message));
+    yield put(configSaved());
   }
 }
 
@@ -85,6 +88,7 @@ function* onCheckGitConnection () {
 
 function* onAddLink (action) {
   try {
+    yield put(savingConfig());
     const updatedConfig = {category: action.category, url: action.url, name: action.name};
     const updatedLinks = yield call(addLinkToBackend, JSON.stringify(updatedConfig));
     yield put(configFetched(updatedLinks.config));
@@ -94,9 +98,11 @@ function* onAddLink (action) {
     } else {
       yield put(showWarnAlert("Link added (Not persisted in Git. Please persist manually.)"));
     }
+    yield put(configSaved());
   } catch (e) {
     console.error("Add Link Failed" + e.message);
     yield put(showErrorAlert("Add Link Failed: " + e.message));
+    yield put(configSaved());
   }
 }
 

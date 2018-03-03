@@ -28,8 +28,8 @@ class LinkPropTypes {
       onShowConfig: PropTypes.func.isRequired,
       onShowLinks: PropTypes.func.isRequired,
       gitConnection: PropTypes.shape({
-        connected: PropTypes.boolean.isRequired,
-        upToDate: PropTypes.boolean.isRequired,
+        connected: PropTypes.bool.isRequired,
+        upToDate: PropTypes.bool.isRequired,
         url: PropTypes.string.isRequired,
       }).isRequired
     }

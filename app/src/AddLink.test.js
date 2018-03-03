@@ -8,95 +8,123 @@ import Option from "muicss/lib/react/option";
 import Button from "muicss/lib/react/button";
 import {Provider} from "react-redux";
 
-const sagaMiddleware = createSagaMiddleware();
+describe("AddLink test", () => {
 
-const mockStore = configureMockStore([sagaMiddleware]);
+  const sagaMiddleware = createSagaMiddleware();
 
-it('displays items', () => {
-  const store = mockStore({});
+  const mockStore = configureMockStore([sagaMiddleware]);
 
-  const categories = ["some-category", "some-other-category"];
-
-  const addLinkWrapper = mount(<Provider store={store}>
-    <AddLink store={store} categories={categories}/>
-  </Provider>);
-
-  expect(addLinkWrapper.find(Input).length).toBe(2);
-
-  expect(addLinkWrapper.find(Option).length).toBe(2);
-  expect(addLinkWrapper.find(Option).at(0).text()).toBe("some-category");
-  expect(addLinkWrapper.find(Option).at(1).text()).toBe("some-other-category");
-});
-
-it('dispatches validation failed action if no data provided', () => {
-  const store = mockStore({});
-
-  const categories = ["some-category", "some-other-category"];
-
-  const addLinkWrapper = mount(<Provider store={store}>
-    <AddLink store={store} categories={categories}/>
-  </Provider>);
-
-  const eventMock = {
-    preventDefault: jest.fn()
+  const gitConnection = {
+    connected: false,
+    url: "some-url",
+    upToDate: false
   };
 
-  addLinkWrapper.find(Button).filter("#add-link-submit").prop("onClick")(eventMock);
+  it('displays items', () => {
+    const store = mockStore({});
 
-  expect(eventMock.preventDefault.mock.calls.length).toBe(1);
-  expect(store.getActions()).toEqual([{
-    type: "SHOW_ALERT",
-    alertType: "error",
-    message: "Validation failed: \"url\" is required"
-  }]);
-});
+    const categories = ["some-category", "some-other-category"];
 
-it('dispatches add link action if data is provided', () => {
-  const store = mockStore({});
+    const addLinkWrapper = mount(<Provider store={store}>
+    <AddLink categories={categories} gitConnection={gitConnection} saving={false}/>
+    </Provider>);
 
-  const categories = ["some-category", "some-other-category"];
+    expect(addLinkWrapper.find(Input).length).toBe(2);
 
-  const addLinkWrapper = mount(<Provider store={store}>
-    <AddLink categories={categories}/>
-  </Provider>);
+    expect(addLinkWrapper.find(Option).length).toBe(2);
+    expect(addLinkWrapper.find(Option).at(0).text()).toBe("some-category");
+    expect(addLinkWrapper.find(Option).at(1).text()).toBe("some-other-category");
+  });
 
-  const eventMock = {
-    preventDefault: jest.fn()
-  };
+  it('dispatches validation failed action if no data provided', () => {
+    const store = mockStore({});
 
-  addLinkWrapper.find(Input).filter("#url-input").prop('onChange')(({target: {value: 'http://some-url.de'}}));
-  addLinkWrapper.find(Input).filter("#name-input").prop('onChange')(({target: {value: 'some name'}}));
-  addLinkWrapper.find(Button).filter("#add-link-submit").prop("onClick")(eventMock);
+    const categories = ["some-category", "some-other-category"];
 
-  expect(eventMock.preventDefault.mock.calls.length).toBe(1);
+    const addLinkWrapper = mount(<Provider store={store}>
+      <AddLink categories={categories} gitConnection={gitConnection} saving={false} />
+    </Provider>);
 
-  expect(store.getActions()).toEqual([
-    {"category": "some-category", "name": "some name", "type": "ADD_LINK", "url": "http://some-url.de"}
-  ]);
-});
+    const eventMock = {
+      preventDefault: jest.fn()
+    };
 
-it('validates the url on format', () => {
-  const store = mockStore({});
+    addLinkWrapper.find(Button).filter("#add-link-submit").prop("onClick")(eventMock);
 
-  const categories = ["some-category", "some-other-category"];
+    expect(eventMock.preventDefault.mock.calls.length).toBe(1);
+    expect(store.getActions()).toEqual([{
+      type: "SHOW_ALERT",
+      alertType: "error",
+      message: "Validation failed: \"url\" is required"
+    }]);
+  });
 
-  const addLinkWrapper = mount(<Provider store={store}>
-    <AddLink categories={categories}/>
-  </Provider>);
+  it('dispatches add link action if data is provided', () => {
+    const store = mockStore({});
 
-  const eventMock = {
-    preventDefault: jest.fn()
-  };
+    const categories = ["some-category", "some-other-category"];
 
-  const invalidUri = '//some-invalid-uri';
+    const addLinkWrapper = mount(<Provider store={store}>
+      <AddLink categories={categories} gitConnection={gitConnection} saving={false} />
+    </Provider>);
 
-  addLinkWrapper.find(Input).filter("#url-input").prop('onChange')(({target: {value: invalidUri}}));
-  addLinkWrapper.find(Input).filter("#name-input").prop('onChange')(({target: {value: 'some name'}}));
-  addLinkWrapper.find(Button).filter("#add-link-submit").prop("onClick")(eventMock);
+    const eventMock = {
+      preventDefault: jest.fn()
+    };
 
-  expect(eventMock.preventDefault.mock.calls.length).toBe(1);
+    addLinkWrapper.find(Input).filter("#url-input").prop('onChange')(({target: {value: 'http://some-url.de'}}));
+    addLinkWrapper.find(Input).filter("#name-input").prop('onChange')(({target: {value: 'some name'}}));
+    addLinkWrapper.find(Button).filter("#add-link-submit").prop("onClick")(eventMock);
 
-  expect(store.getActions()).toEqual([
-    {"alertType": "error", "message": "Validation failed: \"url\" must be a valid uri", "type": "SHOW_ALERT"}
-  ]);
+    expect(eventMock.preventDefault.mock.calls.length).toBe(1);
+
+    expect(store.getActions()).toEqual([
+      {"category": "some-category", "name": "some name", "type": "ADD_LINK", "url": "http://some-url.de"}
+    ]);
+  });
+
+  it('validates the url on format', () => {
+    const store = mockStore({});
+
+    const categories = ["some-category", "some-other-category"];
+
+    const addLinkWrapper = mount(<Provider store={store}>
+      <AddLink categories={categories} gitConnection={gitConnection} saving={false} />
+    </Provider>);
+
+    const eventMock = {
+      preventDefault: jest.fn()
+    };
+
+    const invalidUri = '//some-invalid-uri';
+
+    addLinkWrapper.find(Input).filter("#url-input").prop('onChange')(({target: {value: invalidUri}}));
+    addLinkWrapper.find(Input).filter("#name-input").prop('onChange')(({target: {value: 'some name'}}));
+    addLinkWrapper.find(Button).filter("#add-link-submit").prop("onClick")(eventMock);
+
+    expect(eventMock.preventDefault.mock.calls.length).toBe(1);
+
+    expect(store.getActions()).toEqual([
+      {"alertType": "error", "message": "Validation failed: \"url\" must be a valid uri", "type": "SHOW_ALERT"}
+    ]);
+  });
+
+  it('disabled the button when saving', () => {
+    const store = mockStore({});
+
+    const categories = ["some-category", "some-other-category"];
+
+    const addLinkWrapper = mount(<Provider store={store}>
+      <AddLink categories={categories} gitConnection={gitConnection} saving={true} />
+    </Provider>);
+
+    const eventMock = {
+      preventDefault: jest.fn()
+    };
+
+    const buttonIsDisabled = addLinkWrapper.find(Button).filter("#add-link-submit").prop("disabled");
+
+    expect(buttonIsDisabled).toBe(true);
+
+  });
 });

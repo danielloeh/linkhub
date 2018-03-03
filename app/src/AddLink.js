@@ -3,12 +3,12 @@ import "./FilterBar.css";
 import {connect} from "react-redux";
 import "./Alert";
 import {addLink, showErrorAlert} from "./actions";
-import {Button, Form, Input, Option, Select, Checkbox} from "muicss/react";
+import {Button, Checkbox, Form, Input, Option, Select} from "muicss/react";
 import "./AddLink.css";
 import PropTypes from "prop-types";
 import Joi from "joi-browser";
 
-let AddLink = ({dispatch, categories, gitConnection}) => {
+let AddLink = ({dispatch, categories, gitConnection, saving = false}) => {
   let name, url, category = categories[0];
 
   const linkSchema = Joi.object().keys({
@@ -21,7 +21,6 @@ let AddLink = ({dispatch, categories, gitConnection}) => {
     const result = Joi.validate({url: url, name: name}, linkSchema);
 
     if (result.error === null) {
-      document.getElementById('add-link-submit').setAttribute("disabled","true");
       dispatch(addLink(category, url, name));
     } else {
       dispatch(showErrorAlert("Validation failed: " + result.error.details[0].message));
@@ -62,11 +61,14 @@ let AddLink = ({dispatch, categories, gitConnection}) => {
           <Select defaultValue={categories[0]} onChange={onChangeDropDown.bind(this)}>
             <SelectItems categories={categories}/>
           </Select>
-          <Input id="name-input" placeholder="Name" className="add-link-input" type="text" onChange={onChangeName.bind(this)}/>
-          <Input id="url-input" placeholder="URL" className="add-link-input" type="text" onChange={onChangeURL.bind(this)}/>
+          <Input id="name-input" placeholder="Name" className="add-link-input" type="text"
+                 onChange={onChangeName.bind(this)}/>
+          <Input id="url-input" placeholder="URL" className="add-link-input" type="text"
+                 onChange={onChangeURL.bind(this)}/>
           <div className="save-config">
-            <Checkbox className="git-checkbox" name="inputA1" label="Save to Git" defaultChecked={goodToPush} disabled={!goodToPush} />
-            <Button id="add-link-submit" color="primary" onClick={onAddLinkClick.bind(this)}>Add Link</Button>
+            <Checkbox className="git-checkbox" name="inputA1" label="Save to Git" defaultChecked={goodToPush}
+                      disabled={!goodToPush}/>
+            <Button id="add-link-submit" disabled={saving} color="primary" onClick={onAddLinkClick.bind(this)}>Add Link</Button>
           </div>
         </Form>
       </div>
@@ -77,7 +79,13 @@ let AddLink = ({dispatch, categories, gitConnection}) => {
 AddLink.propTypes = {
   categories: PropTypes.arrayOf(
     PropTypes.string.isRequired
-  ).isRequired
+  ).isRequired,
+  gitConnection: PropTypes.shape({
+    connected: PropTypes.bool.isRequired,
+    upToDate: PropTypes.bool.isRequired,
+    url: PropTypes.string.isRequired,
+  }).isRequired,
+  saving: PropTypes.bool.isRequired
 };
 
 AddLink = connect()(AddLink);
