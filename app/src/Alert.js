@@ -20,7 +20,7 @@ let Alert = ({dispatch, show = false, message = '', alertType = ALERT_INFO_TYPE}
 
     if (show) {
       const alertClass = "alert-" + alertType;
-      let label, buttonColor
+      let label, buttonColor, extraColor;
 
       if (alertType === ALERT_INFO_TYPE) {
         label = 'Info';
@@ -30,7 +30,8 @@ let Alert = ({dispatch, show = false, message = '', alertType = ALERT_INFO_TYPE}
         buttonColor = 'danger';
       } else if (alertType === ALERT_WARN_TYPE) {
         label = 'Warn';
-        buttonColor = 'warn';
+        buttonColor = 'info';
+        extraColor = 'alert-yellow';
       } else {
         label = 'Info';
         buttonColor = 'info';  // mui css specific

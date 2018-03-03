@@ -24,3 +24,7 @@
     float: left;
     width: 90%;
 }
+
+.alert-warn{
+    background-color: #FFFF52;
+}
