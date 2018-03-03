@@ -26,7 +26,7 @@ module.exports = class GitReader {
         this.connected = true;
         this.checkRevisionAndSendResult(sendPosResult, sendNegResult);
       } else {
-        sendPosResult({"connected": false, "remoteUrl": "some-url", "upToDate": false});
+        sendPosResult({"connected": false, "remoteUrl": this.remoteUrl, "upToDate": false});
       }
     }).catch((err) => {
       console.error(`Could not check if its a git repo $ {err}`);
@@ -91,9 +91,9 @@ module.exports = class GitReader {
           .then((localResult) => {
             if (localResult.latest.hash === masterResult.latest.hash) {
               this.upToDate = true;
-              sendPosResult({"connected": true, "remoteUrl": "some-url", "upToDate": true});
+              sendPosResult({"connected": true, "remoteUrl": this.remoteUrl, "upToDate": true});
             } else {
-              sendPosResult({"connected": true, "remoteUrl": "some-url", "upToDate": false});
+              sendPosResult({"connected": true, "remoteUrl": this.remoteUrl, "upToDate": false});
             }
           }).catch((err) => {
             console.error(`Git: Couldnt get versions with git log: ${err}`);

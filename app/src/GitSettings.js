@@ -21,17 +21,17 @@ let GitSettings = ({dispatch, gitConnection}) => {
   return (
     <div className="git-settings">
       <Panel>
-        <div>Remote Git URL: <Button size="small" disabled="true">{gitConnection.remoteUrl}</Button></div>
+        <div className="git-status">Remote Git URL:
+          <div  className="remote-url-text"><a href={gitConnection.remoteUrl} target="#">{gitConnection.remoteUrl}</a></div>
+        </div>
         <div className="mui--text-menu git-notes">The data will get synced to this repository.</div>
       </Panel>
       <Panel>
-        <div>Git Remote Connection Status: <Button className={connectedColor} size="small" variant="fab"
-                                                   disabled="true">&nbsp;</Button></div>
+        <div className="git-status">Git Remote Connection Status: <div className={connectedColor}>{`${gitConnection.connected}`}</div></div>
         <div className="mui--text-menu git-notes">{connectedNotes}</div>
       </Panel>
       <Panel>
-        <div>Local Repository in sync: <Button className={upToDateColor} size="small" variant="fab"
-                                               disabled="true">&nbsp;</Button></div>
+        <div className="git-status">Local Repository in sync: <div className={upToDateColor}>{`${gitConnection.upToDate}`}</div></div>
         <div className="mui--text-menu git-notes">{uptoDateNotes}</div>
       </Panel>
     </div>
