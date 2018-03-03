@@ -67,11 +67,11 @@ module.exports = class GitReader {
       console.log("committing");
       git.add(this.configfile)
         .then(() => git.commit(`"Updating ${this.configfile}"`))
-        .then(() => git.push(['origin', 'master'])
-          .then(() => {
+        .then(() => git.push(['origin', 'master']))
+        .then(() => {
           console.log(`Commit of  ${this.configfile} successful.`);
           sendPosResult({config: config, persistedInGit: true});
-        })).catch(err => {
+        }).catch(err => {
         console.error(`Cant commit: ${err}`);
         sendPosResult({config: config, persistedInGit: false});
       });
