@@ -9,55 +9,76 @@ const sagaMiddleware = createSagaMiddleware();
 
 const mockStore = configureMockStore([sagaMiddleware]);
 
-it('should display label', () => {
-  const store = mockStore({});
-  const expectedLabel = "my-button";
+describe("GenericButton Test", () => {
+  it('should display label', () => {
+    const store = mockStore({});
+    const expectedLabel = "my-button";
 
-  const GenericButtonWrapper = mount(<GenericButton store={store} actions={[]} label={expectedLabel}/>);
-  expect(GenericButtonWrapper.find(Button).text()).toEqual(expectedLabel);
-});
+    const GenericButtonWrapper = mount(<GenericButton store={store} actions={[]} label={expectedLabel}/>);
+    expect(GenericButtonWrapper.find(Button).text()).toEqual(expectedLabel);
+  });
 
-it('should call single action onclick', () => {
-  const store = mockStore({});
+  it('should call single action onclick', () => {
+    const store = mockStore({});
 
-  const action = () => {
-    return {
+    const action = () => {
+      return {
+        type: "SOME_ACTION"
+      }
+    };
+
+    const GenericButtonWrapper = mount(<GenericButton store={store} actions={[action]} label="my-button"/>);
+
+    GenericButtonWrapper.find(Button).prop("onClick")();
+
+    expect(store.getActions()).toEqual([{
       type: "SOME_ACTION"
-    }
-  };
+    }]);
+  });
 
-  const GenericButtonWrapper = mount(<GenericButton store={store} actions={[action]} label="my-button"/>);
+  it('should support additional classes', () => {
+    const store = mockStore({});
 
-  GenericButtonWrapper.find(Button).prop("onClick")();
+    const action = () => {
+      return {
+        type: "SOME_ACTION"
+      }
+    };
 
-  expect(store.getActions()).toEqual([{
-    type: "SOME_ACTION"
-  }]);
-});
+    const additionalClasses = "some-more class-entries";
 
-it('should call multiple action onclick', () => {
-  const store = mockStore({});
+    const GenericButtonWrapper = mount(<GenericButton store={store} id="a-button" actions={[action]} label="my-button"
+                                                      additionalClasses={additionalClasses}/>);
 
-  const action = () => {
-    return {
+    const classNames = GenericButtonWrapper.find("#a-button").find(Button).prop("className");
+
+    expect(classNames).toContain(additionalClasses);
+  });
+
+  it('should call multiple action onclick', () => {
+    const store = mockStore({});
+
+    const action = () => {
+      return {
+        type: "SOME_ACTION"
+      }
+    };
+
+    const someOtherAction = () => {
+      return {
+        type: "SOME_OTHER_ACTION"
+      }
+    };
+
+    const GenericButtonWrapper = mount(<GenericButton store={store} actions={[action, someOtherAction]}
+                                                      label="my-button"/>);
+
+    GenericButtonWrapper.find(Button).prop("onClick")();
+
+    expect(store.getActions()).toEqual([{
       type: "SOME_ACTION"
-    }
-  };
-
-  const someOtherAction = () => {
-    return {
+    }, {
       type: "SOME_OTHER_ACTION"
-    }
-  };
-
-  const GenericButtonWrapper = mount(<GenericButton store={store} actions={[action, someOtherAction]}
-                                                    label="my-button"/>);
-
-  GenericButtonWrapper.find(Button).prop("onClick")();
-
-  expect(store.getActions()).toEqual([{
-    type: "SOME_ACTION"
-  }, {
-    type: "SOME_OTHER_ACTION"
-  }]);
+    }]);
+  });
 });

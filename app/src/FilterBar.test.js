@@ -49,7 +49,7 @@ describe("Filterbar test", () => {
     </Provider>);
 
 
-    expect(linkItemWrapper.find(GenericButton).length).toBe(3);
+    expect(linkItemWrapper.find(GenericButton).length).toBe(4);
 
     linkItemWrapper.find(Button).filter("#edit-config").prop("onClick")({});
     expect(store.getActions()).toEqual([{type: 'SHOW_CONFIG'}]);
@@ -66,7 +66,7 @@ describe("Filterbar test", () => {
     </Provider>);
 
 
-    expect(linkItemWrapper.find(GenericButton).length).toBe(3);
+    expect(linkItemWrapper.find(GenericButton).length).toBe(4);
 
     linkItemWrapper.find(Button).filter("#home").prop("onClick")({});
     expect(store.getActions()).toEqual([{"type": "FETCH_CONFIG"}, {"linksJson": undefined, "type": "SHOW_LINKS"}]);
@@ -83,7 +83,7 @@ describe("Filterbar test", () => {
     </Provider>);
 
 
-    expect(linkItemWrapper.find(GenericButton).length).toBe(3);
+    expect(linkItemWrapper.find(GenericButton).length).toBe(4);
 
     linkItemWrapper.find(Button).filter("#add-link").prop("onClick")({});
     expect(store.getActions()).toEqual([{type: 'SHOW_ADD_LINK'}]);
@@ -191,7 +191,7 @@ describe("Filterbar test", () => {
 
     let gitStatusButton = linkItemWrapper.find("#git-status").filter(Button);
 
-    expect(gitStatusButton.prop('className')).toEqual("git-ok");
+    expect(gitStatusButton.prop('className')).toContain("git-ok");
   });
 
   it('displays warning button if connection ok but not up to date', () => {
@@ -211,7 +211,7 @@ describe("Filterbar test", () => {
 
     let gitStatusButton = linkItemWrapper.find("#git-status").filter(Button);
 
-    expect(gitStatusButton.prop('className')).toEqual("git-not-up-to-date");
+    expect(gitStatusButton.prop('className')).toContain("git-not-up-to-date");
   });
 
   it('displays error button if not connected to remote git', () => {
@@ -231,7 +231,7 @@ describe("Filterbar test", () => {
 
     let gitStatusButton = linkItemWrapper.find("#git-status").filter(Button);
 
-    expect(gitStatusButton.prop('className')).toEqual("git-disconnected");
+    expect(gitStatusButton.prop('className')).toContain("git-disconnected");
   });
 });
 

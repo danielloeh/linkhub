@@ -4,7 +4,6 @@ import "./FilterBar.css";
 import {connect} from "react-redux";
 import Appbar from "muicss/lib/react/appbar";
 import Input from "muicss/lib/react/input";
-import Button from "muicss/lib/react/button";
 import GenericButton from "./GenericButton";
 
 let FilterBar = ({dispatch, allResults, gitConnection}) => {
@@ -37,13 +36,13 @@ let FilterBar = ({dispatch, allResults, gitConnection}) => {
       }
     };
 
-    let gitIcon;
+    let gitButtonColor;
     if (gitConnection.connected && gitConnection.upToDate) {
-      gitIcon = <Button id="git-status" size="small" className="git-ok" disabled={true}>GIT</Button>
+      gitButtonColor = "git-ok";
     } else if (gitConnection.connected && !gitConnection.upToDate) {
-      gitIcon = <Button id="git-status" size="small" className="git-not-up-to-date" disabled={true}>GIT</Button>
+      gitButtonColor = "git-not-up-to-date";
     } else {
-      gitIcon = <Button id="git-status" color="accent" size="small"  className="git-disconnected"  disabled={true}>GIT</Button>
+      gitButtonColor = "git-disconnected";
     }
 
     return (
@@ -62,7 +61,7 @@ let FilterBar = ({dispatch, allResults, gitConnection}) => {
             <span>&nbsp;</span>
           </div>
         </div>
-        {gitIcon}
+        <GenericButton id="git-status" size="small" actions={[]} additionalClasses={gitButtonColor} label="GIT"/>
         <GenericButton id="add-link" size="small" actions={[showAddLink]} label="Add Link"/>
         <GenericButton id="edit-config" size="small" actions={[showConfig]} label="Edit Config"/>
       </Appbar>
