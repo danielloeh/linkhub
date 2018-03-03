@@ -44,8 +44,8 @@ module.exports = class GitReader {
               this.connected = true;
               git.log(["origin/master", "-1", '--pretty=format:"%h"'])
                 .then((masterResult) => {
-                    git.log(["-1", '--pretty=format:"%h"'], (err, localResult) => {
-                      if (!err) {
+                    git.log(["-1", '--pretty=format:"%h"'])
+                      .then((localResult) => {
                         if (localResult.latest.hash === masterResult.latest.hash) {
                           console.log(`Git: local has same revision as origin/master ${masterResult.latest.hash}`);
                           this.upToDate = true;
@@ -53,8 +53,7 @@ module.exports = class GitReader {
                           console.log(`Git: local has a different version as origin/master ${localResult.latest.hash}/${masterResult.latest.hash}`);
                           this.upToDate = false;
                         }
-                      }
-                    })
+                      })
                   }
                 );
             }
@@ -65,12 +64,14 @@ module.exports = class GitReader {
 
   commitConfig (sendPosResult, sendNegResult, config) {
     if (this.connected && this.upToDate) {
+      console.log("committing");
       git.add(this.configfile)
-        .commit(`"Updating ${this.configfile}"`)
-        .push(['origin', 'master'], () => {
+        .then(() => git.commit(`"Updating ${this.configfile}"`))
+        .then(() => git.push(['origin', 'master'])
+          .then(() => {
           console.log(`Commit of  ${this.configfile} successful.`);
           sendPosResult({config: config, persistedInGit: true});
-        }).catch(err => {
+        })).catch(err => {
         console.error(`Cant commit: ${err}`);
         sendPosResult({config: config, persistedInGit: false});
       });
