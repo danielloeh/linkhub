@@ -37,26 +37,28 @@ module.exports = class GitReader {
   checkConnection () {
     git.checkIsRepo().then(isRepo => {
       if (isRepo) {
-        git.listRemote(['-q', '--refs']).then(result => {
-          if (result) {
-            console.log(`Connection to remote git established`);
-            this.connected = true;
-            git.log(["origin/master", "-1", '--pretty=format:"%h"'], (err, masterResult) => {
-                git.log(["-1", '--pretty=format:"%h"'], (err, localResult) => {
-                  if (!err) {
-                    if (localResult.latest.hash === masterResult.latest.hash) {
-                      console.log(`Git: local has same revision as origin/master ${masterResult.latest.hash}`);
-                      this.upToDate = true;
-                    } else {
-                      console.log(`Git: local has a different version as origin/master ${localResult.latest.hash}/${masterResult.latest.hash}`);
-                      this.upToDate = false;
-                    }
+        git.listRemote(['-q', '--refs'])
+          .then(result => {
+            if (result) {
+              console.log(`Connection to remote git established`);
+              this.connected = true;
+              git.log(["origin/master", "-1", '--pretty=format:"%h"'])
+                .then((masterResult) => {
+                    git.log(["-1", '--pretty=format:"%h"'], (err, localResult) => {
+                      if (!err) {
+                        if (localResult.latest.hash === masterResult.latest.hash) {
+                          console.log(`Git: local has same revision as origin/master ${masterResult.latest.hash}`);
+                          this.upToDate = true;
+                        } else {
+                          console.log(`Git: local has a different version as origin/master ${localResult.latest.hash}/${masterResult.latest.hash}`);
+                          this.upToDate = false;
+                        }
+                      }
+                    })
                   }
-                })
-              }
-            );
-          }
-        });
+                );
+            }
+          });
       }
     });
   }
@@ -68,7 +70,10 @@ module.exports = class GitReader {
         .push(['origin', 'master'], () => {
           console.log(`Commit of  ${this.configfile} successful.`);
           sendPosResult({config: config, persistedInGit: true});
-        });
+        }).catch(err => {
+        console.error(`Cant commit: ${err}`);
+        sendPosResult({config: config, persistedInGit: false});
+      });
     } else {
       console.log(`Not connected (${this.connected}) or not uptodate (${this.upToDate}). Not committing.`);
       sendPosResult({config: config, persistedInGit: false});
