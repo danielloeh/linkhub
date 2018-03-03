@@ -8,6 +8,8 @@ module.exports = class GitReader {
     this.username = username;
     this.password = password;
     this.configfile = configfile;
+    this.connected = false;
+    this.upToDate = false;
   }
 
   checkConnection (sendPosResult, sendNegResult) {
@@ -16,8 +18,8 @@ module.exports = class GitReader {
         git.listRemote(['-q', '--refs'], (err, result) => {
           if (result) {
             console.log(`Connection to remote git established`);
-            const upToDate = this.checkRevisionAndSendResult(sendPosResult, sendNegResult);
-
+            this.connected = true;
+            this.checkRevisionAndSendResult(sendPosResult, sendNegResult);
           } else {
             sendPosResult({"connected": false, "remoteUrl": "some-url", "upToDate": false});
           }
@@ -29,11 +31,32 @@ module.exports = class GitReader {
     });
   }
 
+  commitConfig (sendPosResult, sendNegResult, config) {
+    if (this.connected && this.upToDate) {
+      git.silent(true)
+        .add([this.configfile])
+        .commit([`"Updating ${this.configfile}"`])
+        .push([])
+        .then(() => {
+          console.log(`Commit of  ${this.configfile} successful.`);
+          sendPosResult(config);
+        })
+        .catch((err) => {
+          console.error('Git commit: ', err);
+          sendNegResult();
+        });
+    } else {
+      console.log(`Not connected (${this.connected}) or not uptodate (${this.upToDate}). Not committing.`);
+      sendPosResult(config);
+    }
+  };
+
   checkRevisionAndSendResult (sendPosResult, sendNegResult) {
     git.log(["origin/master", "-1", '--pretty=format:"%h"'], (err, masterResult) => {
         git.log(["-1", '--pretty=format:"%h"'], (err, localResult) => {
           if (!err) {
             if (localResult.latest.hash === masterResult.latest.hash) {
+              this.upToDate = true;
               console.log(`Git: local has same revision as origin/master ${masterResult.latest.hash}`);
               sendPosResult({"connected": true, "remoteUrl": "some-url", "upToDate": true});
             } else {
@@ -49,12 +72,10 @@ module.exports = class GitReader {
     );
   }
 
-  static
-  createGitReader ({username = '', password = '', configfile = ''}) {
+  static createGitReader ({username = '', password = '', configfile = ''}) {
     if (username.trim() === '' || password.trim() === '') {
       console.warn("No GIT credentials found.");
     }
-    return new GitReader(username, password);
+    return new GitReader(username, password, configfile);
   }
-}
-;
+};

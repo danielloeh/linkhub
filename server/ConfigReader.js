@@ -33,14 +33,17 @@ module.exports = class ConfigReader {
     return content;
   }
 
-  saveConfig (config, sendPositiveResultFn, sendNegResult) {
+  saveConfig (config, sendPositiveResultFn, sendNegResult, gitReader) {
 
     const result = Joi.validate(config, configSchema);
 
     if (result.error === null) {
       fs.writeFile(this.configFile, JSON.stringify(config), function (err) {
         if (!err) {
-          sendPositiveResultFn(config);
+
+          gitReader.commitConfig(sendPositiveResultFn, sendNegResult, config);
+
+          // sendPositiveResultFn(config);
         } else {
           console.error("Cant write file:  " + err);
           sendNegResult();

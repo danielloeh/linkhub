@@ -81,7 +81,7 @@ class LinkListServer {
       const sendNegResult = () => sendNegResultBuilder(res);
 
       if (req.body !== null) {
-        this.configReader.saveConfig(req.body, sendPosResult, sendNegResult);
+        this.configReader.saveConfig(req.body, sendPosResult, sendNegResult, this.gitReader);
       }
       else {
         sendNegResult();
