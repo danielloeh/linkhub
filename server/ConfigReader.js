@@ -53,7 +53,7 @@ module.exports = class ConfigReader {
     }
   }
 
-  addLink (linkPayload, sendPositiveResultFn, sendNegResult) {
+  addLink (linkPayload, sendPositiveResultFn, sendNegResult, gitReader) {
 
     const jsonString = fs.readFileSync(this.configFile);
 
@@ -69,7 +69,7 @@ module.exports = class ConfigReader {
 
       fs.writeFile(this.configFile, JSON.stringify(updatedContent), function (err) {
         if (!err) {
-          sendPositiveResultFn(updatedContent);
+          gitReader.commitConfig(sendPositiveResultFn, sendNegResult, updatedContent);
         } else {
           console.error("Cant write file:  " + err);
           sendNegResult();

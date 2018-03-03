@@ -85,11 +85,15 @@ function* onCheckGitConnection () {
 
 function* onAddLink (action) {
   try {
-    const linkPayload = {category: action.category, url: action.url, name: action.name};
-    const updatedLinks = yield call(addLinkToBackend, JSON.stringify(linkPayload));
-    yield put(configFetched(updatedLinks));
+    const updatedConfig = {category: action.category, url: action.url, name: action.name};
+    const updatedLinks = yield call(addLinkToBackend, JSON.stringify(updatedConfig));
+    yield put(configFetched(updatedLinks.config));
     yield put(showLinks());
-    yield put(showInfoAlert("Link Added"));
+    if (updatedLinks.persistedInGit) {
+      yield put(showInfoAlert("Link added (Persisted in Git)"));
+    } else {
+      yield put(showWarnAlert("Link added (Not persisted in Git. Please persist manually.)"));
+    }
   } catch (e) {
     console.error("Add Link Failed" + e.message);
     yield put(showErrorAlert("Add Link Failed: " + e.message));

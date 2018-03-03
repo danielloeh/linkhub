@@ -21,6 +21,7 @@ let AddLink = ({dispatch, categories, gitConnection}) => {
     const result = Joi.validate({url: url, name: name}, linkSchema);
 
     if (result.error === null) {
+      document.getElementById('add-link-submit').setAttribute("disabled","true");
       dispatch(addLink(category, url, name));
     } else {
       dispatch(showErrorAlert("Validation failed: " + result.error.details[0].message));

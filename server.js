@@ -98,7 +98,7 @@ class LinkListServer {
         const sendNegResult = () => sendNegResultBuilder(res);
 
         if (req.body !== null) {
-          new ConfigReader().addLink(req.body, sendPosResult, sendNegResult);
+          this.configReader.addLink(req.body, sendPosResult, sendNegResult, this.gitReader);
         }
         else {
           sendNegResult();
