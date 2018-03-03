@@ -39,11 +39,11 @@ let FilterBar = ({dispatch, allResults, gitConnection}) => {
 
     let gitIcon;
     if (gitConnection.connected && gitConnection.upToDate) {
-      gitIcon = <Button size="small" className="git-ok" disabled={true}>GIT</Button>
+      gitIcon = <Button id="git-status" size="small" className="git-ok" disabled={true}>GIT</Button>
     } else if (gitConnection.connected && !gitConnection.upToDate) {
-      gitIcon = <Button size="small" className="git-not-up-to-date" disabled={true}>GIT</Button>
+      gitIcon = <Button id="git-status" size="small" className="git-not-up-to-date" disabled={true}>GIT</Button>
     } else {
-      gitIcon = <Button color="accent" size="small" disabled={true}>GIT</Button>
+      gitIcon = <Button id="git-status" color="accent" size="small"  className="git-disconnected"  disabled={true}>GIT</Button>
     }
 
     return (

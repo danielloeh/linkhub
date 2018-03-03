@@ -8,132 +8,231 @@ import {Provider} from "react-redux";
 import GenericButton from "./GenericButton";
 import Button from "muicss/lib/react/button";
 
-const sagaMiddleware = createSagaMiddleware();
+describe("Filterbar test", () => {
 
-const mockStore = configureMockStore([sagaMiddleware]);
+  const sagaMiddleware = createSagaMiddleware();
 
-it('dispatches open link action with right number', () => {
-  const someResults = [{categoryName: "acb", links: [{name: 'a', url: 'b'}]}];
+  const mockStore = configureMockStore([sagaMiddleware]);
 
-  const store = mockStore({});
+  const gitConnection = {
+    connected: false,
+    url: "some-url",
+    upToDate: false
+  };
 
-  const linkItemWrapper = mount(<Provider store={store}><FilterBar allResults={someResults}/></Provider>);
+  it('dispatches open link action with right number', () => {
+    const someResults = [{categoryName: "acb", links: [{name: 'a', url: 'b'}]}];
 
-  let enterKeyCode = 13;
-  let eventMock = {keyCode: enterKeyCode, preventDefault: jest.fn()};
+    const store = mockStore({});
 
-  let filterInput = linkItemWrapper.find(Input);
-  filterInput.prop('onKeyDown')(eventMock);
-  expect(eventMock.preventDefault.mock.calls.length).toBe(1);
-  expect(store.getActions()).toEqual([{type: 'OPEN_LINK', number: 1}]);
-});
+    const linkItemWrapper = mount(<Provider store={store}>
+      <FilterBar allResults={someResults} gitConnection={gitConnection}/>
+    </Provider>);
 
-it('dispatches show config action on button click', () => {
-  const someResults = [{categoryName: "acb", links: [{name: 'a', url: 'b'}]}];
+    let enterKeyCode = 13;
+    let eventMock = {keyCode: enterKeyCode, preventDefault: jest.fn()};
 
-  const store = mockStore({});
+    let filterInput = linkItemWrapper.find(Input);
+    filterInput.prop('onKeyDown')(eventMock);
+    expect(eventMock.preventDefault.mock.calls.length).toBe(1);
+    expect(store.getActions()).toEqual([{type: 'OPEN_LINK', number: 1}]);
+  });
 
-  const linkItemWrapper = mount(<Provider store={store}><FilterBar allResults={someResults}/></Provider>);
+  it('dispatches show config action on button click', () => {
+    const someResults = [{categoryName: "acb", links: [{name: 'a', url: 'b'}]}];
 
-  expect(linkItemWrapper.find(GenericButton).length).toBe(3);
-
-  linkItemWrapper.find(Button).filter("#edit-config").prop("onClick")({});
-  expect(store.getActions()).toEqual([{type: 'SHOW_CONFIG'}]);
-});
-
-it('dispatches show links action on home button click', () => {
-  const someResults = [{categoryName: "acb", links: [{name: 'a', url: 'b'}]}];
-
-  const store = mockStore({});
-
-  const linkItemWrapper = mount(<Provider store={store}><FilterBar allResults={someResults}/></Provider>);
-
-  expect(linkItemWrapper.find(GenericButton).length).toBe(3);
-
-  linkItemWrapper.find(Button).filter("#home").prop("onClick")({});
-  expect(store.getActions()).toEqual([{"type": "FETCH_CONFIG"}, {"linksJson": undefined, "type": "SHOW_LINKS"}]);
-});
-
-it('dispatches add link action on button click', () => {
-  const someResults = [{categoryName: "acb", links: [{name: 'a', url: 'b'}]}];
-
-  const store = mockStore({});
-
-  const linkItemWrapper = mount(<Provider store={store}><FilterBar allResults={someResults}/></Provider>);
-
-  expect(linkItemWrapper.find(GenericButton).length).toBe(3);
-
-  linkItemWrapper.find(Button).filter("#add-link").prop("onClick")({});
-  expect(store.getActions()).toEqual([{type: 'SHOW_ADD_LINK'}]);
-});
-
-it('doesnt dispatch open link with invalid keys', () => {
-  const someResults = [{categoryName: "acb", links: [{name: 'a', url: 'b'}]}];
-
-  const store = mockStore({});
-
-  const linkItemWrapper = mount(<Provider store={store}><FilterBar allResults={someResults}/></Provider>);
-
-  let someOtherKeyCode = 14;
-  let eventMock = {keyCode: someOtherKeyCode, preventDefault: jest.fn()};
-
-  linkItemWrapper.find(Input).prop('onKeyDown')(eventMock);
-  expect(eventMock.preventDefault.mock.calls.length).toBe(0);
-  expect(store.getActions().length).toBe(0);
-});
-
-it('dispatches filter action when text input changed', () => {
-  const someResults = [];
-
-  const store = mockStore({});
-
-  const linkItemWrapper = mount(<Provider store={store}><FilterBar allResults={someResults}/></Provider>);
-
-  linkItemWrapper.find(Input).prop('onChange')({target: {value: "some-text"}});
-  expect(store.getActions()).toEqual([{
-    "allResults": someResults,
-    "filterTerm": "some-text",
-    "type": "FILTERED"
-  }])
-});
-
-it('dispatches display all actions when text input cleared', () => {
-  const someResults = [];
-
-  const store = mockStore({});
-
-  const linkItemWrapper = mount(<Provider store={store}><FilterBar allResults={someResults}/></Provider>);
-
-  linkItemWrapper.find(Input).prop('onChange')({target: {value: "some-text"}});
-
-  linkItemWrapper.find(Input).prop('onChange')({target: {value: ""}});
-
-  expect(store.getActions()).toEqual([
-    {"allResults": someResults, "filterTerm": "some-text", "type": "FILTERED"},
-    {"type": "UNFILTERED"}]);
-});
+    const store = mockStore({});
 
 
-it('clear input on escape', () => {
-  const someResults = [];
-
-  const store = mockStore({});
-
-  const linkItemWrapper = mount(<Provider store={store}><FilterBar allResults={someResults}/></Provider>);
-
-  let enterKeyCode = 27;
-  let eventMock = {keyCode: enterKeyCode, preventDefault: jest.fn(), target: {value: "some-text"}};
-
-  linkItemWrapper.find(Input).prop('onChange')({target: {value: "some-text"}});
-
-  let filterInput = linkItemWrapper.find(Input);
-  filterInput.prop('onKeyDown')(eventMock);
+    const linkItemWrapper = mount(<Provider store={store}>
+      <FilterBar allResults={someResults} gitConnection={gitConnection}/>
+    </Provider>);
 
 
-  expect(eventMock.preventDefault.mock.calls.length).toBe(1);
-  expect(store.getActions()).toEqual([
-    {"allResults": someResults, "filterTerm": "some-text", "type": "FILTERED"},
-    {"type": "UNFILTERED"}]);
+    expect(linkItemWrapper.find(GenericButton).length).toBe(3);
+
+    linkItemWrapper.find(Button).filter("#edit-config").prop("onClick")({});
+    expect(store.getActions()).toEqual([{type: 'SHOW_CONFIG'}]);
+  });
+
+  it('dispatches show links action on home button click', () => {
+    const someResults = [{categoryName: "acb", links: [{name: 'a', url: 'b'}]}];
+
+    const store = mockStore({});
+
+
+    const linkItemWrapper = mount(<Provider store={store}>
+      <FilterBar allResults={someResults} gitConnection={gitConnection}/>
+    </Provider>);
+
+
+    expect(linkItemWrapper.find(GenericButton).length).toBe(3);
+
+    linkItemWrapper.find(Button).filter("#home").prop("onClick")({});
+    expect(store.getActions()).toEqual([{"type": "FETCH_CONFIG"}, {"linksJson": undefined, "type": "SHOW_LINKS"}]);
+  });
+
+  it('dispatches add link action on button click', () => {
+    const someResults = [{categoryName: "acb", links: [{name: 'a', url: 'b'}]}];
+
+    const store = mockStore({});
+
+
+    const linkItemWrapper = mount(<Provider store={store}>
+      <FilterBar allResults={someResults} gitConnection={gitConnection}/>
+    </Provider>);
+
+
+    expect(linkItemWrapper.find(GenericButton).length).toBe(3);
+
+    linkItemWrapper.find(Button).filter("#add-link").prop("onClick")({});
+    expect(store.getActions()).toEqual([{type: 'SHOW_ADD_LINK'}]);
+  });
+
+  it('doesnt dispatch open link with invalid keys', () => {
+    const someResults = [{categoryName: "acb", links: [{name: 'a', url: 'b'}]}];
+
+    const store = mockStore({});
+
+
+    const linkItemWrapper = mount(<Provider store={store}>
+      <FilterBar allResults={someResults} gitConnection={gitConnection}/>
+    </Provider>);
+
+
+    let someOtherKeyCode = 14;
+    let eventMock = {keyCode: someOtherKeyCode, preventDefault: jest.fn()};
+
+    linkItemWrapper.find(Input).prop('onKeyDown')(eventMock);
+    expect(eventMock.preventDefault.mock.calls.length).toBe(0);
+    expect(store.getActions().length).toBe(0);
+  });
+
+  it('dispatches filter action when text input changed', () => {
+    const someResults = [];
+
+    const store = mockStore({});
+
+
+    const linkItemWrapper = mount(<Provider store={store}>
+      <FilterBar allResults={someResults} gitConnection={gitConnection}/>
+    </Provider>);
+
+
+    linkItemWrapper.find(Input).prop('onChange')({target: {value: "some-text"}});
+    expect(store.getActions()).toEqual([{
+      "allResults": someResults,
+      "filterTerm": "some-text",
+      "type": "FILTERED"
+    }])
+  });
+
+  it('dispatches display all actions when text input cleared', () => {
+    const someResults = [];
+
+    const store = mockStore({});
+
+
+    const linkItemWrapper = mount(<Provider store={store}>
+      <FilterBar allResults={someResults} gitConnection={gitConnection}/>
+    </Provider>);
+
+
+    linkItemWrapper.find(Input).prop('onChange')({target: {value: "some-text"}});
+
+    linkItemWrapper.find(Input).prop('onChange')({target: {value: ""}});
+
+    expect(store.getActions()).toEqual([
+      {"allResults": someResults, "filterTerm": "some-text", "type": "FILTERED"},
+      {"type": "UNFILTERED"}]);
+  });
+
+  it('clear input on escape', () => {
+    const someResults = [];
+
+    const store = mockStore({});
+
+
+    const linkItemWrapper = mount(<Provider store={store}>
+      <FilterBar allResults={someResults} gitConnection={gitConnection}/>
+    </Provider>);
+
+
+    let enterKeyCode = 27;
+    let eventMock = {keyCode: enterKeyCode, preventDefault: jest.fn(), target: {value: "some-text"}};
+
+    linkItemWrapper.find(Input).prop('onChange')({target: {value: "some-text"}});
+
+    let filterInput = linkItemWrapper.find(Input);
+    filterInput.prop('onKeyDown')(eventMock);
+
+
+    expect(eventMock.preventDefault.mock.calls.length).toBe(1);
+    expect(store.getActions()).toEqual([
+      {"allResults": someResults, "filterTerm": "some-text", "type": "FILTERED"},
+      {"type": "UNFILTERED"}]);
+  });
+
+
+  it('displays green button if connection ok and up to date', () => {
+    const someResults = [];
+
+    const store = mockStore({});
+
+    const gitConnectionOk = {
+      connected: true,
+      url: "some-url",
+      upToDate: true
+    };
+
+    const linkItemWrapper = mount(<Provider store={store}>
+      <FilterBar allResults={someResults} gitConnection={gitConnectionOk}/>
+    </Provider>);
+
+    let gitStatusButton = linkItemWrapper.find("#git-status").filter(Button);
+
+    expect(gitStatusButton.prop('className')).toEqual("git-ok");
+  });
+
+  it('displays warning button if connection ok but not up to date', () => {
+    const someResults = [];
+
+    const store = mockStore({});
+
+    const gitConnectionNotUpToDate = {
+      connected: true,
+      url: "some-url",
+      upToDate: false
+    };
+
+    const linkItemWrapper = mount(<Provider store={store}>
+      <FilterBar allResults={someResults} gitConnection={gitConnectionNotUpToDate}/>
+    </Provider>);
+
+    let gitStatusButton = linkItemWrapper.find("#git-status").filter(Button);
+
+    expect(gitStatusButton.prop('className')).toEqual("git-not-up-to-date");
+  });
+
+  it('displays error button if not connected to remote git', () => {
+    const someResults = [];
+
+    const store = mockStore({});
+
+    const gitConnectionError = {
+      connected: false,
+      url: "",
+      upToDate: false
+    };
+
+    const linkItemWrapper = mount(<Provider store={store}>
+      <FilterBar allResults={someResults} gitConnection={gitConnectionError}/>
+    </Provider>);
+
+    let gitStatusButton = linkItemWrapper.find("#git-status").filter(Button);
+
+    expect(gitStatusButton.prop('className')).toEqual("git-disconnected");
+  });
 });
 
 
