@@ -1,5 +1,6 @@
 ### Linkhub  
-a little app for managing and accessing a list of links. It will display all the links configured in `links.json`
+a little app for managing and accessing a list of links. It will display all the links configured in `links.json` and has the optional
+functionality of persisting the file into a remote git repository.
 
 ## Running
 
@@ -26,14 +27,15 @@ Here its other way around: the backend will deliver the minified and packaged fr
 * Console: `npm test` (will spawn a watcher)
 * Intellij: Make sure to set your working directory to `<rootdir>/app` to pickup the right package.json and add `--env=jsdom` to the jest run parameters.
 
-### TODO:
+## Persisting in git
 
-- delete links
-- notes
-- news running text (gh integration)
-- toggle help
-   
-- checkbox for saving to git [fix function]
-- git settings page
-        
-- news page
+The backend is using the remote repository of this folder to persist the `links.json`. This is optional - in order to activate it you have to:
+
+1. Make sure your origin/master of this repo uses ssh (not https)
+2. Have a public key added to your git remote repository.
+3. Provide the matching private key (no password) as ENV variable in `SSH_PRIVATE_KEY` and `GIT_HOST` for authentification during the docker build.
+
+Voila - a simple persisting solution without further setup.
+
+## Known Issues   
+- The checkbox "save to git" has currently no function
