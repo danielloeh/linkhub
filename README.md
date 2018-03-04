@@ -2,6 +2,8 @@
 a little app for managing and accessing a list of links. It will display all the links configured in `links.json` and has the optional
 functionality of persisting the file into a remote git repository.
 
+[![Build Status](https://travis-ci.org/danielloeh/linkhub.svg?branch=master)](https://travis-ci.org/danielloeh/linkhub)
+
 ## Running
 
 You can run it via `docker-compose` as single docker image, or run them as separate FE and BE server.
