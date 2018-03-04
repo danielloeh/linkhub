@@ -23,8 +23,8 @@ describe("GitSettings test", () => {
     let status = addLinkWrapper.find(".git-status");
     expect(status.length).toBe(3);
     expect(addLinkWrapper.find(".status-red").length).toBe(2);
-    expect(status.at(1).text()).toBe("Git Remote Connection Status: false");
-    expect(status.at(2).text()).toBe("Local Repository in sync: false");
+    expect(status.at(1).text()).toBe("Git Remote Connection Status:false");
+    expect(status.at(2).text()).toBe("Local Repository in sync:false");
   });
 
   it('displays all settings (with connection)', () => {
@@ -41,7 +41,7 @@ describe("GitSettings test", () => {
     let status = addLinkWrapper.find(".git-status");
     expect(status.length).toBe(3);
     expect(addLinkWrapper.find(".status-green").length).toBe(2);
-    expect(status.at(1).text()).toBe("Git Remote Connection Status: true");
-    expect(status.at(2).text()).toBe("Local Repository in sync: true");
+    expect(status.at(1).text()).toBe("Git Remote Connection Status:true");
+    expect(status.at(2).text()).toBe("Local Repository in sync:true");
   });
 });

@@ -2,6 +2,7 @@ import React from "react";
 import "./FilterBar.css";
 import {connect} from "react-redux";
 import Panel from "muicss/lib/react/panel";
+import PropTypes from "prop-types";
 import Button from "muicss/lib/react/button";
 import "./Alert.css";
 import {hideAlert} from "./actions";
@@ -50,6 +51,13 @@ let Alert = ({dispatch, show = false, message = '', alertType = ALERT_INFO_TYPE}
   return (
     showAlert(show, message, alertType)
   );
+};
+
+Alert.propTypes = {
+  show: PropTypes.bool.isRequired,
+  message: PropTypes.string.isRequired,
+  alertType: PropTypes.oneOf([ALERT_INFO_TYPE, ALERT_WARN_TYPE, ALERT_ERROR_TYPE])
+
 };
 
 Alert = connect()(Alert);

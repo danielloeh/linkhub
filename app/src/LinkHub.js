@@ -1,10 +1,11 @@
 import React from "react";
 import FilterBar from "./FilterBar";
 import LinkList from "./LinkList";
-import StateStructure from "./LinkPropTypes";
+import {alertTypePropTypes, categoriesPropTypes, gitConnectionPropType, resultsPropType} from "./LinkPropTypes";
 import "./LinkHub.css";
 import {SHOW_ADD_LINK, SHOW_CONFIG, SHOW_GIT_SETTINGS, SHOW_LINKS} from "./actions";
 import Config from "./Config";
+import PropTypes from "prop-types";
 import Alert from "./Alert";
 import AddLink from "./AddLink";
 import GitSettings from "./GitSettings";
@@ -32,6 +33,14 @@ const LinkHub = ({allResults, filteredResults, pageState, alerting, categories, 
   </div>
 );
 
-LinkHub.propTypes = StateStructure;
+LinkHub.propTypes = {
+  allResults: resultsPropType,
+  alertType: alertTypePropTypes,
+  filteredResults: resultsPropType,
+  categories: categoriesPropTypes,
+  pageState: PropTypes.string.isRequired,
+  gitConnection: gitConnectionPropType,
+  saving: PropTypes.bool.isRequired
+};
 
 export default LinkHub;

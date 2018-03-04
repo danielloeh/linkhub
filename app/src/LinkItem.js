@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import "./LinkItem.css";
+import {linkPropType} from "./LinkPropTypes";
 
 const displayQuickAccess = (quickAccess) => {
   if (quickAccess) {
@@ -23,10 +24,7 @@ const LinkItem = ({link, quickAccess}) => {
 };
 
 LinkItem.propTypes = {
-  link: PropTypes.shape({
-    url: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired
-  }).isRequired,
+  link: linkPropType,
   quickAccess: PropTypes.shape({
     key: PropTypes.alphanumeric
   })

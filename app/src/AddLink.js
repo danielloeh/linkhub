@@ -7,6 +7,7 @@ import {Button, Checkbox, Form, Input, Option, Select} from "muicss/react";
 import "./AddLink.css";
 import PropTypes from "prop-types";
 import Joi from "joi-browser";
+import {categoriesPropTypes, gitConnectionPropType} from "./LinkPropTypes";
 
 let AddLink = ({dispatch, categories, gitConnection, saving = false}) => {
   let name, url, category = categories[0];
@@ -77,14 +78,8 @@ let AddLink = ({dispatch, categories, gitConnection, saving = false}) => {
 };
 
 AddLink.propTypes = {
-  categories: PropTypes.arrayOf(
-    PropTypes.string.isRequired
-  ).isRequired,
-  gitConnection: PropTypes.shape({
-    connected: PropTypes.bool.isRequired,
-    upToDate: PropTypes.bool.isRequired,
-    remoteUrl: PropTypes.string.isRequired,
-  }).isRequired,
+  categories: categoriesPropTypes,
+  gitConnection: gitConnectionPropType,
   saving: PropTypes.bool.isRequired
 };
 

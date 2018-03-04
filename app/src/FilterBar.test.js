@@ -7,6 +7,7 @@ import Input from "muicss/lib/react/input";
 import {Provider} from "react-redux";
 import GenericButton from "./GenericButton";
 import Button from "muicss/lib/react/button";
+import {gitConnectionMock} from "./TestHelpers";
 
 describe("Filterbar test", () => {
 
@@ -14,11 +15,7 @@ describe("Filterbar test", () => {
 
   const mockStore = configureMockStore([sagaMiddleware]);
 
-  const gitConnection = {
-    connected: false,
-    remoteUrl: "some-url",
-    upToDate: false
-  };
+  const gitConnection = gitConnectionMock;
 
   it('dispatches open link action with right number', () => {
     const someResults = [{categoryName: "acb", links: [{name: 'a', url: 'b'}]}];
@@ -43,7 +40,6 @@ describe("Filterbar test", () => {
 
     const store = mockStore({});
 
-
     const linkItemWrapper = mount(<Provider store={store}>
       <FilterBar allResults={someResults} gitConnection={gitConnection}/>
     </Provider>);
@@ -59,7 +55,6 @@ describe("Filterbar test", () => {
     const someResults = [{categoryName: "acb", links: [{name: 'a', url: 'b'}]}];
 
     const store = mockStore({});
-
 
     const linkItemWrapper = mount(<Provider store={store}>
       <FilterBar allResults={someResults} gitConnection={gitConnection}/>
@@ -77,7 +72,6 @@ describe("Filterbar test", () => {
 
     const store = mockStore({});
 
-
     const linkItemWrapper = mount(<Provider store={store}>
       <FilterBar allResults={someResults} gitConnection={gitConnection}/>
     </Provider>);
@@ -93,7 +87,6 @@ describe("Filterbar test", () => {
     const someResults = [{categoryName: "acb", links: [{name: 'a', url: 'b'}]}];
 
     const store = mockStore({});
-
 
     const linkItemWrapper = mount(<Provider store={store}>
       <FilterBar allResults={someResults} gitConnection={gitConnection}/>
@@ -113,11 +106,9 @@ describe("Filterbar test", () => {
 
     const store = mockStore({});
 
-
     const linkItemWrapper = mount(<Provider store={store}>
       <FilterBar allResults={someResults} gitConnection={gitConnection}/>
     </Provider>);
-
 
     linkItemWrapper.find(Input).prop('onChange')({target: {value: "some-text"}});
     expect(store.getActions()).toEqual([{
@@ -132,11 +123,9 @@ describe("Filterbar test", () => {
 
     const store = mockStore({});
 
-
     const linkItemWrapper = mount(<Provider store={store}>
       <FilterBar allResults={someResults} gitConnection={gitConnection}/>
     </Provider>);
-
 
     linkItemWrapper.find(Input).prop('onChange')({target: {value: "some-text"}});
 
@@ -152,11 +141,9 @@ describe("Filterbar test", () => {
 
     const store = mockStore({});
 
-
     const linkItemWrapper = mount(<Provider store={store}>
       <FilterBar allResults={someResults} gitConnection={gitConnection}/>
     </Provider>);
-
 
     let enterKeyCode = 27;
     let eventMock = {keyCode: enterKeyCode, preventDefault: jest.fn(), target: {value: "some-text"}};
@@ -221,7 +208,7 @@ describe("Filterbar test", () => {
 
     const gitConnectionError = {
       connected: false,
-      url: "",
+      remoteUrl: "",
       upToDate: false
     };
 

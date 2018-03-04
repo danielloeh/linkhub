@@ -8,6 +8,7 @@ import {connect} from "react-redux";
 import Appbar from "muicss/lib/react/appbar";
 import Input from "muicss/lib/react/input";
 import GenericButton from "./GenericButton";
+import {gitConnectionPropType, resultsPropType} from "./LinkPropTypes";
 
 let FilterBar = ({dispatch, allResults, gitConnection}) => {
 
@@ -69,8 +70,12 @@ let FilterBar = ({dispatch, allResults, gitConnection}) => {
         <GenericButton id="edit-config" size="small" actions={[showConfig]} label="Edit Config"/>
       </Appbar>
     );
-  }
-;
+  };
+
+FilterBar.propTypes = {
+  allResults: resultsPropType,
+  gitConnection: gitConnectionPropType
+};
 
 FilterBar = connect()(FilterBar);
 

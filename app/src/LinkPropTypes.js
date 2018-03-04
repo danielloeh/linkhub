@@ -1,39 +1,34 @@
 import PropTypes from "prop-types";
 
-class LinkPropTypes {
+export const alertTypePropTypes = PropTypes.shape({
+  alertType: PropTypes.string.isRequired,
+  message: PropTypes.string.isRequired,
+  show: PropTypes.bool.isRequired,
+});
 
-  static get StateStructure()  {
-    return {
-      allResults: PropTypes.arrayOf(
-        PropTypes.shape({
-          categoryName: PropTypes.string.isRequired,
-          links: PropTypes.arrayOf(
-            PropTypes.shape({
-              url: PropTypes.string.isRequired,
-              name: PropTypes.string.isRequired
-            }).isRequired)
-        }).isRequired
-      ).isRequired,
-      filteredResults: PropTypes.arrayOf(
-        PropTypes.shape({
-          categoryName: PropTypes.string.isRequired,
-          links: PropTypes.arrayOf(
-            PropTypes.shape({
-              url: PropTypes.string.isRequired,
-              name: PropTypes.string.isRequired
-            }).isRequired)
-        }).isRequired
-      ).isRequired,
-      onFilterChange: PropTypes.func.isRequired,
-      onShowConfig: PropTypes.func.isRequired,
-      onShowLinks: PropTypes.func.isRequired,
-      gitConnection: PropTypes.shape({
-        connected: PropTypes.bool.isRequired,
-        upToDate: PropTypes.bool.isRequired,
-        url: PropTypes.string.isRequired,
-      }).isRequired
-    }
-  }
-}
+export const linkPropType = PropTypes.shape({
+  url: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired
+}).isRequired;
 
-export default LinkPropTypes;
+export const linksPropTypes = PropTypes.arrayOf(
+  linkPropType).isRequired;
+
+export const gitConnectionPropType = PropTypes.shape({
+  connected: PropTypes.bool.isRequired,
+  upToDate: PropTypes.bool.isRequired,
+  remoteUrl: PropTypes.string.isRequired,
+}).isRequired;
+
+export const resultsPropType = PropTypes.arrayOf(
+  PropTypes.shape({
+    categoryName: PropTypes.string.isRequired,
+    links: linksPropTypes
+  }).isRequired
+).isRequired;
+
+export const categoriesPropTypes = PropTypes.arrayOf(
+  PropTypes.string.isRequired
+).isRequired;
+
+

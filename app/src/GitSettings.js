@@ -3,8 +3,8 @@ import "./FilterBar.css";
 import {connect} from "react-redux";
 import "./Alert";
 import "./GitSettings.css";
-import PropTypes from "prop-types";
-import {Button, Panel} from "muicss/react";
+import {Panel} from "muicss/react";
+import {gitConnectionPropType} from "./LinkPropTypes";
 
 let GitSettings = ({gitConnection}) => {
 
@@ -22,16 +22,21 @@ let GitSettings = ({gitConnection}) => {
     <div className="git-settings">
       <Panel>
         <div className="git-status">Remote Git URL:
-          <div  className="remote-url-text"><a id="remote-url-link" href={gitConnection.remoteUrl} target="#">{gitConnection.remoteUrl}</a></div>
+          <div className="remote-url-text"><a id="remote-url-link" href={gitConnection.remoteUrl}
+                                              target="#">{gitConnection.remoteUrl}</a></div>
         </div>
         <div className="mui--text-menu git-notes">The data will get synced to this repository.</div>
       </Panel>
       <Panel>
-        <div className="git-status">Git Remote Connection Status: <div className={connectedColor}>{`${gitConnection.connected}`}</div></div>
+        <div className="git-status">Git Remote Connection Status:
+          <div className={connectedColor}>{`${gitConnection.connected}`}</div>
+        </div>
         <div className="mui--text-menu git-notes">{connectedNotes}</div>
       </Panel>
       <Panel>
-        <div className="git-status">Local Repository in sync: <div className={upToDateColor}>{`${gitConnection.upToDate}`}</div></div>
+        <div className="git-status">Local Repository in sync:
+          <div className={upToDateColor}>{`${gitConnection.upToDate}`}</div>
+        </div>
         <div className="mui--text-menu git-notes">{uptoDateNotes}</div>
       </Panel>
     </div>
@@ -39,11 +44,7 @@ let GitSettings = ({gitConnection}) => {
 };
 
 GitSettings.propTypes = {
-  gitConnection: PropTypes.shape({
-    connected: PropTypes.bool.isRequired,
-    upToDate: PropTypes.bool.isRequired,
-    remoteUrl: PropTypes.string.isRequired,
-  }).isRequired
+  gitConnection: gitConnectionPropType
 };
 
 GitSettings = connect()(GitSettings);

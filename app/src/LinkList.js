@@ -1,7 +1,7 @@
 import React from "react";
 import LinkItem from "./LinkItem";
-import PropTypes from "prop-types";
 import "./LinkList.css";
+import {resultsPropType} from "./LinkPropTypes";
 
 const createQuickAccess = (categoryIndex, itemIndex) => (categoryIndex === 0 && itemIndex < 5) ? {key: itemIndex + 1} : null;
 
@@ -26,16 +26,7 @@ let LinkList = ({filteredResults}) => {
 };
 
 LinkList.propTypes = {
-  filteredResults: PropTypes.arrayOf(
-    PropTypes.shape({
-      categoryName: PropTypes.string.isRequired,
-      links: PropTypes.arrayOf(
-        PropTypes.shape({
-          url: PropTypes.string.isRequired,
-          name: PropTypes.string.isRequired
-        }).isRequired)
-    }).isRequired
-  ).isRequired
+  filteredResults: resultsPropType
 };
 
 export default LinkList;

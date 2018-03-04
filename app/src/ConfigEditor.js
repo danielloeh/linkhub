@@ -6,6 +6,8 @@ import Checkbox from "muicss/lib/react/checkbox";
 import TextArea from "muicss/lib/react/textarea";
 import "./ConfigEditor.css";
 import Joi from "joi-browser";
+import PropTypes from "prop-types";
+import {gitConnectionPropType, resultsPropType} from "./LinkPropTypes";
 
 const configSchema = Joi.array().items(Joi.object().keys({
   categoryName: Joi.string().min(1).max(50).required(),
@@ -65,6 +67,12 @@ let ConfigEditor = ({dispatch, allResults, gitConnection, saving = false}) => {
 
     </div>
   );
+};
+
+ConfigEditor.propTypes = {
+  allResults: resultsPropType,
+  gitConnection: gitConnectionPropType,
+  saving: PropTypes.bool
 };
 
 ConfigEditor = connect()(ConfigEditor);
