@@ -4,9 +4,7 @@ const git = require('simple-git/promise')();
 
 module.exports = class GitReader {
 
-  constructor (username, password, configfile) {
-    this.username = username;
-    this.password = password;
+  constructor (configfile) {
     this.configfile = configfile;
     this.remoteUrl = '';
     this.connected = false;
@@ -29,8 +27,8 @@ module.exports = class GitReader {
         sendPosResult({"connected": false, "remoteUrl": this.remoteUrl, "upToDate": false});
       }
     }).catch((err) => {
-      console.error(`Could not check if its a git repo $ {err}`);
-      sendNegResult();
+      console.warn(`Error when accessing git: ${err}`);
+      sendPosResult({"connected": false, "remoteUrl": this.remoteUrl, "upToDate": false});
     })
   }
 
@@ -57,9 +55,12 @@ module.exports = class GitReader {
                   }
                 );
             }
-          });
+          }).catch(err => {
+          this.connected = false;
+          console.warn(`Can't connect to git: ${err}`);
+        });
       }
-    });
+    })
   }
 
   commitConfig (sendPosResult, sendNegResult, config) {
@@ -105,10 +106,7 @@ module.exports = class GitReader {
     });
   }
 
-  static createGitReader ({username = '', password = '', configfile = ''}) {
-    if (username.trim() === '' || password.trim() === '') {
-      console.warn("No GIT credentials found.");
-    }
-    return new GitReader(username, password, configfile);
+  static createGitReader ({configfile = ''}) {
+    return new GitReader(configfile);
   }
 };

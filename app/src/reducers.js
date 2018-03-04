@@ -11,6 +11,7 @@ import {
   UNFILTERED
 } from "./actions";
 import {combineReducers} from "redux";
+import {ALERT_INFO_TYPE} from "./Alert";
 
 const emptyFilterState = {
   filteredResults: [],
@@ -28,7 +29,7 @@ const emptyLoadingState = {
 
 const emptyAlertingState = {
   message: '',
-  alertType: '', // error or info
+  alertType: ALERT_INFO_TYPE,
   show: false
 };
 

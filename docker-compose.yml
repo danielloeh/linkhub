@@ -2,9 +2,11 @@ version: '2'
 
 services:
   linkhub:
-      build: .
+      build:
+        context: .
+        args:
+          - SSH_PRIVATE_KEY=${SSH_PRIVATE_KEY}
       ports:
         - "8080:8080"
       environment:
         - GIT_USERNAME=${GIT_USERNAME}
-        - GIT_PASSWORD=${GIT_PASSWORD}
