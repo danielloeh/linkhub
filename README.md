@@ -1,4 +1,4 @@
-### Linkhub  
+# Linkhub  
 a little app for managing and accessing a list of links. It will display all the links configured in `links.json` and has the optional
 functionality of persisting the file into a remote git repository.
 
