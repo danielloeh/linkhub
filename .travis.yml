@@ -6,8 +6,6 @@ cache:
   - node_modules
 install:
   - npm install
-  - cd ./app
-  - npm install
+  - (cd ./app && npm install)
 script:
-  - cd ./app
-  - npm run test
+  - (cd ./app && npm run test)
