@@ -6,6 +6,5 @@ services:
         context: .
         args:
           - SSH_PRIVATE_KEY=${SSH_PRIVATE_KEY}
-          - GIT_HOST=${GIT_HOST}
       ports:
         - "8080:8080"

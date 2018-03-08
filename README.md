@@ -27,7 +27,7 @@ Here its other way around: the backend will deliver the minified and packaged fr
 ## Testing
 
 * Console: `npm test` (will spawn a watcher)
-* Intellij: Make sure to set your working directory to `<rootdir>/app` to pickup the right package.json and add `--env=jsdom` to the jest run parameters.
+* Intellij: Make sure to set your working directory to `<rootdir>/app` to pickup the right `package.json` and add `--env=jsdom` to the jest run parameters.
 
 ## Persisting in git
 

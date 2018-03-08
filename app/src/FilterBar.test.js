@@ -76,9 +76,7 @@ describe("Filterbar test", () => {
       <FilterBar allResults={someResults} gitConnection={gitConnection}/>
     </Provider>);
 
-
     expect(linkItemWrapper.find(GenericButton).length).toBe(4);
-
     linkItemWrapper.find(Button).filter("#add-link").prop("onClick")({});
     expect(store.getActions()).toEqual([{type: 'SHOW_ADD_LINK'}]);
   });
@@ -221,5 +219,3 @@ describe("Filterbar test", () => {
     expect(gitStatusButton.prop('className')).toContain("git-disconnected");
   });
 });
-
-
