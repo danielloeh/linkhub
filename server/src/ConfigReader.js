@@ -2,8 +2,6 @@
 const fs = require('fs');
 const Joi = require('joi-browser');
 
-let content;
-
 const configSchema = Joi.array().items(Joi.object().keys({
   categoryName: Joi.string().min(1).max(50).required(),
   links: Joi.array().items(Joi.object().keys({
@@ -15,22 +13,19 @@ const configSchema = Joi.array().items(Joi.object().keys({
 module.exports = class ConfigReader {
 
   constructor (configFile) {
-
     this.configFile = configFile;
+  }
 
-    const jsonString = fs.readFileSync(configFile);
+  getLinks () {
+    const jsonString = fs.readFileSync(this.configFile);
 
     const result = Joi.validate(JSON.parse(jsonString), configSchema);
     if (result.error !== null) {
       console.error("Invalid config format: " + result.error.details[0].message);
-      content = {};
+      return {};
     } else {
-      content = JSON.parse(jsonString);
+      return JSON.parse(jsonString);
     }
-  }
-
-  getLinks () {
-    return content;
   }
 
   saveConfig (config, sendPositiveResultFn, sendNegResult, gitReader) {
@@ -60,7 +55,7 @@ module.exports = class ConfigReader {
     const result = Joi.validate(JSON.parse(jsonString), configSchema);
 
     if (result.error === null) {
-      const updatedContent = content.map((category) => {
+      const updatedContent = this.getLinks().map((category) => {
         if (category.categoryName === linkPayload.category) {
           category.links.push({url: linkPayload.url, name: linkPayload.name});
         }
