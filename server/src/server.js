@@ -5,8 +5,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const fs = require("fs");
 const path = require("path");
-const ConfigReader = require("./server/ConfigReader");
-const GitReader = require("./server/GitReader");
+const ConfigReader = require("./ConfigReader");
+const GitReader = require("./GitReader");
 const util = require("util");
 
 const PORT = 8080;

@@ -8,14 +8,42 @@
     "nconf": "^0.8.4",
     "q": "^1.3.0",
     "request": "^2.55.0",
+    "babel-preset-react-app": "^3.1.1",
     "joi-browser": "^13.0.1",
     "simple-git": "^1.91.0",
     "ws": "^0.7.1"
+  },
+  "devDependencies": {
+    "jest": "20.0.4",
+    "babel-jest": "20.0.3"
   },
   "engines": {
     "node": "9.5.0"
   },
   "scripts": {
-    "start": "node server.js"
+    "start": "node server/src/server.js",
+    "test": "node server/scripts/test.js --env=jsdom"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "server/**/*.{js,jsx,mjs}"
+    ],
+    "testMatch": [
+      "<rootDir>/server/src/**/__tests__/**/*.{js,jsx,mjs}",
+      "<rootDir>/server/src/**/?(*.)(spec|test).{js,jsx,mjs}"
+    ],
+    "transform": {
+      "^.+\\.(js|jsx|mjs)$": "<rootDir>/node_modules/babel-jest",
+      "^.+\\.css$": "<rootDir>/server/config/jest/cssTransform.js",
+      "^(?!.*\\.(js|jsx|mjs|css|json)$)": "<rootDir>/server/config/jest/fileTransform.js"
+    },
+    "transformIgnorePatterns": [
+      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$"
+    ]
+  },
+  "babel": {
+    "presets": [
+      "react-app"
+    ]
   }
 }
