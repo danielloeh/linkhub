@@ -8,4 +8,5 @@ install:
   - npm install
   - (cd ./app && npm install)
 script:
+  - npm test
   - (cd ./app && npm run test)
