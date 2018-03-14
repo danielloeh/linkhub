@@ -12,7 +12,7 @@ import {
   showLinks, showWarnAlert
 } from "./actions";
 import {postData} from "./httpHelpers";
-import * as selectors from "./selectors";
+import * as selectors from "./reducers/selectors";
 
 let server = window.location.origin;
 const configEndpoint = server + '/api/config';

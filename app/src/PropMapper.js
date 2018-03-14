@@ -1,23 +1,34 @@
 import {connect} from "react-redux";
 import LinkHub from "./LinkHub";
 import {applyFilter, showConfig, showLinks} from "./actions";
+import {
+  alerting,
+  allResults,
+  categories,
+  filteredResults,
+  filterTerm,
+  gitConnection,
+  pageState,
+  saving
+} from "./reducers/selectors";
 
 const mapStateToProps = state => {
-  let filteredResults;
-  if (state.filter.filterTerm === '') {
-    filteredResults = state.loading.allResults;
+  let filteredOrAllResults;
+
+  if (filterTerm(state) === '') {
+    filteredOrAllResults = allResults(state);
   } else {
-    filteredResults = state.filter.filteredResults;
+    filteredOrAllResults = filteredResults(state);
   }
 
   return {
-    allResults: state.loading.allResults,
-    categories: state.loading.categories,
-    filteredResults: filteredResults,
-    pageState: state.page.pageState,
-    alerting: state.alerting,
-    gitConnection: state.git,
-    saving: state.saving.saving
+    allResults: allResults(state),
+    categories: categories(state),
+    filteredResults: filteredOrAllResults,
+    pageState: pageState(state),
+    alerting: alerting(state),
+    gitConnection: gitConnection(state),
+    saving: saving(state)
   };
 };
 

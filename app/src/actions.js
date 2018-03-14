@@ -81,7 +81,6 @@ export function showGitSettings () {
   }
 }
 
-
 /* load config */
 
 export function fetchConfig () {

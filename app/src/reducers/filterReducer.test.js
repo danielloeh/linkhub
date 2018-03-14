@@ -1,52 +1,43 @@
-import pageReducer from "./pageReducers";
+import filterReducer from "./filterReducer";
 import * as actions from "../actions";
 
-describe('Page Reducers', () => {
+describe('Filter Reducers', () => {
 
-  it('returns show links as the initial state', () => {
-    expect(pageReducer(undefined, {})).toEqual(
-      {pageState: actions.SHOW_LINKS}
-    )
+  it('returns an empty filter list as the initial state', () => {
+    expect(filterReducer(undefined, {})).toEqual({
+      filteredResults: [],
+      filterTerm: '',
+    })
   });
 
-  it('handles show config', () => {
+  it('handles filter links', () => {
+
+    const someResults = [{
+      categoryName: "some-category",
+      links: [{"url": "some-url", "name": "some-name"}, {"url": "some-url", "name": "some-other-name"}]
+    }];
+
     expect(
-      pageReducer([], {
-        type: actions.SHOW_CONFIG
+      filterReducer([], {
+        type: actions.FILTERED,
+        filterTerm: "some-other-name",
+        allResults: someResults
       })
-    ).toEqual(
-      {pageState: actions.SHOW_CONFIG}
-    );
+    ).toEqual({
+      filterTerm: "some-other-name",
+      filteredResults: [{categoryName: "some-category", links: [{name: "some-other-name", url: "some-url"}]}]
+    });
   });
 
-  it('handles show links', () => {
+  it('handles unfiltered links', () => {
     expect(
-      pageReducer([], {
-        type: actions.SHOW_LINKS
+      filterReducer([], {
+        type: actions.UNFILTERED
       })
-    ).toEqual(
-      {pageState: actions.SHOW_LINKS}
-    );
-
-  });
-  it('handles show add link', () => {
-    expect(
-      pageReducer([], {
-        type: actions.SHOW_ADD_LINK
-      })
-    ).toEqual(
-      {pageState: actions.SHOW_ADD_LINK}
-    );
-  });
-
-  it('handles show git settings', () => {
-    expect(
-      pageReducer([], {
-        type: actions.SHOW_GIT_SETTINGS
-      })
-    ).toEqual(
-      {pageState: actions.SHOW_GIT_SETTINGS}
-    );
+    ).toEqual({
+      filteredResults: [],
+      filterTerm: '',
+    });
   });
 
 });

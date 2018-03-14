@@ -10,8 +10,8 @@ let GitSettings = ({gitConnection}) => {
 
   let connectedColor = gitConnection.connected ? "status-green" : "status-red";
   let connectedNotes = gitConnection.connected ?
-    "The backend can access the remote repository." :
-    "The backend can't access the remote repository. Have you provided the credentials?";
+    "The backend can access the remote repository. That does not mean write access though." :
+    "The backend can't access the remote repository. Is the connection working and have you provided the credentials?";
   let uptoDateNotes = gitConnection.upToDate ?
     "The local data is in sync with the remote version. New versions can be synced." :
     "The local data is not in sync with the remote version. Please deploy the latest version to make persistent saves.";

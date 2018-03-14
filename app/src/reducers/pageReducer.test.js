@@ -1,7 +1,7 @@
-import pageReducer from "./pageReducers";
+import pageReducer from "./pageReducer";
 import * as actions from "../actions";
 
-describe('Page Reducers', () => {
+describe('Page Reducer', () => {
 
   it('returns show links as the initial state', () => {
     expect(pageReducer(undefined, {})).toEqual(

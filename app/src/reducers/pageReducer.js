@@ -4,7 +4,7 @@ const emptyPageState = {
   pageState: SHOW_LINKS,
 };
 
-function pageReducer (state = emptyPageState, action) {
+function page (state = emptyPageState, action) {
   switch (action.type) {
     case SHOW_CONFIG:
       return Object.assign({}, state, {pageState: SHOW_CONFIG});
@@ -19,4 +19,4 @@ function pageReducer (state = emptyPageState, action) {
   }
 }
 
-export default pageReducer;
+export default page;

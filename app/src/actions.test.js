@@ -1,181 +1,88 @@
-// filter
-import {ALERT_ERROR_TYPE, ALERT_INFO_TYPE, ALERT_WARN_TYPE} from "./Alert";
-export const FILTERED = 'FILTERED';
-export const UNFILTERED = 'UNFILTERED';
-export const OPEN_LINK = 'OPEN_LINK';
+import * as actions from "./actions";
 
-// pages
-export const SHOW_CONFIG = 'SHOW_CONFIG';
-export const SHOW_LINKS = 'SHOW_LINKS';
-export const SHOW_ADD_LINK = 'SHOW_ADD_LINK';
-export const SHOW_GIT_SETTINGS = 'SHOW_GIT_SETTINGS';
+describe('actions', () => {
 
-//loading
-export const FETCH_CONFIG = 'FETCH_CONFIG';
-export const CONFIG_FETCHED = 'CONFIG_FETCHED';
+  it('creates an action to apply a filter on all results', () => {
 
-//saving
-export const SAVE_CONFIG = 'SAVE_CONFIG';
+    const filterTerm = 'some-term';
+    const allResults = ['some-result', 'some-other-result'];
 
-// alerts
-export const SHOW_ALERT = 'SHOW_ALERT';
-export const HIDE_ALERT = 'HIDE_ALERT';
+    const expectedAction = {
+      type: actions.FILTERED,
+      filterTerm: filterTerm,
+      allResults: allResults
+    };
 
-// add link
-export const ADD_LINK = 'ADD_LINK';
+    expect(actions.applyFilter(filterTerm, allResults)).toEqual(expectedAction)
+  });
 
-// git connection
-export const GIT_CONNECTION_CHECKED = 'GIT_CONNECTION_CHECKED';
-export const CHECK_GIT_CONNECTION = 'CHECK_GIT_CONNECTION';
-
-// save config
-export const SAVING_CONFIG = 'SAVING_CONFIG';
-export const CONFIG_SAVED = 'CONFIG_SAVED';
-
-/* filter actions */
-export function applyFilter (filterTerm, allResults) {
-  return {
-    type: FILTERED,
-    filterTerm,
-    allResults
-  }
-}
-
-export function displayAll () {
-  return {
-    type: UNFILTERED
-  }
-}
-
-export function openLink (number) {
-  return {
-    type: OPEN_LINK,
-    number
-  }
-}
-
-/* pages */
-
-export function showConfig () {
-  return {
-    type: SHOW_CONFIG
-  }
-}
-
-export function showLinks (linksJson) {
-  return {
-    type: SHOW_LINKS,
-    linksJson
-  }
-}
-
-export function showAddLink () {
-  return {
-    type: SHOW_ADD_LINK
-  }
-}
-
-export function showGitSettings () {
-  return {
-    type: SHOW_GIT_SETTINGS
-  }
-}
+  it('creates an action to display all', () => {
 
 
-/* load config */
+    const expectedAction = {
+      type: actions.UNFILTERED,
+    };
 
-export function fetchConfig () {
-  return {
-    type: FETCH_CONFIG
-  }
-}
+    expect(actions.displayAll()).toEqual(expectedAction)
+  });
 
-export function configFetched (configJson) {
-  return {
-    type: CONFIG_FETCHED,
-    configJson
-  }
-}
+  it('create an action to open a link', () => {
 
-/* save config */
+    const linkNumber = 1;
 
-export function saveConfig (configJson) {
-  return {
-    type: SAVE_CONFIG,
-    configJson
-  }
-}
+    const expectedAction = {
+      type: actions.OPEN_LINK,
+      number: linkNumber
+    };
 
-/* alerts */
+    expect(actions.openLink(linkNumber)).toEqual(expectedAction)
+  });
 
-export function showInfoAlert (message) {
-  return {
-    type: SHOW_ALERT,
-    alertType: ALERT_INFO_TYPE,
-    message,
-  }
-}
+  it('creates an action to open the config page', () => {
 
-export function showWarnAlert (message) {
-  return {
-    type: SHOW_ALERT,
-    alertType: ALERT_WARN_TYPE,
-    message,
-  }
-}
+    const expectedAction = {
+      type: actions.SHOW_CONFIG
+    };
 
-export function showErrorAlert (message) {
-  return {
-    type: SHOW_ALERT,
-    alertType: ALERT_ERROR_TYPE,
-    message,
-  }
-}
+    expect(actions.showConfig()).toEqual(expectedAction)
+  });
+  it('creates an action to open the config page', () => {
 
-export function hideAlert () {
-  return {
-    type: HIDE_ALERT
-  }
-}
+    const expectedAction = {
+      type: actions.SHOW_CONFIG
+    };
 
-/* save link */
+    expect(actions.showConfig()).toEqual(expectedAction)
+  });
 
-export function addLink (category, url, name) {
-  return {
-    type: ADD_LINK,
-    category,
-    url,
-    name
-  }
-}
+  it('creates an action to open the links page', () => {
 
-/* git connection */
+    const someLinks = 'some-links';
 
-export function checkGitConnection () {
-  return {
-    type: CHECK_GIT_CONNECTION
-  }
-}
+    const expectedAction = {
+      type: actions.SHOW_LINKS,
+      linksJson: someLinks
+    };
 
-export function gitConnectionChecked ({connected, remoteUrl, upToDate}) {
-  return {
-    type: GIT_CONNECTION_CHECKED,
-    connected,
-    remoteUrl,
-    upToDate
-  }
-}
+    expect(actions.showLinks(someLinks)).toEqual(expectedAction)
+  });
 
-/* saving config*/
+  it('creates an action to open the add link page', () => {
 
-export function savingConfig () {
-  return {
-    type: SAVING_CONFIG
-  }
-}
+    const expectedAction = {
+      type: actions.ADD_LINK
+    };
 
-export function configSaved () {
-  return {
-    type: CONFIG_SAVED
-  }
-}
+    expect(actions.addLink()).toEqual(expectedAction)
+  });
+
+  it('creates an action to git settings page', () => {
+
+    const expectedAction = {
+      type: actions.SHOW_GIT_SETTINGS
+    };
+
+    expect(actions.showGitSettings()).toEqual(expectedAction)
+  });
+
+});

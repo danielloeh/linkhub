@@ -7,12 +7,12 @@ import registerServiceWorker from "./registerServiceWorker";
 import LinkList from "./PropMapper";
 import createSagaMiddleware from "redux-saga";
 import rootSaga from "./sagas";
-import linkListReducers from "./reducers";
+import combinedReducers from "./reducers/combinedReducers";
 import {checkGitConnection, fetchConfig} from "./actions";
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
-  linkListReducers,
+  combinedReducers,
   applyMiddleware(sagaMiddleware)
 );
 

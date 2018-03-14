@@ -1,45 +1,16 @@
-import reducer from './reducers'
-import * as actions from './actions'
+import combinedReducers from "./combinedReducers";
 
-describe('Reducers', () => {
+describe('Combined Reducers', () => {
 
-  it('should return the initial state', () => {
-    expect(reducer(undefined, {})).toEqual([
-      {
-        text: 'Use Redux',
-        completed: false,
-        id: 0
-      }
-    ])
-  });
-
-  it('should handle FILTERED', () => {
-    expect(
-      reducer([], {
-        type: actions.FILTERED,
-        filterTerm: 'some-term'
-      })
-    ).toEqual([
-      {
-        text: 'Run the tests',
-        completed: false,
-        id: 0
-      }
-    ]);
-  });
-
-  it('should handle UNFILTERED', () => {
-    expect(
-      reducer([], {
-        type: actions.UNFILTERED
-      })
-    ).toEqual([
-      {
-        text: 'Run the tests',
-        completed: false,
-        id: 0
-      }
-    ]);
+  it('should return the overall initial state', () => {
+    expect(combinedReducers(undefined, {})).toEqual({
+      alerting: {"alertType": "info", "message": "", "show": false},
+      filter: {"filterTerm": "", "filteredResults": []},
+      git: {"connected": false, "remoteUrl": "", "saving": false, "upToDate": false},
+      loading: {"allResults": [], "categories": []},
+      page: {"pageState": "SHOW_LINKS"},
+      saving: {"saving": false}
+    })
   });
 
 });
