@@ -48,4 +48,4 @@ Voilà - a simple persisting solution without further setup.
 - The checkbox "save to git" has currently no function
 
 ## Author
-Daniel Löffelholz - daniel.loeffelholz@gmail.com 
+Daniel Löffelholz - daniel.loeffelholz@gmail.com  // dloeffel@thoughtworks.com // twitter: @davololo
