@@ -9,6 +9,8 @@ WORKDIR /usr/src/app
 
 ## GIT SETUP
 
+RUN apt-get -y remove binutils
+
 # Update old git in debian jessie for 'get-url' support
 RUN echo "deb http://ftp.us.debian.org/debian testing main contrib non-free" >> /etc/apt/sources.list \
          &&      apt-get update              \
