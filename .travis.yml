@@ -7,13 +7,16 @@ cache:
 install:
   - npm install
   - (cd ./app && npm install)
+before_script:
+  # this install.sh script requires sudo
+  - wget -qO- https://toolbelt.heroku.com/install.sh | sh
 script:
-  - npm test
-  - (cd ./app && npm run test)
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin "$DOCKER_REGISTRY"
-  - docker-compose build
-  - docker tag linkhub_linkhub registry.heroku.com/linkhub-danielloeh/linkhub:build-$TRAVIS_BUILD_ID
-  - docker push registry.heroku.com/linkhub-danielloeh/linkhub:build-$TRAVIS_BUILD_ID
+  - /usr/local/heroku/bin/heroku container:login
+  - /usr/local/heroku/bin/heroku container:push linkhub
+#  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin "$DOCKER_REGISTRY"
+#  - docker-compose build
+#  - docker tag linkhub_linkhub registry.heroku.com/linkhub-danielloeh/linkhub:build-$TRAVIS_BUILD_ID
+#  - docker push registry.heroku.com/linkhub-danielloeh/linkhub:build-$TRAVIS_BUILD_ID
 sudo: required
 services:
     - docker
