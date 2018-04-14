@@ -1,13 +1,3 @@
-language: node_js
-node_js:
-  - "stable"
-cache:
-  directories:
-  - node_modules
-#install:
-#  - npm install
-#  - (cd ./app && npm install)
-
 jobs:
   include:
     - stage: unit tests
@@ -31,7 +21,3 @@ jobs:
         - /usr/local/heroku/bin/heroku login
         - /usr/local/heroku/bin/heroku container:login
         - /usr/local/heroku/bin/heroku container:push linkhub
-
-
-
-
