@@ -1,16 +1,6 @@
 {
   "name": "linkhub",
-  "description": "making links available",
-  "scripts": {
-  },
-  "env": {
-  },
-  "formation": {
-  },
-  "addons": [
-
-  ],
-  "buildpacks": [
-
-  ]
+  "description": "sharing links",
+  "image": "linkhub",
+  "addons": []
 }
