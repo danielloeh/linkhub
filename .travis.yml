@@ -11,8 +11,8 @@ script:
   - npm test
   - (cd ./app && npm run test)
   - docker-compose build
-  - docker push
-
+  - docker tag linkhub_linkhub linkhub:build-$TRAVIS_BUILD_ID
+  - docker push linkhub:build-$TRAVIS_BUILD_ID
 sudo: required
 services:
     - docker
