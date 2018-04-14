@@ -10,7 +10,7 @@ You can run it via `docker-compose` as single docker image, or run them as separ
 
 ### Separate Servers with NPM
 
-Runs as two different servers including a router that routes requests on `localhost:3000/api` to `:8080` (backend), so that the frontend can send backend requests to `window.location.origin`.
+Runs as two different servers including a router that routes requests on `localhost:3000/api` to `:8080` (default backend port), so that the frontend can send backend requests to `window.location.origin`.
 
 `./npm start` - Starts the backend on :8080
 
@@ -46,6 +46,9 @@ Voilà - a simple persisting solution without further setup. For security reason
 
 ## Known Issues   
 - The checkbox "save to git" has currently no function
+
+## Deployment
+Its can be easily deployed e.g. via travis to heroku. Heroku requires the app to run on $PORT though.
 
 ## Author
 Daniel Löffelholz - daniel.loeffelholz@gmail.com  // dloeffel@thoughtworks.com // twitter: @davololo
