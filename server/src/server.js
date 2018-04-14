@@ -9,7 +9,7 @@ const ConfigReader = require("./ConfigReader");
 const GitReader = require("./GitReader");
 const util = require("util");
 
-const PORT = 8080;
+const PORT = parseInt(process.env.PORT, 10) || 8080;
 
 const sendPosResultBuilder = (res, payload) => {
   res.status(200);
