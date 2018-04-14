@@ -7,21 +7,31 @@ cache:
 #install:
 #  - npm install
 #  - (cd ./app && npm install)
-before_script:
-  # this install.sh script requires sudo
-  - wget -qO- https://cli-assets.heroku.com/install-ubuntu.sh | sh
-script:
-#  - npm test
-#  - (cd ./app && npm run test)
-  - /usr/local/heroku/bin/heroku container:login
-  - /usr/local/heroku/bin/heroku container:push linkhub
-#  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin "$DOCKER_REGISTRY"
-#  - docker-compose build
-#  - docker tag linkhub_linkhub registry.heroku.com/linkhub-danielloeh/linkhub:build-$TRAVIS_BUILD_ID
-#  - docker push registry.heroku.com/linkhub-danielloeh/linkhub:build-$TRAVIS_BUILD_ID
-sudo: required
-services:
-    - docker
-env:
-  - DOCKER_COMPOSE_VERSION=1.4.2
+
+jobs:
+  include:
+    - stage: unit tests
+      script:
+        -"Running unit tests (1)"
+      #  - npm test
+      #  - (cd ./app && npm run test)
+    - stage: deploy to production
+      deploy:
+        <<: *heroku
+        app: linkhub-danielloeh
+        api_key: $HEROKU_AUTH_TOKEN
+      sudo: required
+      before_script:
+        - wget -qO- https://cli-assets.heroku.com/install-ubuntu.sh | sh
+      services:
+        - docker
+      env:
+        - DOCKER_COMPOSE_VERSION=1.4.2
+      script:
+        - /usr/local/heroku/bin/heroku login
+        - /usr/local/heroku/bin/heroku container:login
+        - /usr/local/heroku/bin/heroku container:push linkhub
+
+
+
 
