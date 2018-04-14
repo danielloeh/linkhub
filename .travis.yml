@@ -10,3 +10,12 @@ install:
 script:
   - npm test
   - (cd ./app && npm run test)
+  - docker-compose build
+  - docker push
+
+sudo: required
+services:
+    - docker
+env:
+  - DOCKER_COMPOSE_VERSION=1.4.2
+
