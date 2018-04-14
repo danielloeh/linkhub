@@ -42,7 +42,7 @@ The backend is using the remote repository of this folder to persist the `links.
 2. Have a public key added to your git remote repository.
 3. Provide the matching private key (no password) as ENV variable in `SSH_PRIVATE_KEY` and `GIT_HOST` for authentification during the docker build.
 
-Voilà - a simple persisting solution without further setup.
+Voilà - a simple persisting solution without further setup. For security reasons, I recommend to create a special user for this, which has only access to the the linkhub repository.
 
 ## Known Issues   
 - The checkbox "save to git" has currently no function
