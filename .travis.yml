@@ -4,13 +4,15 @@ node_js:
 cache:
   directories:
   - node_modules
-install:
-  - npm install
-  - (cd ./app && npm install)
+#install:
+#  - npm install
+#  - (cd ./app && npm install)
 before_script:
   # this install.sh script requires sudo
-  - wget -qO- https://toolbelt.heroku.com/install.sh | sh
+  - wget -qO- https://cli-assets.heroku.com/install-ubuntu.sh | sh
 script:
+#  - npm test
+#  - (cd ./app && npm run test)
   - /usr/local/heroku/bin/heroku container:login
   - /usr/local/heroku/bin/heroku container:push linkhub
 #  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin "$DOCKER_REGISTRY"
