@@ -2,6 +2,8 @@
 A little app for managing and accessing a list of links. It will display all the links configured in `links.json` and has the optional
 functionality of persisting the file into a remote git repository with little setup.
 
+Test it on: https://linkhub-danielloeh.herokuapp.com/
+
 [![Build Status](https://travis-ci.org/danielloeh/linkhub.svg?branch=master)](https://travis-ci.org/danielloeh/linkhub)
 
 ## Running
@@ -12,7 +14,7 @@ You can run it via `docker-compose` as single docker image, or run them as separ
 
 Runs as two different servers including a router that routes requests on `localhost:3000/api` to `:8080` (default backend port), so that the frontend can send backend requests to `window.location.origin`.
 
-`./npm start` - Starts the backend on :8080
+`./npm start` - Starts the backend on :8080 (or on $PORT)
 
 `./app/npm start` : - Start the frontend on :3000
  
