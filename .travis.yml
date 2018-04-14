@@ -11,6 +11,7 @@ script:
   - npm test
   - (cd ./app && npm run test)
   - docker-compose build
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin "$DOCKER_REGISTRY"
   - docker tag linkhub_linkhub linkhub:build-$TRAVIS_BUILD_ID
   - docker push linkhub:build-$TRAVIS_BUILD_ID
 sudo: required
