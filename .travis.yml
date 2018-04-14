@@ -22,6 +22,6 @@ script:
 #  - (cd ./app && npm run test)
 
 after_success:
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin "$DOCKER_REGISTRY";
-  - docker build -t registry.heroku.com/linkhub-danielloeh/web .;
-  - docker push registry.heroku.com/linkhub-danielloeh/web
+#  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin "$DOCKER_REGISTRY";
+#  - docker build -t registry.heroku.com/linkhub-danielloeh/web .;
+#  - docker push registry.heroku.com/linkhub-danielloeh/web
