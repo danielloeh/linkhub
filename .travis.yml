@@ -1,21 +1,27 @@
+sudo: required
 language: node_js
 node_js:
   - "stable"
+services:
+  - docker
+
 cache:
   directories:
   - node_modules
-#install:
+
+install:
 #  - npm install
 #  - (cd ./app && npm install)
-sudo: required
-services:
- - docker
-env:
- - DOCKER_COMPOSE_VERSION=1.4.2
+
+before_script:
+  - echo "Branch... $TRAVIS_BRANCH"
+
 script:
+  - echo "no tests!" # put your normal testing scripts here
 #  - npm test
 #  - (cd ./app && npm run test)
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin "$DOCKER_REGISTRY"
-  - docker-compose build
-  - docker tag linkhub_linkhub registry.heroku.com/linkhub-danielloeh/linkhub:build-$TRAVIS_BUILD_ID
-  - docker push registry.heroku.com/linkhub-danielloeh/linkhub:build-$TRAVIS_BUILD_ID
+
+after_success:
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin "$DOCKER_REGISTRY";
+  - docker build -t registry.heroku.com/linkhub-danielloeh/web .;
+  - docker push registry.heroku.com/linkhub-danielloeh/web
