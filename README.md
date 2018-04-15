@@ -14,13 +14,15 @@ You can run it via `docker-compose` as single docker image, or run them as separ
 
 Runs as two different servers including a router that routes requests on `localhost:3000/api` to `:8080` (default backend port), so that the frontend can send backend requests to `window.location.origin`.
 
-`./npm start` - Starts the backend on :8080 (or on $PORT)
+`./npm start` - Starts the backend on :8080
 
 `./app/npm start` : - Start the frontend on :3000
+
+Note: make sure you have $PORT not set. Changing the port only works when running it via docker.
  
 ### Combined as docker image with Docker Compose
 
-Here its other way around: the backend will deliver the minified and packaged frontend as static resource on `:8080`.
+Here its other way around: the backend will deliver the minified and packaged frontend as static resource on `:8080` (default) or `$PORT`.
  
  `docker-compose build`  
  
