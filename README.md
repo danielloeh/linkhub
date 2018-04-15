@@ -27,18 +27,8 @@ Here its other way around: the backend will deliver the minified and packaged fr
  `docker-compose build`  
  
  `docker-compose up -d` 
-
-## Testing
-There are different test suites for app and server.
-
-### Server
-* Console: `npm test` (will spawn a watcher)
-
-### Client
-* Console: `cd app && npm test` (will spawn a watcher)
-* Intellij: Make sure to set your working directory to `<rootdir>/app` to pickup the right `package.json` and add `--env=jsdom` to the jest run parameters.
-
-## Persisting in git
+ 
+### Persisting in git
 
 The backend is using the remote repository of this folder to persist the `links.json`. This is optional - in order to activate it you have to:
 
@@ -48,7 +38,22 @@ The backend is using the remote repository of this folder to persist the `links.
 
 Voilà - a simple persisting solution without further setup. For security reasons, I recommend to create a special user for this, which has only access to the the linkhub repository.
 
-## Known Issues   
+## Development
+
+### Testing
+
+There are different test suites for app and server.
+
+#### Server
+* Console: `npm test` (will spawn a watcher)
+
+#### Client
+* Console: `cd app && npm test` (will spawn a watcher)
+* Intellij: Make sure to set your working directory to `<rootdir>/app` to pickup the right `package.json` and add `--env=jsdom` to the jest run parameters.
+
+
+
+### Known Issues   
 - The checkbox "save to git" has currently no function
 
 ## Deployment
