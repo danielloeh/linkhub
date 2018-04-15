@@ -2,7 +2,7 @@
 A little app for managing and accessing a list of links. It will display all the links configured in `links.json` and has the optional
 functionality of persisting the file into a remote git repository with little setup.
 
-Test it on: https://linkhub-danielloeh.herokuapp.com/
+Test it on: https://linkhub-danielloeh.herokuapp.com/ (give the instance a few seconds to wake up until anything gets displayed)
 
 [![Build Status](https://travis-ci.org/danielloeh/linkhub.svg?branch=master)](https://travis-ci.org/danielloeh/linkhub)
 
