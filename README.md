@@ -38,6 +38,8 @@ The backend is using the remote repository of this folder to persist the `links.
 
 Voilà - a simple persisting solution without further setup. For security reasons, I recommend to create a special user for this, which has only access to the the linkhub repository.
 
+Note: This currently only works if the its you use the whole directory for running the app including the git files, e.g. via the docker container. Other ways e.g. how heroku is handling running container don't find the git files and can't connect.
+
 ## Development
 
 ### Testing
