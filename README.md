@@ -63,3 +63,10 @@ Its can be easily deployed e.g. via travis to heroku. Heroku requires the app to
 
 ## Author
 Daniel Löffelholz - daniel.loeffelholz@gmail.com  // dloeffel@thoughtworks.com // twitter: @davololo
+
+## Upcoming Features
+* read-only mode
+* support multiple link groups 
+* site preview
+
+
