@@ -6,5 +6,7 @@ services:
         context: .
         args:
           - SSH_PRIVATE_KEY=${SSH_PRIVATE_KEY}
+      environment:
+          - EDIT_ENABLED=${EDIT_ENABLED}
       ports:
         - "8080:8080"

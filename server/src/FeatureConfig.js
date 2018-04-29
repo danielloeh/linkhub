@@ -3,12 +3,14 @@
 module.exports = class FeatureConfig {
 
   constructor (envVariables) {
-    this.editEnabled = envVariables.EDIT_ENABLED || true;
+    this.featureConfig = {
+      editEnabled: envVariables.EDIT_ENABLED || true
+    };
+
+    console.log(`Using following feature config: ${JSON.stringify(this.featureConfig)}`);
   }
 
   getFeatureConfig () {
-    return {
-      editEnabled: this.editEnabled
-    };
+    return this.featureConfig;
   }
 };

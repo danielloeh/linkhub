@@ -55,7 +55,7 @@ describe("GenericButton Test", () => {
     expect(classNames).toContain(additionalClasses);
   });
 
-  it('adds disabled property', () => {
+  it('adds disabled is true property', () => {
     const store = mockStore({});
 
     const action = () => {
@@ -72,6 +72,25 @@ describe("GenericButton Test", () => {
     const disabled = GenericButtonWrapper.find("#a-button").find(Button).prop("disabled");
 
     expect(disabled).toEqual(false);
+  });
+
+  it('adds disabled is false property', () => {
+    const store = mockStore({});
+
+    const action = () => {
+      return {
+        type: "SOME_ACTION"
+      }
+    };
+
+    const additionalClasses = "some-more class-entries";
+
+    const GenericButtonWrapper = mount(<GenericButton store={store} id="a-button" actions={[action]} label="my-button"
+                                                      additionalClasses={additionalClasses} enabled={false}/>);
+
+    const disabled = GenericButtonWrapper.find("#a-button").find(Button).prop("disabled");
+
+    expect(disabled).toEqual(true);
   });
 
   it('should call multiple action onclick', () => {
