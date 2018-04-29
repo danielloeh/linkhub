@@ -58,6 +58,11 @@ There are different test suites for app and server.
 ### Known Issues   
 - The checkbox "save to git" has currently no function
 
+## Features Planned
+- A groups concept
+- A page with general information 
+- Optional Authentication
+
 ## Deployment
 Its can be easily deployed e.g. via travis to heroku. Heroku requires the app to run on $PORT though.
 
