@@ -85,4 +85,22 @@ describe('actions', () => {
     expect(actions.showGitSettings()).toEqual(expectedAction)
   });
 
+  it('creates an action for fetching feature config', () => {
+
+    const expectedAction = {
+      type: actions.FETCH_FEATURE_CONFIG
+    };
+
+    expect(actions.fetchFeatureConfig()).toEqual(expectedAction)
+  });
+
+  it('creates an action for feature config fetched', () => {
+
+    const expectedAction = {
+      type: actions.FEATURE_CONFIG_FETCHED
+    };
+
+    expect(actions.featureConfigFetched()).toEqual(expectedAction)
+  });
+
 });

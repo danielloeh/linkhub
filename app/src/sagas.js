@@ -2,14 +2,19 @@ import {call, put, select, takeLatest} from "redux-saga/effects";
 import {
   ADD_LINK,
   CHECK_GIT_CONNECTION,
-  configFetched, configSaved,
+  configFetched,
+  configSaved,
+  featureConfigFetched,
   FETCH_CONFIG,
+  FETCH_FEATURE_CONFIG,
   gitConnectionChecked,
   OPEN_LINK,
-  SAVE_CONFIG, savingConfig,
+  SAVE_CONFIG,
+  savingConfig,
   showErrorAlert,
   showInfoAlert,
-  showLinks, showWarnAlert
+  showLinks,
+  showWarnAlert
 } from "./actions";
 import {postData} from "./httpHelpers";
 import * as selectors from "./reducers/selectors";
@@ -18,6 +23,7 @@ let server = window.location.origin;
 const configEndpoint = server + '/api/config';
 const linkEndpoint = server + '/api/links';
 const gitCheckEndpoint = server + '/api/git/check';
+const featureConfigEndpoint = server + '/api/featureConfig';
 
 let openUrlInNewTab = (linkList, number) => {
   window.open(linkList[0].links[number - 1].url, '_blank');
@@ -31,6 +37,7 @@ const checkResponse = (response) => {
 };
 
 const fetchConfigFromBackend = () => fetch(configEndpoint).then(checkResponse);
+const fetchFeatureConfig = () => fetch(featureConfigEndpoint).then(checkResponse);
 const checkGitConnection = () => fetch(gitCheckEndpoint).then(checkResponse);
 const saveConfigToBackend = (data) => postData(configEndpoint, data).then(checkResponse);
 const addLinkToBackend = (data) => postData(linkEndpoint, data).then(checkResponse);
@@ -42,6 +49,16 @@ function* onFetchConfig () {
   } catch (e) {
     console.error("Load Config Failed" + e.message);
     yield put(showErrorAlert("Load Config Failed: " + e.message));
+  }
+}
+
+function* onFetchFeatureConfig () {
+  try {
+    const featureConfig = yield call(fetchFeatureConfig);
+    yield put(featureConfigFetched(featureConfig));
+  } catch (e) {
+    console.error("Load Feature Config Failed" + e.message);
+    yield put(showErrorAlert("Load Feature Config Failed: " + e.message));
   }
 }
 
@@ -108,6 +125,7 @@ function* onAddLink (action) {
 
 function* rootSaga () {
   yield takeLatest(FETCH_CONFIG, onFetchConfig);
+  yield takeLatest(FETCH_FEATURE_CONFIG, onFetchFeatureConfig);
   yield takeLatest(SAVE_CONFIG, onSaveConfig);
   yield takeLatest(OPEN_LINK, onOpenLink);
   yield takeLatest(ADD_LINK, onAddLink);

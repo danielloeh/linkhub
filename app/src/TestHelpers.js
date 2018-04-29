@@ -11,3 +11,7 @@ export const alertingMock = {
   show: false,
   alertType: ALERT_ERROR_TYPE
 };
+
+export const featureConfigMock = {
+  editEnabled: true
+};

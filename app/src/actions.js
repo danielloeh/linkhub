@@ -32,6 +32,10 @@ export const CHECK_GIT_CONNECTION = 'CHECK_GIT_CONNECTION';
 export const SAVING_CONFIG = 'SAVING_CONFIG';
 export const CONFIG_SAVED = 'CONFIG_SAVED';
 
+// feature config
+export const FEATURE_CONFIG_FETCHED = 'FEATURE_CONFIG_FETCHED';
+export const FETCH_FEATURE_CONFIG = 'FETCH_FEATURE_CONFIG';
+
 /* filter actions */
 export function applyFilter (filterTerm, allResults) {
   return {
@@ -92,6 +96,21 @@ export function fetchConfig () {
 export function configFetched (configJson) {
   return {
     type: CONFIG_FETCHED,
+    configJson
+  }
+}
+
+/* load feature config */
+
+export function fetchFeatureConfig () {
+  return {
+    type: FETCH_FEATURE_CONFIG
+  }
+}
+
+export function featureConfigFetched (configJson) {
+  return {
+    type: FEATURE_CONFIG_FETCHED,
     configJson
   }
 }

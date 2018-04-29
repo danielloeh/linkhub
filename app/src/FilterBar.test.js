@@ -23,7 +23,7 @@ describe("Filterbar test", () => {
     const store = mockStore({});
 
     const linkItemWrapper = mount(<Provider store={store}>
-      <FilterBar allResults={someResults} gitConnection={gitConnection}/>
+      <FilterBar allResults={someResults} gitConnection={gitConnection} featureConfig={{editEnabled: true}}/>
     </Provider>);
 
     let enterKeyCode = 13;
@@ -41,7 +41,7 @@ describe("Filterbar test", () => {
     const store = mockStore({});
 
     const linkItemWrapper = mount(<Provider store={store}>
-      <FilterBar allResults={someResults} gitConnection={gitConnection}/>
+      <FilterBar allResults={someResults} gitConnection={gitConnection} featureConfig={{editEnabled: true}}/>
     </Provider>);
 
 
@@ -57,7 +57,7 @@ describe("Filterbar test", () => {
     const store = mockStore({});
 
     const linkItemWrapper = mount(<Provider store={store}>
-      <FilterBar allResults={someResults} gitConnection={gitConnection}/>
+      <FilterBar allResults={someResults} gitConnection={gitConnection} featureConfig={{editEnabled: true}}/>
     </Provider>);
 
 
@@ -73,7 +73,7 @@ describe("Filterbar test", () => {
     const store = mockStore({});
 
     const linkItemWrapper = mount(<Provider store={store}>
-      <FilterBar allResults={someResults} gitConnection={gitConnection}/>
+      <FilterBar allResults={someResults} gitConnection={gitConnection} featureConfig={{editEnabled: true}}/>
     </Provider>);
 
     expect(linkItemWrapper.find(GenericButton).length).toBe(4);
@@ -87,7 +87,7 @@ describe("Filterbar test", () => {
     const store = mockStore({});
 
     const linkItemWrapper = mount(<Provider store={store}>
-      <FilterBar allResults={someResults} gitConnection={gitConnection}/>
+      <FilterBar allResults={someResults} gitConnection={gitConnection} featureConfig={{editEnabled: true}}/>
     </Provider>);
 
 
@@ -105,7 +105,7 @@ describe("Filterbar test", () => {
     const store = mockStore({});
 
     const linkItemWrapper = mount(<Provider store={store}>
-      <FilterBar allResults={someResults} gitConnection={gitConnection}/>
+      <FilterBar allResults={someResults} gitConnection={gitConnection} featureConfig={{editEnabled: true}}/>
     </Provider>);
 
     linkItemWrapper.find(Input).prop('onChange')({target: {value: "some-text"}});
@@ -122,7 +122,7 @@ describe("Filterbar test", () => {
     const store = mockStore({});
 
     const linkItemWrapper = mount(<Provider store={store}>
-      <FilterBar allResults={someResults} gitConnection={gitConnection}/>
+      <FilterBar allResults={someResults} gitConnection={gitConnection} featureConfig={{editEnabled: true}}/>
     </Provider>);
 
     linkItemWrapper.find(Input).prop('onChange')({target: {value: "some-text"}});
@@ -140,7 +140,7 @@ describe("Filterbar test", () => {
     const store = mockStore({});
 
     const linkItemWrapper = mount(<Provider store={store}>
-      <FilterBar allResults={someResults} gitConnection={gitConnection}/>
+      <FilterBar allResults={someResults} gitConnection={gitConnection} featureConfig={{editEnabled: true}}/>
     </Provider>);
 
     let enterKeyCode = 27;
@@ -171,12 +171,34 @@ describe("Filterbar test", () => {
     };
 
     const linkItemWrapper = mount(<Provider store={store}>
-      <FilterBar allResults={someResults} gitConnection={gitConnectionOk}/>
+      <FilterBar allResults={someResults} gitConnection={gitConnectionOk} featureConfig={{editEnabled: true}}/>
     </Provider>);
 
     let gitStatusButton = linkItemWrapper.find("#git-status").filter(Button);
 
     expect(gitStatusButton.prop('className')).toContain("git-ok");
+  });
+
+  it('disabled buttons if edit is disabled', () => {
+    const someResults = [];
+
+    const store = mockStore({});
+
+    const gitConnectionOk = {
+      connected: true,
+      remoteUrl: "some-url",
+      upToDate: true
+    };
+
+    const linkItemWrapper = mount(<Provider store={store}>
+      <FilterBar allResults={someResults} gitConnection={gitConnectionOk} featureConfig={{editEnabled: false}}/>
+    </Provider>);
+
+    let addLinkButton = linkItemWrapper.find("#add-link").filter(Button);
+    let editConfigButton = linkItemWrapper.find("#edit-config").filter(Button);
+
+    expect(addLinkButton.prop('disabled')).toEqual(true);
+    expect(editConfigButton.prop('disabled')).toEqual(true);
   });
 
   it('displays warning button if connection ok but not up to date', () => {
@@ -191,7 +213,7 @@ describe("Filterbar test", () => {
     };
 
     const linkItemWrapper = mount(<Provider store={store}>
-      <FilterBar allResults={someResults} gitConnection={gitConnectionNotUpToDate}/>
+      <FilterBar allResults={someResults} gitConnection={gitConnectionNotUpToDate} featureConfig={{editEnabled: true}}/>
     </Provider>);
 
     let gitStatusButton = linkItemWrapper.find("#git-status").filter(Button);
@@ -211,7 +233,7 @@ describe("Filterbar test", () => {
     };
 
     const linkItemWrapper = mount(<Provider store={store}>
-      <FilterBar allResults={someResults} gitConnection={gitConnectionError}/>
+      <FilterBar allResults={someResults} gitConnection={gitConnectionError} featureConfig={{editEnabled: true}}/>
     </Provider>);
 
     let gitStatusButton = linkItemWrapper.find("#git-status").filter(Button);

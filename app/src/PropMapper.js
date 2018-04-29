@@ -5,6 +5,7 @@ import {
   alerting,
   allResults,
   categories,
+  featureConfig,
   filteredResults,
   filterTerm,
   gitConnection,
@@ -28,7 +29,8 @@ const mapStateToProps = state => {
     pageState: pageState(state),
     alerting: alerting(state),
     gitConnection: gitConnection(state),
-    saving: saving(state)
+    saving: saving(state),
+    featureConfig: featureConfig(state)
   };
 };
 

@@ -7,7 +7,7 @@ import FilterBar from "./FilterBar";
 import Alert from "./Alert";
 import {SHOW_CONFIG} from "./actions";
 import Config from "./Config";
-import {alertingMock, gitConnectionMock} from "./TestHelpers";
+import {alertingMock, featureConfigMock, gitConnectionMock} from "./TestHelpers";
 
 describe("LinkHub test", () => {
 
@@ -25,12 +25,13 @@ describe("LinkHub test", () => {
                  filteredResults={[]} categories={[]}
                  pageState={SHOW_CONFIG}
                  gitConnection={gitConnectionMock}
-                 saving={false}/>
+                 saving={false}
+                 featureConfig={featureConfigMock}
+        />
       </Provider>);
 
     expect(addLinkWrapper.find(FilterBar).length).toBe(1);
     expect(addLinkWrapper.find(Alert).length).toBe(1);
     expect(addLinkWrapper.find(Config).length).toBe(1);
   });
-
 });

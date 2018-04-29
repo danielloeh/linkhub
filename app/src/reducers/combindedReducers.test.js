@@ -9,7 +9,8 @@ describe('Combined Reducers', () => {
       git: {"connected": false, "remoteUrl": "", "saving": false, "upToDate": false},
       loading: {"allResults": [], "categories": []},
       page: {"pageState": "SHOW_LINKS"},
-      saving: {"saving": false}
+      saving: {"saving": false},
+      featureConfig: {"editEnabled": false}
     })
   });
 

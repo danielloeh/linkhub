@@ -1,11 +1,12 @@
 import {
   CONFIG_FETCHED,
   CONFIG_SAVED,
+  FEATURE_CONFIG_FETCHED,
   FETCH_CONFIG,
   GIT_CONNECTION_CHECKED,
   HIDE_ALERT,
   SAVING_CONFIG,
-  SHOW_ALERT,
+  SHOW_ALERT
 } from "../actions";
 import {combineReducers} from "redux";
 import {ALERT_INFO_TYPE} from "../Alert";
@@ -32,6 +33,10 @@ const emptyGitState = {
 
 const emptySavingState = {
   saving: false
+};
+
+const emptyFeatureConfigState = {
+  editEnabled: false
 };
 
 let extractCategories = (allResults) => {
@@ -89,13 +94,24 @@ function saving (state = emptySavingState, action) {
   }
 }
 
+function featureConfig (state = emptyFeatureConfigState, action) {
+
+  switch (action.type) {
+    case FEATURE_CONFIG_FETCHED:
+      return Object.assign({}, state, action.configJson);
+    default:
+      return state;
+  }
+}
+
 const combinedReducers = combineReducers({
   filter,
   page,
   loading,
   alerting,
   git,
-  saving
+  saving,
+  featureConfig
 });
 
 export default combinedReducers;

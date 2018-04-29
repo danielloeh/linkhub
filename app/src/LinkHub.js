@@ -1,7 +1,13 @@
 import React from "react";
 import FilterBar from "./FilterBar";
 import LinkList from "./LinkList";
-import {alertTypePropTypes, categoriesPropTypes, gitConnectionPropType, resultsPropType} from "./LinkPropTypes";
+import {
+  alertTypePropTypes,
+  categoriesPropTypes,
+  gitConnectionPropType,
+  resultsPropType
+} from "./LinkPropTypes";
+import {featureConfigPropType} from "./FeatureConfigPropTypes";
 import "./LinkHub.css";
 import {SHOW_ADD_LINK, SHOW_CONFIG, SHOW_GIT_SETTINGS, SHOW_LINKS} from "./actions";
 import Config from "./Config";
@@ -24,14 +30,13 @@ function Pages ({allResults, filteredResults, pageState, categories, gitConnecti
   }
 }
 
-const LinkHub = ({allResults, filteredResults, pageState, alerting, categories, gitConnection, saving}) => (
+const LinkHub = ({allResults, filteredResults, pageState, alerting, categories, gitConnection, saving, featureConfig}) => (
   <div className="filter-hub">
-    <FilterBar allResults={allResults} gitConnection={gitConnection}/>
+    <FilterBar allResults={allResults} gitConnection={gitConnection} featureConfig={featureConfig}/>
     <Alert message={alerting.message} show={alerting.show} alertType={alerting.alertType}/>
     <Pages pageState={pageState} filteredResults={filteredResults} allResults={allResults} categories={categories}
            gitConnection={gitConnection} saving={saving}/>
-  </div>
-);
+  </div>);
 
 LinkHub.propTypes = {
   allResults: resultsPropType,
@@ -40,7 +45,8 @@ LinkHub.propTypes = {
   categories: categoriesPropTypes,
   pageState: PropTypes.string.isRequired,
   gitConnection: gitConnectionPropType,
-  saving: PropTypes.bool.isRequired
+  saving: PropTypes.bool.isRequired,
+  featureConfig: featureConfigPropType
 };
 
 export default LinkHub;

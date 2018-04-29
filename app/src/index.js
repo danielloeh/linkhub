@@ -8,7 +8,7 @@ import LinkList from "./PropMapper";
 import createSagaMiddleware from "redux-saga";
 import rootSaga from "./sagas";
 import combinedReducers from "./reducers/combinedReducers";
-import {checkGitConnection, fetchConfig} from "./actions";
+import {checkGitConnection, fetchConfig, fetchFeatureConfig} from "./actions";
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
@@ -18,6 +18,7 @@ const store = createStore(
 
 sagaMiddleware.run(rootSaga);
 store.dispatch(fetchConfig());
+store.dispatch(fetchFeatureConfig());
 store.dispatch(checkGitConnection());
 
 render(
