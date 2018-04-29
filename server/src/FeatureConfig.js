@@ -3,8 +3,9 @@
 module.exports = class FeatureConfig {
 
   constructor (envVariables) {
+    const toggleAsBool = (envVariables.EDIT_ENABLED || 'true') === 'true';
     this.featureConfig = {
-      editEnabled: envVariables.EDIT_ENABLED || true
+      editEnabled: toggleAsBool
     };
 
     console.log(`Using following feature config: ${JSON.stringify(this.featureConfig)}`);

@@ -97,8 +97,7 @@ function saving (state = emptySavingState, action) {
 function featureConfig (state = emptyFeatureConfigState, action) {
   switch (action.type) {
     case FEATURE_CONFIG_FETCHED:
-      const editEnabled = action.configJson.editEnabled === 'true';
-      return Object.assign({}, state, {editEnabled: editEnabled});
+      return Object.assign({}, state, {editEnabled: action.configJson.editEnabled});
     default:
       return state;
   }

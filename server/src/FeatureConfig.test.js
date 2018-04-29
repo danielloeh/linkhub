@@ -2,10 +2,10 @@ import FeatureConfig from "./FeatureConfig";
 
 describe("FeatureConfig Test", () => {
 
-  it('returns right mapping', () => {
+  it('returns right mapping for string variables', () => {
 
     const vars = {
-      EDIT_ENABLED : true
+      EDIT_ENABLED : 'true'
     };
 
     const featureConfig = new FeatureConfig(vars);
@@ -15,7 +15,7 @@ describe("FeatureConfig Test", () => {
     expect(resultingConfig.editEnabled).toEqual(true);
   });
 
-  it('defaults to false', () => {
+  it('defaults to true', () => {
 
     const vars = {
     };
@@ -24,7 +24,7 @@ describe("FeatureConfig Test", () => {
 
     const resultingConfig = featureConfig.getFeatureConfig();
 
-    expect(resultingConfig.editEnabled).toEqual(false);
+    expect(resultingConfig.editEnabled).toEqual(true);
   });
 
 });

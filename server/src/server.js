@@ -12,7 +12,7 @@ const util = require("util");
 
 const PORT = parseInt(process.env.PORT, 10) || 8080;
 
-const featureConfig = new FeatureConfig(process.env);
+
 
 const sendPosResultBuilder = (res, payload) => {
   res.status(200);
@@ -30,6 +30,7 @@ class LinkListServer {
 
     const config_file = "links.json";
     this.configEditor = new ConfigEditor(config_file);
+    this.featureConfig = new FeatureConfig(process.env);
     this.gitReader = GitReader.createGitReader({configfile: config_file});
 
     app.use(function (req, res, next) {
@@ -79,7 +80,7 @@ class LinkListServer {
     });
 
     app.get("/api/featureConfig", (req, res) => {
-      res.send(featureConfig.getFeatureConfig())
+      res.send(this.featureConfig.getFeatureConfig())
     });
 
     app.post("/api/config", (req, res) => {
@@ -87,10 +88,11 @@ class LinkListServer {
       const sendPosResult = (payload) => sendPosResultBuilder(res, payload);
       const sendNegResult = () => sendNegResultBuilder(res);
 
-      if (req.body !== null && featureConfig.editEnabled) {
+      if (req.body !== null && this.featureConfig.getFeatureConfig().editEnabled) {
         this.configEditor.saveConfig(req.body, sendPosResult, sendNegResult, this.gitReader);
       }
       else {
+        console.error(`Failed request to /api/config `);
         sendNegResult();
       }
     });
@@ -100,7 +102,7 @@ class LinkListServer {
         const sendPosResult = (payload) => sendPosResultBuilder(res, payload);
         const sendNegResult = () => sendNegResultBuilder(res);
 
-        if (req.body !== null && featureConfig.editEnabled) {
+        if (req.body !== null && this.featureConfig.getFeatureConfig().editEnabled) {
           this.configEditor.addLink(req.body, sendPosResult, sendNegResult, this.gitReader);
         }
         else {

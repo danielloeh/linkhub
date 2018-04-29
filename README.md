@@ -40,6 +40,10 @@ Voilà - a simple persisting solution without further setup. For security reason
 
 Note: This currently only works if the its you use the whole directory for running the app including the git files, e.g. via the docker container. Other ways e.g. how heroku is handling running container don't find the git files and can't connect.
 
+### Feature Config
+
+* Set `EDIT_ENABLED` to false to disable editing functionality.
+
 ## Development
 
 ### Testing
