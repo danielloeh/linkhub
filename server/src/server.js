@@ -5,11 +5,14 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const fs = require("fs");
 const path = require("path");
-const ConfigReader = require("./ConfigReader");
+const ConfigEditor = require("./ConfigEditor");
 const GitReader = require("./GitReader");
+const FeatureConfig = require("./FeatureConfig");
 const util = require("util");
 
 const PORT = parseInt(process.env.PORT, 10) || 8080;
+
+const featureConfig = new FeatureConfig(process.env);
 
 const sendPosResultBuilder = (res, payload) => {
   res.status(200);
@@ -26,7 +29,7 @@ class LinkListServer {
     const app = express();
 
     const config_file = "links.json";
-    this.configReader = new ConfigReader(config_file);
+    this.configEditor = new ConfigEditor(config_file);
     this.gitReader = GitReader.createGitReader({configfile: config_file});
 
     app.use(function (req, res, next) {
@@ -72,7 +75,11 @@ class LinkListServer {
     });
 
     app.get("/api/config", (req, res) => {
-      res.send(this.configReader.getLinks())
+      res.send(this.configEditor.getLinks())
+    });
+
+    app.get("/api/featureConfig", (req, res) => {
+      res.send(featureConfig.getFeatureConfig())
     });
 
     app.post("/api/config", (req, res) => {
@@ -80,8 +87,8 @@ class LinkListServer {
       const sendPosResult = (payload) => sendPosResultBuilder(res, payload);
       const sendNegResult = () => sendNegResultBuilder(res);
 
-      if (req.body !== null) {
-        this.configReader.saveConfig(req.body, sendPosResult, sendNegResult, this.gitReader);
+      if (req.body !== null && featureConfig.editEnabled) {
+        this.configEditor.saveConfig(req.body, sendPosResult, sendNegResult, this.gitReader);
       }
       else {
         sendNegResult();
@@ -93,8 +100,8 @@ class LinkListServer {
         const sendPosResult = (payload) => sendPosResultBuilder(res, payload);
         const sendNegResult = () => sendNegResultBuilder(res);
 
-        if (req.body !== null) {
-          this.configReader.addLink(req.body, sendPosResult, sendNegResult, this.gitReader);
+        if (req.body !== null && featureConfig.editEnabled) {
+          this.configEditor.addLink(req.body, sendPosResult, sendNegResult, this.gitReader);
         }
         else {
           sendNegResult();

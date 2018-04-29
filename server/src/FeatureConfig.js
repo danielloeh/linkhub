@@ -2,8 +2,8 @@
 
 module.exports = class FeatureConfig {
 
-  constructor ({editEnabled = false}) {
-    this.editEnabled = editEnabled;
+  constructor (envVariables) {
+    this.editEnabled = envVariables.EDIT_ENABLED || true;
   }
 
   getFeatureConfig () {

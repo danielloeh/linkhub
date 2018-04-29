@@ -4,7 +4,11 @@ describe("FeatureConfig Test", () => {
 
   it('returns right mapping', () => {
 
-    const featureConfig = new FeatureConfig({editEnabled: true});
+    const vars = {
+      EDIT_ENABLED : true
+    };
+
+    const featureConfig = new FeatureConfig(vars);
 
     const resultingConfig = featureConfig.getFeatureConfig();
 
@@ -13,7 +17,10 @@ describe("FeatureConfig Test", () => {
 
   it('defaults to false', () => {
 
-    const featureConfig = new FeatureConfig({});
+    const vars = {
+    };
+
+    const featureConfig = new FeatureConfig(vars);
 
     const resultingConfig = featureConfig.getFeatureConfig();
 

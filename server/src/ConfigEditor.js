@@ -10,7 +10,7 @@ const configSchema = Joi.array().items(Joi.object().keys({
   }))
 }));
 
-module.exports = class ConfigReader {
+module.exports = class ConfigEditor {
 
   constructor (configFile) {
     this.configFile = configFile;

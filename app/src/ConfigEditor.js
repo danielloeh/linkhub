@@ -4,7 +4,7 @@ import {saveConfig, showErrorAlert} from "./actions";
 import Button from "muicss/lib/react/button";
 import Checkbox from "muicss/lib/react/checkbox";
 import TextArea from "muicss/lib/react/textarea";
-import "./ConfigEditor.css";
+import "./ConfigEditor";
 import Joi from "joi-browser";
 import PropTypes from "prop-types";
 import {gitConnectionPropType, resultsPropType} from "./LinkPropTypes";
