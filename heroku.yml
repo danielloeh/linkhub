@@ -1,3 +1,5 @@
 build:
   docker:
     web: Dockerfile
+    config:
+      EDIT_ENABLED: false # disable config editing for the public accessible URL
