@@ -5,7 +5,7 @@ import configureMockStore from "redux-mock-store";
 import {Provider} from "react-redux";
 import FilterBar from "./FilterBar";
 import Alert from "./Alert";
-import {SHOW_CONFIG} from "./actions";
+import {SHOW_CONFIG, SHOW_FULL} from "./actions";
 import Config from "./Config";
 import {alertingMock, featureConfigMock, gitConnectionMock} from "./TestHelpers";
 
@@ -23,7 +23,7 @@ describe("LinkHub test", () => {
         <LinkHub allResults={[]}
                  alerting={alertingMock}
                  filteredResults={[]} categories={[]}
-                 pageState={SHOW_CONFIG}
+                 page={{pageState: SHOW_CONFIG, pageMode: SHOW_FULL}}
                  gitConnection={gitConnectionMock}
                  saving={false}
                  featureConfig={featureConfigMock}

@@ -11,7 +11,15 @@ const displayQuickAccess = (quickAccess) => {
   }
 };
 
-const LinkItem = ({link, quickAccess}) => {
+const displayDescription = (compactMode, description) => {
+  if (!compactMode) {
+    return (<div className="link-description mui--text-caption">{description}</div>)
+  } else {
+    return null;
+  }
+};
+
+const LinkItem = ({link, quickAccess, compactMode = false}) => {
   return (
     <li className="link-item">
       <a href={link.url} target="'_blank'">
@@ -19,7 +27,7 @@ const LinkItem = ({link, quickAccess}) => {
         <div className="mui--text-caption link-url">({link.url})</div>
         {displayQuickAccess(quickAccess)}
       </a>
-      <div className="link-description mui--text-caption">{link.description}</div>
+      {displayDescription(compactMode, link.description)}
     </li>
   );
 };
@@ -28,7 +36,8 @@ LinkItem.propTypes = {
   link: linkPropType,
   quickAccess: PropTypes.shape({
     key: PropTypes.alphanumeric
-  })
+  }),
+  compactMode: PropTypes.bool
 };
 
 export default LinkItem;

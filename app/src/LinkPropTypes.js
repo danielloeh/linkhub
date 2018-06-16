@@ -32,4 +32,9 @@ export const categoriesPropTypes = PropTypes.arrayOf(
   PropTypes.string.isRequired
 ).isRequired;
 
+export const pageProptype = PropTypes.shape({
+  pageState: PropTypes.string.isRequired,
+  pageMode: PropTypes.string.isRequired,
+});
+
 

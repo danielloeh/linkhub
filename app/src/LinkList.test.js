@@ -13,7 +13,8 @@ it('renders the link items', () => {
     categoryName: "some-category",
     links: [{
       url: "some-url",
-      name: "some-name"
+      name: "some-name",
+      description: "some-description"
     }]
   }, {
     categoryName: "some-other-category",
@@ -28,7 +29,7 @@ it('renders the link items', () => {
 
   const linkItem = mount(
     <Provider store={store}>
-      <LinkList filteredResults={someResults}/>
+      <LinkList filteredResults={someResults} compactMode={false}/>
     </Provider>);
 
   expect(linkItem.find(".link-list-category").length).toBe(2);

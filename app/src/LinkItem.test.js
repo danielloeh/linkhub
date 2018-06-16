@@ -29,6 +29,20 @@ it('displays the description', () => {
   expect(linkItem.find('.link-description').text()).toEqual('some-description');
 });
 
+it('hides the description in compact mode', () => {
+  const div = document.createElement('div');
+
+  const someLink = {
+    url: "myUrl",
+    name: "myName",
+    description: "some-description"
+  };
+
+  const linkItem = shallow(<LinkItem highlighted={false} link={someLink} compactMode={true}/>, div);
+
+  expect(linkItem.find('.link-description').length).toBe(0);
+});
+
 it('has quick access if property is set', () => {
   const div = document.createElement('div');
 

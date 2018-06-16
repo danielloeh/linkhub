@@ -5,6 +5,7 @@ import {
   alertTypePropTypes,
   categoriesPropTypes,
   gitConnectionPropType,
+  pageProptype,
   resultsPropType
 } from "./LinkPropTypes";
 import {featureConfigPropType} from "./FeatureConfigPropTypes";
@@ -16,8 +17,8 @@ import Alert from "./Alert";
 import AddLink from "./AddLink";
 import GitSettings from "./GitSettings";
 
-function Pages ({allResults, filteredResults, pageState, categories, gitConnection, saving}) {
-  switch (pageState) {
+function Pages ({allResults, filteredResults, page, categories, gitConnection, saving}) {
+  switch (page.pageState) {
     case SHOW_CONFIG:
       return <Config allResults={allResults} gitConnection={gitConnection} saving={saving}/>;
     case SHOW_ADD_LINK:
@@ -26,15 +27,15 @@ function Pages ({allResults, filteredResults, pageState, categories, gitConnecti
       return <GitSettings gitConnection={gitConnection}/>;
     case SHOW_LINKS:
     default:
-      return <LinkList allResults={allResults} filteredResults={filteredResults}/>;
+      return <LinkList allResults={allResults} filteredResults={filteredResults} compactMode={page.pageMode}/>;
   }
 }
 
-const LinkHub = ({allResults, filteredResults, pageState, alerting, categories, gitConnection, saving, featureConfig}) => (
+const LinkHub = ({allResults, filteredResults, page, alerting, categories, gitConnection, saving, featureConfig}) => (
   <div className="filter-hub">
     <FilterBar allResults={allResults} gitConnection={gitConnection} featureConfig={featureConfig}/>
     <Alert message={alerting.message} show={alerting.show} alertType={alerting.alertType}/>
-    <Pages pageState={pageState} filteredResults={filteredResults} allResults={allResults} categories={categories}
+    <Pages page={page} filteredResults={filteredResults} allResults={allResults} categories={categories}
            gitConnection={gitConnection} saving={saving}/>
   </div>);
 
@@ -43,7 +44,7 @@ LinkHub.propTypes = {
   alertType: alertTypePropTypes,
   filteredResults: resultsPropType,
   categories: categoriesPropTypes,
-  pageState: PropTypes.string.isRequired,
+  page: pageProptype,
   gitConnection: gitConnectionPropType,
   saving: PropTypes.bool.isRequired,
   featureConfig: featureConfigPropType

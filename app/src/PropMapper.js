@@ -9,7 +9,7 @@ import {
   filteredResults,
   filterTerm,
   gitConnection,
-  pageState,
+  page,
   saving
 } from "./reducers/selectors";
 
@@ -26,7 +26,7 @@ const mapStateToProps = state => {
     allResults: allResults(state),
     categories: categories(state),
     filteredResults: filteredOrAllResults,
-    pageState: pageState(state),
+    page: page(state),
     alerting: alerting(state),
     gitConnection: gitConnection(state),
     saving: saving(state),
