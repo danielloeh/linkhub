@@ -12,8 +12,9 @@ import {gitConnectionPropType, resultsPropType} from "./LinkPropTypes";
 const configSchema = Joi.array().items(Joi.object().keys({
   categoryName: Joi.string().min(1).max(50).required(),
   links: Joi.array().items(Joi.object().keys({
-    url: Joi.string().uri().required(),
-    name: Joi.string().required()
+    url: Joi.string().uri().min(1).max(300).required(),
+    name: Joi.string().min(1).max(200).required(),
+    description: Joi.string().max(300)
   }))
 }));
 

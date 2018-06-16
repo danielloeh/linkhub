@@ -29,7 +29,7 @@ describe("AddLink test", () => {
     <AddLink categories={categories} gitConnection={gitConnection} saving={false}/>
     </Provider>);
 
-    expect(addLinkWrapper.find(Input).length).toBe(2);
+    expect(addLinkWrapper.find(Input).length).toBe(3);
 
     expect(addLinkWrapper.find(Option).length).toBe(2);
     expect(addLinkWrapper.find(Option).at(0).text()).toBe("some-category");
@@ -74,12 +74,13 @@ describe("AddLink test", () => {
 
     addLinkWrapper.find(Input).filter("#url-input").prop('onChange')(({target: {value: 'http://some-url.de'}}));
     addLinkWrapper.find(Input).filter("#name-input").prop('onChange')(({target: {value: 'some name'}}));
+    addLinkWrapper.find(Input).filter("#description-input").prop('onChange')(({target: {value: 'some description'}}));
     addLinkWrapper.find(Button).filter("#add-link-submit").prop("onClick")(eventMock);
 
     expect(eventMock.preventDefault.mock.calls.length).toBe(1);
 
     expect(store.getActions()).toEqual([
-      {"category": "some-category", "name": "some name", "type": "ADD_LINK", "url": "http://some-url.de"}
+      {"category": "some-category", "name": "some name", "type": "ADD_LINK", "url": "http://some-url.de", "description": "some description"}
     ]);
   });
 

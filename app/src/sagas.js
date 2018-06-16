@@ -106,7 +106,7 @@ function* onCheckGitConnection () {
 function* onAddLink (action) {
   try {
     yield put(savingConfig());
-    const updatedConfig = {category: action.category, url: action.url, name: action.name};
+    const updatedConfig = {category: action.category, url: action.url, name: action.name, description: action.description};
     const updatedLinks = yield call(addLinkToBackend, JSON.stringify(updatedConfig));
     yield put(configFetched(updatedLinks.config));
     yield put(showLinks());

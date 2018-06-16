@@ -158,12 +158,13 @@ export function hideAlert () {
 
 /* save link */
 
-export function addLink (category, url, name) {
+export function addLink (category, url, name, description) {
   return {
     type: ADD_LINK,
     category,
     url,
-    name
+    name,
+    description
   }
 }
 

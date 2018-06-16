@@ -10,19 +10,20 @@ import Joi from "joi-browser";
 import {categoriesPropTypes, gitConnectionPropType} from "./LinkPropTypes";
 
 let AddLink = ({dispatch, categories, gitConnection, saving = false}) => {
-  let name, url, category = categories[0];
+  let name, url, description, category = categories[0];
 
   const linkSchema = Joi.object().keys({
-    url: Joi.string().uri().min(1).max(150).required(),
-    name: Joi.string().min(1).max(150).required()
+    url: Joi.string().uri().min(1).max(300).required(),
+    name: Joi.string().min(1).max(150).required(),
+    description: Joi.string().max(300)
   });
 
   let onAddLinkClick = (ev) => {
     ev.preventDefault();
-    const result = Joi.validate({url: url, name: name}, linkSchema);
+    const result = Joi.validate({url: url, name: name, description: description}, linkSchema);
 
     if (result.error === null) {
-      dispatch(addLink(category, url, name));
+      dispatch(addLink(category, url, name, description));
     } else {
       dispatch(showErrorAlert("Validation failed: " + result.error.details[0].message));
     }
@@ -47,6 +48,12 @@ let AddLink = ({dispatch, categories, gitConnection, saving = false}) => {
     }
   };
 
+  let onChangeDescription = (ev) => {
+    if (ev.target.value.trim()) {
+      description = ev.target.value.trim();
+    }
+  };
+
   let onChangeDropDown = (ev) => {
     if (ev.target.value.trim()) {
       category = ev.target.value;
@@ -66,10 +73,13 @@ let AddLink = ({dispatch, categories, gitConnection, saving = false}) => {
                  onChange={onChangeName.bind(this)}/>
           <Input id="url-input" placeholder="URL" className="add-link-input" type="text"
                  onChange={onChangeURL.bind(this)}/>
+          <Input id="description-input" placeholder="Description" className="add-link-input" type="text"
+                 onChange={onChangeDescription.bind(this)}/>
           <div className="save-config">
             <Checkbox className="git-checkbox" name="inputA1" label="Save to Git" defaultChecked={goodToPush}
                       disabled={!goodToPush}/>
-            <Button id="add-link-submit" disabled={saving} color="primary" onClick={onAddLinkClick.bind(this)}>Add Link</Button>
+            <Button id="add-link-submit" disabled={saving} color="primary" onClick={onAddLinkClick.bind(this)}>Add
+              Link</Button>
           </div>
         </Form>
       </div>
