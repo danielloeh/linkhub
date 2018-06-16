@@ -29,7 +29,7 @@ it('renders the link items', () => {
 
   const linkItem = mount(
     <Provider store={store}>
-      <LinkList filteredResults={someResults} compactMode={false}/>
+      <LinkList filteredResults={someResults} pageMode={'SHOW_FULL'}/>
     </Provider>);
 
   expect(linkItem.find(".link-list-category").length).toBe(2);

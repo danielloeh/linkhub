@@ -38,7 +38,7 @@ it('hides the description in compact mode', () => {
     description: "some-description"
   };
 
-  const linkItem = shallow(<LinkItem highlighted={false} link={someLink} compactMode={true}/>, div);
+  const linkItem = shallow(<LinkItem highlighted={false} link={someLink} pageMode={'SHOW_COMPACT'}/>, div);
 
   expect(linkItem.find('.link-description').length).toBe(0);
 });

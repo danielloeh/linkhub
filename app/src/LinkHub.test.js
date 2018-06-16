@@ -23,7 +23,7 @@ describe("LinkHub test", () => {
         <LinkHub allResults={[]}
                  alerting={alertingMock}
                  filteredResults={[]} categories={[]}
-                 page={{pageState: SHOW_CONFIG, pageMode: SHOW_FULL}}
+                 page={{pageState: SHOW_CONFIG, pageMode: 'SHOW_FULL'}}
                  gitConnection={gitConnectionMock}
                  saving={false}
                  featureConfig={featureConfigMock}

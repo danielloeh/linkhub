@@ -7,7 +7,8 @@ import {
   showAddLink,
   showConfig,
   showGitSettings,
-  showLinks
+  showLinks,
+  togglePageMode
 } from "./actions";
 import "./FilterBar.css";
 import {connect} from "react-redux";
@@ -72,8 +73,11 @@ let FilterBar = ({dispatch, allResults, gitConnection, featureConfig}) => {
           <span>&nbsp;</span>
         </div>
       </div>
+
       <GenericButton id="git-status" size="small" actions={[showGitSettings]} additionalClasses={gitButtonColor}
                      label="GIT"/>
+      <GenericButton id="toggle-page-mode" size="small" actions={[togglePageMode]}
+                     label="Page Mode"/>
       <GenericButton id="add-link" size="small" actions={[showAddLink]} label="Add Link"
                      enabled={featureConfig.editEnabled}/>
       <GenericButton id="edit-config" size="small" actions={[showConfig]} label="Edit Config"

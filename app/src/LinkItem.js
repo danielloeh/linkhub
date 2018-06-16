@@ -11,15 +11,15 @@ const displayQuickAccess = (quickAccess) => {
   }
 };
 
-const displayDescription = (compactMode, description) => {
-  if (!compactMode) {
+const displayDescription = (pageMode, description) => {
+  if (pageMode === 'SHOW_FULL') {
     return (<div className="link-description mui--text-caption">{description}</div>)
   } else {
     return null;
   }
 };
 
-const LinkItem = ({link, quickAccess, compactMode = false}) => {
+const LinkItem = ({link, quickAccess, pageMode = 'SHOW_FULL'}) => {
   return (
     <li className="link-item">
       <a href={link.url} target="'_blank'">
@@ -27,7 +27,7 @@ const LinkItem = ({link, quickAccess, compactMode = false}) => {
         <div className="mui--text-caption link-url">({link.url})</div>
         {displayQuickAccess(quickAccess)}
       </a>
-      {displayDescription(compactMode, link.description)}
+      {displayDescription(pageMode, link.description)}
     </li>
   );
 };
@@ -37,7 +37,7 @@ LinkItem.propTypes = {
   quickAccess: PropTypes.shape({
     key: PropTypes.alphanumeric
   }),
-  compactMode: PropTypes.bool
+  pageMode: PropTypes.string
 };
 
 export default LinkItem;

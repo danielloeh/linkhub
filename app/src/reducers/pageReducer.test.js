@@ -7,7 +7,7 @@ describe('Page Reducer', () => {
     expect(pageReducer(undefined, {})).toEqual(
       {
         pageState: actions.SHOW_LINKS,
-        pageMode: actions.SHOW_COMPACT
+        pageMode: 'SHOW_COMPACT'
       }
     );
   });
@@ -22,26 +22,26 @@ describe('Page Reducer', () => {
     );
   });
 
-  it('handles show compact mode', () => {
+  it('handles toggle page mode from full', () => {
     expect(
-      pageReducer([], {
-        type: actions.SHOW_COMPACT
+      pageReducer({pageMode: 'SHOW_FULL'}, {
+        type: actions.TOGGLE_PAGE_MODE
       })
     ).toEqual(
       {
-        pageMode: actions.SHOW_COMPACT
+        pageMode: 'SHOW_COMPACT'
       }
     );
   });
 
-  it('handles show full mode', () => {
+  it('handles toggle page mode from compact', () => {
     expect(
-      pageReducer([], {
-        type: actions.SHOW_FULL
+      pageReducer({pageMode: 'SHOW_COMPACT'}, {
+        type: actions.TOGGLE_PAGE_MODE
       })
     ).toEqual(
       {
-        pageMode: actions.SHOW_FULL
+        pageMode: 'SHOW_FULL'
       }
     );
   });

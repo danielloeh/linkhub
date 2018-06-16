@@ -11,8 +11,7 @@ export const SHOW_ADD_LINK = 'SHOW_ADD_LINK';
 export const SHOW_GIT_SETTINGS = 'SHOW_GIT_SETTINGS';
 
 // page mode
-export const SHOW_COMPACT = 'SHOW_COMPACT';
-export const SHOW_FULL = 'SHOW_FULL';
+export const TOGGLE_PAGE_MODE = 'TOGGLE_PAGE_MODE';
 
 //loading
 export const FETCH_CONFIG = 'FETCH_CONFIG';
@@ -91,15 +90,9 @@ export function showGitSettings () {
 
 /* page modes */
 
-export function showCompactPage () {
+export function togglePageMode () {
   return {
-    type: SHOW_COMPACT
-  }
-}
-
-export function showFullPage () {
-  return {
-    type: SHOW_FULL
+    type: TOGGLE_PAGE_MODE
   }
 }
 

@@ -27,7 +27,7 @@ function Pages ({allResults, filteredResults, page, categories, gitConnection, s
       return <GitSettings gitConnection={gitConnection}/>;
     case SHOW_LINKS:
     default:
-      return <LinkList allResults={allResults} filteredResults={filteredResults} compactMode={page.pageMode}/>;
+      return <LinkList allResults={allResults} filteredResults={filteredResults} pageMode={page.pageMode}/>;
   }
 }
 
