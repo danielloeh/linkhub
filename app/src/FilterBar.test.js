@@ -9,6 +9,7 @@ import GenericButton from "./GenericButton";
 import Button from "muicss/lib/react/button";
 import {gitConnectionMock} from "./TestHelpers";
 
+
 describe("Filterbar test", () => {
 
   const sagaMiddleware = createSagaMiddleware();
@@ -51,7 +52,7 @@ describe("Filterbar test", () => {
     expect(store.getActions()).toEqual([{type: 'SHOW_CONFIG'}]);
   });
 
-  it('dispatches toggle page mode on button click', () => {
+  it('dispatches toggle page mode on button click and shows right label', () => {
     const someResults = [{categoryName: "acb", links: [{name: 'a', url: 'b'}]}];
 
     const store = mockStore({});
@@ -63,8 +64,21 @@ describe("Filterbar test", () => {
 
     expect(linkItemWrapper.find(GenericButton).length).toBe(5);
 
+    expect(linkItemWrapper.find(Button).filter("#toggle-page-mode").text()).toEqual("FULL MODE");
     linkItemWrapper.find(Button).filter("#toggle-page-mode").prop("onClick")({});
     expect(store.getActions()).toEqual([{type: 'TOGGLE_PAGE_MODE'}]);
+  });
+
+  it('shows compact mode label', () => {
+    const someResults = [];
+
+    const store = mockStore({});
+
+    const linkItemWrapper = mount(<Provider store={store}>
+      <FilterBar allResults={someResults} gitConnection={gitConnection} featureConfig={{editEnabled: true}} pageMode='SHOW_FULL'/>
+    </Provider>);
+
+    expect(linkItemWrapper.find(Button).filter("#toggle-page-mode").text()).toEqual("COMPACT MODE");
   });
 
   it('dispatches show links action on home button click', () => {

@@ -33,7 +33,7 @@ function Pages ({allResults, filteredResults, page, categories, gitConnection, s
 
 const LinkHub = ({allResults, filteredResults, page, alerting, categories, gitConnection, saving, featureConfig}) => (
   <div className="filter-hub">
-    <FilterBar allResults={allResults} gitConnection={gitConnection} featureConfig={featureConfig}/>
+    <FilterBar allResults={allResults} gitConnection={gitConnection} featureConfig={featureConfig} pageMode={page.pageMode}/>
     <Alert message={alerting.message} show={alerting.show} alertType={alerting.alertType}/>
     <Pages page={page} filteredResults={filteredResults} allResults={allResults} categories={categories}
            gitConnection={gitConnection} saving={saving}/>

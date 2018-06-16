@@ -17,8 +17,9 @@ import Input from "muicss/lib/react/input";
 import GenericButton from "./GenericButton";
 import {gitConnectionPropType, resultsPropType} from "./LinkPropTypes";
 import {featureConfigPropType} from "./FeatureConfigPropTypes";
+import PropTypes from "prop-types";
 
-let FilterBar = ({dispatch, allResults, gitConnection, featureConfig}) => {
+let FilterBar = ({dispatch, allResults, gitConnection, featureConfig, pageMode}) => {
 
   let onChange = (ev) => {
     if (ev.target.value.trim()) {
@@ -74,10 +75,11 @@ let FilterBar = ({dispatch, allResults, gitConnection, featureConfig}) => {
         </div>
       </div>
 
+
       <GenericButton id="git-status" size="small" actions={[showGitSettings]} additionalClasses={gitButtonColor}
                      label="GIT"/>
-      <GenericButton id="toggle-page-mode" size="small" actions={[togglePageMode]}
-                     label="Page Mode"/>
+      <GenericButton id="toggle-page-mode" size="small" actions={[togglePageMode]} additionalClasses="toggle-page-mode"
+                     label={pageMode === 'SHOW_FULL' ? 'COMPACT MODE' : 'FULL MODE'}/>
       <GenericButton id="add-link" size="small" actions={[showAddLink]} label="Add Link"
                      enabled={featureConfig.editEnabled}/>
       <GenericButton id="edit-config" size="small" actions={[showConfig]} label="Edit Config"
@@ -89,7 +91,8 @@ let FilterBar = ({dispatch, allResults, gitConnection, featureConfig}) => {
 FilterBar.propTypes = {
   allResults: resultsPropType,
   gitConnection: gitConnectionPropType,
-  featureConfig: featureConfigPropType
+  featureConfig: featureConfigPropType,
+  pageMode: PropTypes.string
 };
 
 FilterBar = connect()(FilterBar);
