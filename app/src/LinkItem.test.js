@@ -15,6 +15,20 @@ it('displays the url', () => {
   expect(linkItem.find('.link-url').text()).toEqual('(myUrl)');
 });
 
+it('displays the description', () => {
+  const div = document.createElement('div');
+
+  const someLink = {
+    url: "myUrl",
+    name: "myName",
+    description: "some-description"
+  };
+
+  const linkItem = shallow(<LinkItem highlighted={false} link={someLink}/>, div);
+
+  expect(linkItem.find('.link-description').text()).toEqual('some-description');
+});
+
 it('has quick access if property is set', () => {
   const div = document.createElement('div');
 

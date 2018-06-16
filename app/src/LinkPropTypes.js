@@ -8,7 +8,8 @@ export const alertTypePropTypes = PropTypes.shape({
 
 export const linkPropType = PropTypes.shape({
   url: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired
+  name: PropTypes.string.isRequired,
+  description: PropTypes.string
 }).isRequired;
 
 export const linksPropTypes = PropTypes.arrayOf(

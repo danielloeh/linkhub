@@ -10,6 +10,10 @@ const configSchema = Joi.array().items(Joi.object().keys({
   }))
 }));
 
+const stringRepresentationIsNotTheSame = (updatedContent, jsonString) => {
+  return JSON.stringify(updatedContent) !== JSON.stringify(JSON.parse(jsonString));
+};
+
 module.exports = class ConfigEditor {
 
   constructor (configFile) {
@@ -57,19 +61,24 @@ module.exports = class ConfigEditor {
     if (result.error === null) {
       const updatedContent = this.getLinks().map((category) => {
         if (category.categoryName === linkPayload.category) {
-          category.links.push({url: linkPayload.url, name: linkPayload.name});
+          category.links.push({url: linkPayload.url, name: linkPayload.name, description: linkPayload.description});
         }
         return category;
       });
 
-      fs.writeFile(this.configFile, JSON.stringify(updatedContent), function (err) {
-        if (!err) {
-          gitReader.commitConfig(sendPositiveResultFn, sendNegResult, updatedContent);
-        } else {
-          console.error("Cant write file:  " + err);
-          sendNegResult();
-        }
-      });
+      if (stringRepresentationIsNotTheSame(updatedContent, jsonString)) {
+        fs.writeFile(this.configFile, JSON.stringify(updatedContent), function (err) {
+          if (!err) {
+            gitReader.commitConfig(sendPositiveResultFn, sendNegResult, updatedContent);
+          } else {
+            console.error("Cant write file:  " + err);
+            sendNegResult();
+          }
+        });
+      } else {
+        console.warn("No valid link added");
+        sendNegResult();
+      }
     } else {
       console.error("Invalid config format: " + result.error.details[0].message);
       sendNegResult();
