@@ -8,9 +8,9 @@ describe('Combined Reducers', () => {
       filter: {"filterTerm": "", "filteredResults": []},
       git: {"connected": false, "remoteUrl": "", "saving": false, "upToDate": false},
       loading: {"allResults": [], "categories": []},
-      page: {"pageState": "SHOW_LINKS"},
+      page: {"pageState": "SHOW_LINKS", "pageMode": "SHOW_COMPACT"},
       saving: {"saving": false},
-      featureConfig: {"editEnabled": false}
+      featureConfig: {"editEnabled": false},
     })
   });
 

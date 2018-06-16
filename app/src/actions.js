@@ -10,6 +10,10 @@ export const SHOW_LINKS = 'SHOW_LINKS';
 export const SHOW_ADD_LINK = 'SHOW_ADD_LINK';
 export const SHOW_GIT_SETTINGS = 'SHOW_GIT_SETTINGS';
 
+// page mode
+export const SHOW_COMPACT = 'SHOW_COMPACT';
+export const SHOW_FULL = 'SHOW_FULL';
+
 //loading
 export const FETCH_CONFIG = 'FETCH_CONFIG';
 export const CONFIG_FETCHED = 'CONFIG_FETCHED';
@@ -82,6 +86,20 @@ export function showAddLink () {
 export function showGitSettings () {
   return {
     type: SHOW_GIT_SETTINGS
+  }
+}
+
+/* page modes */
+
+export function showCompactPage () {
+  return {
+    type: SHOW_COMPACT
+  }
+}
+
+export function showFullPage () {
+  return {
+    type: SHOW_FULL
   }
 }
 
