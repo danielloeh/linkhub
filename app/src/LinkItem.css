@@ -7,6 +7,12 @@
     color: #6a9dcb;
 }
 
+.link-description {
+    color: grey;
+    font-style: italic;
+    padding-bottom: .5em;
+}
+
 .highlighted {
     border: 1px dashed #6a9dcb;
 }

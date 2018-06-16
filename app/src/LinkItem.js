@@ -19,7 +19,7 @@ const LinkItem = ({link, quickAccess}) => {
         <div className="mui--text-caption link-url">({link.url})</div>
         {displayQuickAccess(quickAccess)}
       </a>
-      <div className="link-description">{link.description}</div>
+      <div className="link-description mui--text-caption">{link.description}</div>
     </li>
   );
 };
