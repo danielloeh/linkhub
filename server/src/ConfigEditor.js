@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 const fs = require('fs');
 const Joi = require('joi-browser');
 
@@ -58,7 +58,7 @@ module.exports = class ConfigEditor {
     const jsonString = fs.readFileSync(this.configFile);
 
     const result = Joi.validate(JSON.parse(jsonString), configSchema);
-
+    console.log("hello");
     if (result.error === null) {
       const updatedContent = this.getLinks().map((category) => {
         if (category.categoryName === linkPayload.category) {
@@ -77,7 +77,7 @@ module.exports = class ConfigEditor {
           }
         });
       } else {
-        console.warn("No valid link added");
+        console.error("No valid link added");
         sendNegResult();
       }
     } else {

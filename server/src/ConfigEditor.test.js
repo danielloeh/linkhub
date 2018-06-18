@@ -3,6 +3,14 @@ const fs = require('fs');
 
 describe("ConfigEditor Test", () => {
 
+  beforeAll(() => {
+    console.log = function () {
+    };
+
+    console.error = function () {
+    };
+  });
+
   it('adds a link to the config', () => {
 
     const configFile = 'some-filename';
@@ -24,7 +32,7 @@ describe("ConfigEditor Test", () => {
     };
     let writtenResult;
 
-    const readSpy = jest.spyOn(fs, 'readFileSync').mockImplementation((filePath, data) => aMockConfig);
+    const readSpy = jest.spyOn(fs, 'readFileSync').mockImplementation((filePath) => aMockConfig);
     const writeSpy = jest.spyOn(fs, 'writeFile').mockImplementation((configFile, updatedContent, callback) => {
       writtenResult = updatedContent;
       callback();
@@ -68,7 +76,6 @@ describe("ConfigEditor Test", () => {
       url: 'some-url',
       description: 'some-description'
     };
-    let writtenResult;
 
     const readSpy = jest.spyOn(fs, 'readFileSync').mockImplementation((filePath, data) => aMockConfig);
     const writeSpy = jest.spyOn(fs, 'writeFile').mockImplementation((configFile, updatedContent, callback) => {
@@ -87,18 +94,26 @@ describe("ConfigEditor Test", () => {
     expect(writeSpy.mock.calls.length).toBe(0);
 
     readSpy.mockRestore();
-    writeSpy.mockRestore();
   });
 
   it('sends negative result when validation fails', () => {
 
+
     const configFile = 'some-filename';
     const featureConfig = new ConfigEditor(configFile);
-    const anInvalidConfig = JSON.stringify({validJson: 'butInvalidSchema'});
+    const aMockConfig = `[
+      {
+        "categoryName": "some-category",
+        "invalidFormat" : "inThisSchema"
+      }]`;
+    const linkPayload = {
+      category: 'some-category',
+      name: 'some-name',
+      url: 'some-url',
+      description: 'some-description'
+    };
 
-    const linkPayload = {name: 'some-name', url: 'some-url', description: 'some-description'};
-
-    const readSpy = jest.spyOn(fs, 'readFileSync').mockImplementation((filePath, data) => anInvalidConfig);
+    const readSpy = jest.spyOn(fs, 'readFileSync').mockImplementation((filePath) => aMockConfig);
 
     const sendPositiveResultFn = jest.fn();
     const sendNegResult = jest.fn();
