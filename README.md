@@ -76,5 +76,9 @@ Daniel Löffelholz - daniel.loeffelholz@gmail.com  // dloeffel@thoughtworks.com 
 ## Upcoming Features
 * support multiple link groups 
 * site preview
+* [idea] useful commands
+* [idea] info boxes
+* [idea] glossary
+
 
 

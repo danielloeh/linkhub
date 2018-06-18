@@ -5,27 +5,32 @@
       {
         "url": "https://www.muicss.com/",
         "name": "MUI CSS - React Components",
-        "description": "Components used in this project"
+        "description": "Most elements of this project are MUI elements. MUI is a lightweight CSS framework that follows Google's Material Design guidelines"
       },
       {
         "url": "https://redux.js.org/api-reference",
-        "name": "Redux API Reference"
+        "name": "Redux API Reference",
+        "description": "Redux is a predictable state container for JavaScript apps. It helps you write applications that behave consistently, run in different environments (client, server, and native), and are easy to test."
       },
       {
         "url": "https://reactjs.org/docs/react-component.html",
-        "name": "React Components"
+        "name": "React Components",
+        "description": "This page contains a detailed API reference for the React component class definition."
       },
       {
         "url": "https://github.com/redux-saga/redux-saga/tree/master/docs/api",
-        "name": "React Saga API"
+        "name": "React Saga API",
+        "description": "redux-saga is a library that aims to make application side effects (i.e. asynchronous things like data fetching and impure things like accessing the browser cache) easier to manage, more efficient to execute, simple to test, and better at handling failures."
       },
       {
         "url": "https://webpack.js.org/api/",
-        "name": "Webpack API"
+        "name": "Webpack API",
+        "description": "At its core, webpack is a static module bundler for modern JavaScript applications. When webpack processes your application, it internally builds a dependency graph which maps every module your project needs and generates one or more bundles."
       },
       {
         "url": "https://css-tricks.com/snippets/css/a-guide-to-flexbox/",
-        "name": "Flexbox Guide"
+        "name": "Flexbox Guide",
+        "description": "The Flexible Box Module, usually referred to as flexbox, was designed as a one-dimensional layout model, and as a method that could offer space distribution between items in an interface and powerful alignment capabilities."
       }
     ]
   },
@@ -64,7 +69,8 @@
       },
       {
         "url": "https://redux.js.org/recipes/structuring-reducers",
-        "name": "Structuring Reducers - reduxjs"
+        "name": "Structuring Reducers - reduxjs",
+        "description": "At its core, Redux is really a fairly simple design pattern: all your 'write' logic goes into a single function, and the only way to run that logic is to give Redux a plain object that describes something that has happened."
       },
       {
         "url": "http://engineering.blogfoster.com/managing-complexity-in-redux-higher-order-reducers-and-async-state/",
