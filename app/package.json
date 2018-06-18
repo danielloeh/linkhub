@@ -47,7 +47,7 @@
     "whatwg-fetch": "2.0.3"
   },
   "devDependencies": {
-    "jest": "20.0.4",
+    "jest": "23.1.0",
     "babel-eslint": "7.2.3",
     "babel-jest": "20.0.3",
     "enzyme": "^3.3.0",
