@@ -8,6 +8,7 @@ import {Provider} from "react-redux";
 import GenericButton from "./GenericButton";
 import Button from "muicss/lib/react/button";
 import {gitConnectionMock} from "./TestHelpers";
+import ToggleButton from "react-toggle-button";
 
 
 describe("Filterbar test", () => {
@@ -45,14 +46,13 @@ describe("Filterbar test", () => {
       <FilterBar allResults={someResults} gitConnection={gitConnection} featureConfig={{editEnabled: true}}/>
     </Provider>);
 
-
-    expect(linkItemWrapper.find(GenericButton).length).toBe(5);
+    expect(linkItemWrapper.find(GenericButton).length).toBe(4);
 
     linkItemWrapper.find(Button).filter("#edit-config").prop("onClick")({});
     expect(store.getActions()).toEqual([{type: 'SHOW_CONFIG'}]);
   });
 
-  it('dispatches toggle page mode on button click and shows right label', () => {
+  it('dispatches toggle page mode on button click', () => {
     const someResults = [{categoryName: "acb", links: [{name: 'a', url: 'b'}]}];
 
     const store = mockStore({});
@@ -61,24 +61,21 @@ describe("Filterbar test", () => {
       <FilterBar allResults={someResults} gitConnection={gitConnection} featureConfig={{editEnabled: true}}/>
     </Provider>);
 
-
-    expect(linkItemWrapper.find(GenericButton).length).toBe(5);
-
-    expect(linkItemWrapper.find(Button).filter("#toggle-page-mode").text()).toEqual("FULL MODE");
-    linkItemWrapper.find(Button).filter("#toggle-page-mode").prop("onClick")({});
+    linkItemWrapper.find(ToggleButton).prop("onToggle")({});
     expect(store.getActions()).toEqual([{type: 'TOGGLE_PAGE_MODE'}]);
   });
 
-  it('shows compact mode label', () => {
+  it('shows toggle labels', () => {
     const someResults = [];
 
     const store = mockStore({});
 
     const linkItemWrapper = mount(<Provider store={store}>
-      <FilterBar allResults={someResults} gitConnection={gitConnection} featureConfig={{editEnabled: true}} pageMode='SHOW_FULL'/>
+      <FilterBar allResults={someResults} gitConnection={gitConnection} featureConfig={{editEnabled: true}}
+                 pageMode='SHOW_FULL'/>
     </Provider>);
 
-    expect(linkItemWrapper.find(Button).filter("#toggle-page-mode").text()).toEqual("COMPACT MODE");
+    expect(linkItemWrapper.find(".toggle-page-mode-box").text()).toEqual("FULL  ONOFF");
   });
 
   it('dispatches show links action on home button click', () => {
@@ -89,9 +86,6 @@ describe("Filterbar test", () => {
     const linkItemWrapper = mount(<Provider store={store}>
       <FilterBar allResults={someResults} gitConnection={gitConnection} featureConfig={{editEnabled: true}}/>
     </Provider>);
-
-
-    expect(linkItemWrapper.find(GenericButton).length).toBe(5);
 
     linkItemWrapper.find(Button).filter("#home").prop("onClick")({});
     expect(store.getActions()).toEqual([{"type": "FETCH_CONFIG"}, {"linksJson": undefined, "type": "SHOW_LINKS"}]);
@@ -106,7 +100,6 @@ describe("Filterbar test", () => {
       <FilterBar allResults={someResults} gitConnection={gitConnection} featureConfig={{editEnabled: true}}/>
     </Provider>);
 
-    expect(linkItemWrapper.find(GenericButton).length).toBe(5);
     linkItemWrapper.find(Button).filter("#add-link").prop("onClick")({});
     expect(store.getActions()).toEqual([{type: 'SHOW_ADD_LINK'}]);
   });

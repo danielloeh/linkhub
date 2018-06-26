@@ -18,9 +18,7 @@ import GenericButton from "./GenericButton";
 import {gitConnectionPropType, resultsPropType} from "./LinkPropTypes";
 import {featureConfigPropType} from "./FeatureConfigPropTypes";
 import PropTypes from "prop-types";
-import ToggleButton from 'react-toggle-button'
-
-
+import ToggleButton from "react-toggle-button";
 
 let FilterBar = ({dispatch, allResults, gitConnection, featureConfig, pageMode}) => {
 
@@ -87,12 +85,12 @@ let FilterBar = ({dispatch, allResults, gitConnection, featureConfig, pageMode})
       <div className="mui-panel toggle-page-mode-box">
         <span>FULL&nbsp;&nbsp;</span>
 
-      <ToggleButton className="toggle-page-mode"
-        value={pageMode === 'SHOW_FULL'}
-        onToggle={onToggleDisplayMode}
-        thumbStyle={{borderRadius: 2 }}
-        trackStyle={{borderRadius: 2 }}
-      />
+        <ToggleButton className="toggle-page-mode"
+                      value={pageMode === 'SHOW_FULL'}
+                      onToggle={onToggleDisplayMode}
+                      thumbStyle={{borderRadius: 2}}
+                      trackStyle={{borderRadius: 2}}
+        />
       </div>
 
       <GenericButton id="add-link" size="small" actions={[showAddLink]} label="Add Link"
