@@ -36,7 +36,18 @@
     color: #3a58af;
 }
 
-.toggle-page-mode {
-    background-color: #B9BECB;
-    color: #3a58af;
+.toggle-page-mode-box {
+    background-color: #73a7e7;
+    color: white;
+    display: flex;
+
+}
+
+.toggle-page-mode{
+    margin-right: 5px;
+}
+
+.mui-panel {
+    padding: 5px 15px;
+    margin-bottom: 0;
 }

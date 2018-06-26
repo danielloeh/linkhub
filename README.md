@@ -1,10 +1,18 @@
 # Linkhub  
-A little app for managing and accessing a list of links. It will display all the links configured in `links.json` and has the optional
+Linkhub is a tool for documenting and storing relevant links for a project in a central place. It will display all the links and their description configured in `links.json` and has the optional
 functionality of persisting the file into a remote git repository with little setup.
 
 Test it on: https://linkhub-danielloeh.herokuapp.com/ (give the instance a few seconds to wake up until anything gets displayed)
 
 [![Build Status](https://travis-ci.org/danielloeh/linkhub.svg?branch=master)](https://travis-ci.org/danielloeh/linkhub)
+
+## Value Proposition and Vision 
+Value proposition:
+- Have all the relevant links available in one place
+- Make it so convenient to use that its gets used as part of everyones daily routine, instead of bookmarking all the links on your local machine. Thereby it the chances of it being up to date and can be used to push out new links is as high as possible.
+
+Vision:
+- Support additional categories of information that need to be accessed on a daily basis 
 
 ## Running
 

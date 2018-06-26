@@ -18,8 +18,15 @@ import GenericButton from "./GenericButton";
 import {gitConnectionPropType, resultsPropType} from "./LinkPropTypes";
 import {featureConfigPropType} from "./FeatureConfigPropTypes";
 import PropTypes from "prop-types";
+import ToggleButton from 'react-toggle-button'
+
+
 
 let FilterBar = ({dispatch, allResults, gitConnection, featureConfig, pageMode}) => {
+
+  function onToggleDisplayMode () {
+    dispatch(togglePageMode());
+  }
 
   let onChange = (ev) => {
     if (ev.target.value.trim()) {
@@ -75,11 +82,19 @@ let FilterBar = ({dispatch, allResults, gitConnection, featureConfig, pageMode})
         </div>
       </div>
 
-
       <GenericButton id="git-status" size="small" actions={[showGitSettings]} additionalClasses={gitButtonColor}
                      label="GIT"/>
-      <GenericButton id="toggle-page-mode" size="small" actions={[togglePageMode]} additionalClasses="toggle-page-mode"
-                     label={pageMode === 'SHOW_FULL' ? 'COMPACT MODE' : 'FULL MODE'}/>
+      <div className="mui-panel toggle-page-mode-box">
+        <span>FULL&nbsp;&nbsp;</span>
+
+      <ToggleButton className="toggle-page-mode"
+        value={pageMode === 'SHOW_FULL'}
+        onToggle={onToggleDisplayMode}
+        thumbStyle={{borderRadius: 2 }}
+        trackStyle={{borderRadius: 2 }}
+      />
+      </div>
+
       <GenericButton id="add-link" size="small" actions={[showAddLink]} label="Add Link"
                      enabled={featureConfig.editEnabled}/>
       <GenericButton id="edit-config" size="small" actions={[showConfig]} label="Edit Config"

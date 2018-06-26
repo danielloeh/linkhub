@@ -3,7 +3,7 @@ FROM node:9.7.1
 ## SSH SETUP
 # We want to establish a connection between the local repository inside of the docker container and the remote repo in
 # in which the data is supposed to be saved. Therefore we need to pass in the private key which needs to match the public key stored in the repo.
-# We also need to add the host to the trusted connections -  that should be automated in the future through getting the url from the remote repo.ADD
+# We also need to add the host to the trusted connections.
 
 WORKDIR /usr/src/app
 
