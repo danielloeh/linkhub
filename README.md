@@ -82,6 +82,10 @@ Its can be easily deployed e.g. via travis to heroku. Heroku requires the app to
 Daniel Löffelholz - daniel.loeffelholz@gmail.com  // dloeffel@thoughtworks.com // twitter: @davololo
 
 ## Upcoming Features
+* small improvements:
+** Spinner for loading times
+** Deactivate non functional buttons
+
 * support multiple link groups 
 * site preview
 * [idea] useful commands
