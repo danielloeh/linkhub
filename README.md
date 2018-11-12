@@ -85,7 +85,7 @@ Daniel Löffelholz - daniel.loeffelholz@gmail.com  // dloeffel@thoughtworks.com 
 * small improvements:
 ** Spinner for loading times
 ** Deactivate non functional buttons
-
+* customize name
 * support multiple link groups 
 * site preview
 * [idea] useful commands
