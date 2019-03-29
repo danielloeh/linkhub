@@ -83,6 +83,9 @@ Daniel Löffelholz - daniel.loeffelholz@gmail.com  // dloeffel@thoughtworks.com 
 
 ## Upcoming Features
 * small improvements:
+
+-> deployed version
+
 ** Spinner for loading times
 ** Deactivate non functional buttons
 * customize name
