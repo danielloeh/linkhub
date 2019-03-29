@@ -23,7 +23,14 @@ store.dispatch(checkGitConnection());
 
 render(
   <Provider store={store}>
-    <LinkList />
+      {
+          !auth0Client.isAuthenticated() &&
+          <button className="btn btn-dark" onClick={auth0Client.signIn}>Sign In</button>
+      }
+      {
+          auth0Client.isAuthenticated() &&
+          <LinkList />
+      }
   </Provider>,
   document.getElementById('root')
 );

@@ -9,10 +9,27 @@ const ConfigEditor = require("./ConfigEditor");
 const GitReader = require("./GitReader");
 const FeatureConfig = require("./FeatureConfig");
 const util = require("util");
+const jwt = require('express-jwt');
+const jwksRsa = require('jwks-rsa');
 
 const PORT = parseInt(process.env.PORT, 10) || 8080;
 
+const AUTH_ISSUER_URI = process.env.AUTH_ISSUER_URI || "http://localhost";
+const AUTH_CLIENT_ID = process.env.AUTH_CLIENT_ID  || "some-id";
 
+const checkJwt = jwt({
+  secret: jwksRsa.expressJwtSecret({
+    cache: true,
+    rateLimit: true,
+    jwksRequestsPerMinute: 5,
+    jwksUri: `${AUTH_ISSUER_URI}/.well-known/jwks.json`  // to be configured via deployment
+  }),
+
+  // Validate the audience and the issuer.
+  audience: `${AUTH_CLIENT_ID}`,
+  issuer: `${AUTH_ISSUER_URI}`,
+  algorithms: ['RS256']
+});
 
 const sendPosResultBuilder = (res, payload) => {
   res.status(200);
@@ -26,6 +43,8 @@ class LinkListServer {
 
   constructor () {
     console.log(`Running Server on port ${PORT}`);
+    console.log(process.env);
+
     const app = express();
 
     const config_file = "links.json";
