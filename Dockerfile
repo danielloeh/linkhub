@@ -1,4 +1,4 @@
-FROM node:9.7.1
+FROM node:11.12.0-alpine
 
 ## SSH SETUP
 # We want to establish a connection between the local repository inside of the docker container and the remote repo in
@@ -9,13 +9,7 @@ WORKDIR /usr/src/app
 
 ## GIT SETUP
 
-RUN apt-get -y remove binutils
-
-# Update old git in debian jessie for 'get-url' support
-RUN echo "deb http://ftp.us.debian.org/debian testing main contrib non-free" >> /etc/apt/sources.list \
-         &&      apt-get update              \
-         &&      apt-get install -y git      \
-         &&      apt-get clean all
+RUN apk update && apk upgrade && apk add --no-cache bash git openssh
 
 # Settings up access token
 RUN mkdir -p /root/.ssh
