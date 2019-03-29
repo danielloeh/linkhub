@@ -15,8 +15,10 @@
     "ws": "^5.2.0"
   },
   "devDependencies": {
-    "jest": "23.1.0",
-    "babel-jest": "23.0.1"
+    "@babel/core": "^7.4.0",
+    "@babel/preset-env": "^7.4.2",
+    "@babel/preset-react": "^7.0.0",
+    "jest": "^24.5.0"
   },
   "engines": {
     "node": "9.5.0"
@@ -34,7 +36,7 @@
       "<rootDir>/server/src/**/?(*.)(spec|test).{js,jsx,mjs}"
     ],
     "transform": {
-      "^.+\\.(js|jsx|mjs)$": "<rootDir>/node_modules/babel-jest",
+      "^.+\\.jsx?$": "babel-jest",
       "^.+\\.css$": "<rootDir>/server/config/jest/cssTransform.js",
       "^(?!.*\\.(js|jsx|mjs|css|json)$)": "<rootDir>/server/config/jest/fileTransform.js"
     },
@@ -44,7 +46,8 @@
   },
   "babel": {
     "presets": [
-      "react-app"
+      "@babel/preset-env",
+      "@babel/preset-react"
     ]
   }
 }
