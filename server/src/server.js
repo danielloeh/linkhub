@@ -79,7 +79,7 @@ class LinkListServer {
 
   serveApp (app) {
     const rootDir = path.resolve(path.dirname(module.uri || "."));
-    app.use(express.static(rootDir + '/app/build'));
+    app.use(express.static(rootDir + '/app/build/'));
   }
 
   configureEndpoints (app) {

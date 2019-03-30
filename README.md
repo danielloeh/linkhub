@@ -48,6 +48,11 @@ Voilà - a simple persisting solution without further setup. For security reason
 
 Note: This currently only works if the its you use the whole directory for running the app including the git files, e.g. via the docker container. Other ways e.g. how heroku is handling running container don't find the git files and can't connect.
 
+### Auth 
+The app is supporting an OAuth2 flow (e.g. via Auth0). You need to set the environment variables when baking the docker image:
+ `AUTH_ISSUER_URI` (including http(s))
+ `AUTH_CLIENT_ID` 
+
 ### Feature Config
 
 * Set `EDIT_ENABLED` to false to disable editing functionality.

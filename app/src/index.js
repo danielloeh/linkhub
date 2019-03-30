@@ -9,11 +9,12 @@ import createSagaMiddleware from "redux-saga";
 import rootSaga from "./sagas";
 import combinedReducers from "./reducers/combinedReducers";
 import {checkGitConnection, fetchConfig, fetchFeatureConfig} from "./actions";
+import auth0Client from "./Auth";
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
-  combinedReducers,
-  applyMiddleware(sagaMiddleware)
+    combinedReducers,
+    applyMiddleware(sagaMiddleware)
 );
 
 sagaMiddleware.run(rootSaga);
@@ -22,17 +23,19 @@ store.dispatch(fetchFeatureConfig());
 store.dispatch(checkGitConnection());
 
 render(
-  <Provider store={store}>
-      {
-          !auth0Client.isAuthenticated() &&
-          <button className="btn btn-dark" onClick={auth0Client.signIn}>Sign In</button>
-      }
-      {
-          auth0Client.isAuthenticated() &&
-          <LinkList />
-      }
-  </Provider>,
-  document.getElementById('root')
+    <Provider store={store}>
+        <div>
+            {/*{*/}
+                {/*auth0Client.isAuthenticated() &&*/}
+                {/*<button className="btn btn-dark" onClick={auth0Client.signIn}>Sign In</button>*/}
+            {/*}*/}
+            {/*{*/}
+                {/*auth0Client.isAuthenticated() &&*/}
+                <LinkList/>
+            {/*}*/}
+        </div>
+    </Provider>,
+    document.getElementById('root')
 );
 
 registerServiceWorker();
