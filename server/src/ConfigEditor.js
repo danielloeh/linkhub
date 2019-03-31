@@ -58,7 +58,7 @@ module.exports = class ConfigEditor {
     const jsonString = fs.readFileSync(this.configFile);
 
     const result = Joi.validate(JSON.parse(jsonString), configSchema);
-    console.log("hello");
+
     if (result.error === null) {
       const updatedContent = this.getLinks().map((category) => {
         if (category.categoryName === linkPayload.category) {

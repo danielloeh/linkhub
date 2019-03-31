@@ -1,4 +1,5 @@
 import ConfigEditor from "./ConfigEditor";
+
 const fs = require('fs');
 
 describe("ConfigEditor Test", () => {
@@ -32,7 +33,7 @@ describe("ConfigEditor Test", () => {
     };
     let writtenResult;
 
-    const readSpy = jest.spyOn(fs, 'readFileSync').mockImplementation((filePath) => aMockConfig);
+    const readSpy = jest.spyOn(fs, 'readFileSync').mockImplementation(() => aMockConfig);
     const writeSpy = jest.spyOn(fs, 'writeFile').mockImplementation((configFile, updatedContent, callback) => {
       writtenResult = updatedContent;
       callback();
@@ -77,7 +78,7 @@ describe("ConfigEditor Test", () => {
       description: 'some-description'
     };
 
-    const readSpy = jest.spyOn(fs, 'readFileSync').mockImplementation((filePath, data) => aMockConfig);
+    const readSpy = jest.spyOn(fs, 'readFileSync').mockImplementation(() => aMockConfig);
     const writeSpy = jest.spyOn(fs, 'writeFile').mockImplementation((configFile, updatedContent, callback) => {
       callback();
     });
@@ -113,7 +114,7 @@ describe("ConfigEditor Test", () => {
       description: 'some-description'
     };
 
-    const readSpy = jest.spyOn(fs, 'readFileSync').mockImplementation((filePath) => aMockConfig);
+    const readSpy = jest.spyOn(fs, 'readFileSync').mockImplementation(() => aMockConfig);
 
     const sendPositiveResultFn = jest.fn();
     const sendNegResult = jest.fn();

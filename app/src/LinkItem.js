@@ -35,7 +35,7 @@ const LinkItem = ({link, quickAccess, pageMode = 'SHOW_FULL'}) => {
 LinkItem.propTypes = {
   link: linkPropType,
   quickAccess: PropTypes.shape({
-    key: PropTypes.string
+    key: PropTypes.number
   }),
   pageMode: PropTypes.string
 };

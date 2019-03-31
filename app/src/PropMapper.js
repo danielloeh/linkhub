@@ -4,6 +4,7 @@ import {applyFilter, showConfig, showLinks} from "./actions";
 import {
   alerting,
   allResults,
+  auth,
   categories,
   featureConfig,
   filteredResults,
@@ -14,6 +15,7 @@ import {
 } from "./reducers/selectors";
 
 const mapStateToProps = state => {
+
   let filteredOrAllResults;
 
   if (filterTerm(state) === '') {
@@ -30,11 +32,13 @@ const mapStateToProps = state => {
     alerting: alerting(state),
     gitConnection: gitConnection(state),
     saving: saving(state),
-    featureConfig: featureConfig(state)
+    featureConfig: featureConfig(state),
+    auth: auth(state)
   };
 };
 
 const mapDispatchToProps = dispatch => {
+
   return {
     onFilterChange: (filterTerm) => {
       dispatch(applyFilter(filterTerm))

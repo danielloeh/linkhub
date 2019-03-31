@@ -119,10 +119,6 @@ describe("AddLink test", () => {
       <AddLink categories={categories} gitConnection={gitConnection} saving={true} />
     </Provider>);
 
-    const eventMock = {
-      preventDefault: jest.fn()
-    };
-
     const buttonIsDisabled = addLinkWrapper.find(Button).filter("#add-link-submit").prop("disabled");
 
     expect(buttonIsDisabled).toBe(true);

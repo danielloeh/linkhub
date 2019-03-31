@@ -5,7 +5,9 @@ describe("FeatureConfig Test", () => {
   it('returns right mapping for string variables', () => {
 
     const vars = {
-      EDIT_ENABLED : 'true'
+      EDIT_ENABLED : 'true',
+      AUTH_CLIENT_ID: 'some-id',
+      AUTH_SERVER_URI: 'some-uri',
     };
 
     const featureConfig = new FeatureConfig(vars);

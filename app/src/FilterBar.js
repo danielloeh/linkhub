@@ -1,14 +1,14 @@
 import React from "react";
 import {
-  applyFilter,
-  displayAll,
-  fetchConfig,
-  openLink,
-  showAddLink,
-  showConfig,
-  showGitSettings,
-  showLinks,
-  togglePageMode
+    applyFilter,
+    displayAll,
+    fetchConfig, logout,
+    openLink,
+    showAddLink,
+    showConfig,
+    showGitSettings,
+    showLinks,
+    togglePageMode
 } from "./actions";
 import "./FilterBar.css";
 import {connect} from "react-redux";
@@ -19,8 +19,9 @@ import {gitConnectionPropType, resultsPropType} from "./LinkPropTypes";
 import {featureConfigPropType} from "./FeatureConfigPropTypes";
 import PropTypes from "prop-types";
 import ToggleButton from "react-toggle-button";
+import UserProfile from "./UserProfile";
 
-let FilterBar = ({dispatch, allResults, gitConnection, featureConfig, pageMode}) => {
+let FilterBar = ({dispatch, allResults, gitConnection, featureConfig, pageMode, userDetails}) => {
 
   function onToggleDisplayMode () {
     dispatch(togglePageMode());
@@ -97,6 +98,7 @@ let FilterBar = ({dispatch, allResults, gitConnection, featureConfig, pageMode})
                      enabled={featureConfig.editEnabled}/>
       <GenericButton id="edit-config" size="small" actions={[showConfig]} label="Edit Config"
                      enabled={featureConfig.editEnabled}/>
+      <UserProfile userDetails={userDetails}/>
     </Appbar>
   );
 };

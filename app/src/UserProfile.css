@@ -1,0 +1,48 @@
+.profile-picture-icon {
+    margin: 6px 0;
+    cursor: pointer;
+    max-height: 30px;
+    max-width: 30px;
+    border-radius: 50%;
+    display: block;
+}
+
+.profile-menu-box {
+    width: 350px;
+    height: 180px;
+    color: black;
+    background-color: #eeeeee;
+    overflow: hidden;
+    position: absolute;
+    border: 1px solid #CCC;
+    right: 10px;
+    top: 45px;
+}
+
+.user-profile {
+    display: inline-flex;
+}
+
+.profile-menu {
+    list-style: none;
+    padding-left: 00px;
+}
+
+.profile-list-items {
+    border-bottom: 1px solid #CCC;
+}
+
+.profile-card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.profile-picture-full {
+    margin: 6px 0;
+    max-height: 80px;
+    max-width: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    padding: 20px 20px;
+}

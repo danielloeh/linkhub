@@ -1,25 +1,27 @@
 import {call, put, select, takeLatest} from "redux-saga/effects";
 import {
-  ADD_LINK,
-  CHECK_GIT_CONNECTION,
-  configFetched,
-  configSaved,
-  featureConfigFetched,
-  FETCH_CONFIG,
-  FETCH_FEATURE_CONFIG,
-  gitConnectionChecked,
-  OPEN_LINK,
-  SAVE_CONFIG,
-  savingConfig,
-  showErrorAlert,
-  showInfoAlert,
-  showLinks,
-  showWarnAlert
+    ADD_LINK, callbackProcessed,
+    CHECK_GIT_CONNECTION,
+    configFetched,
+    configSaved,
+    featureConfigFetched,
+    FETCH_CONFIG,
+    FETCH_FEATURE_CONFIG,
+    gitConnectionChecked,
+    OPEN_LINK, PROCESS_CALLBACK,
+    SAVE_CONFIG,
+    savingConfig,
+    showErrorAlert,
+    showInfoAlert,
+    showLinks,
+    showWarnAlert
 } from "./actions";
 import {postData} from "./httpHelpers";
 import * as selectors from "./reducers/selectors";
+import history from './history';
 
-let server = window.location.origin;
+// let server = window.location.origin;
+let server = "http://localhost:8080";
 const configEndpoint = server + '/api/config';
 const linkEndpoint = server + '/api/links';
 const gitCheckEndpoint = server + '/api/git/check';
@@ -123,6 +125,15 @@ function* onAddLink (action) {
   }
 }
 
+function* onProcessCallback(){
+  try {
+    yield call(() => history.replace('/'));
+    yield put(callbackProcessed());
+  } catch (e) {
+    console.error("Redirect failed" + e.message);
+}
+}
+
 function* rootSaga () {
   yield takeLatest(FETCH_CONFIG, onFetchConfig);
   yield takeLatest(FETCH_FEATURE_CONFIG, onFetchFeatureConfig);
@@ -130,6 +141,7 @@ function* rootSaga () {
   yield takeLatest(OPEN_LINK, onOpenLink);
   yield takeLatest(ADD_LINK, onAddLink);
   yield takeLatest(CHECK_GIT_CONNECTION, onCheckGitConnection);
+  yield takeLatest(PROCESS_CALLBACK, onProcessCallback)
 }
 
 export default rootSaga;

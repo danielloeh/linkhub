@@ -7,3 +7,4 @@ export const gitConnection = (state) => state.git;
 export const saving = (state) => state.saving.saving;
 export const filterTerm = (state) => state.filter.filterTerm;
 export const featureConfig = (state) => state.featureConfig;
+export const auth = (state) => state.auth;

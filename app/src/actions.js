@@ -39,6 +39,14 @@ export const CONFIG_SAVED = 'CONFIG_SAVED';
 export const FEATURE_CONFIG_FETCHED = 'FEATURE_CONFIG_FETCHED';
 export const FETCH_FEATURE_CONFIG = 'FETCH_FEATURE_CONFIG';
 
+// auth
+export const LOGIN = 'LOGIN';
+export const IS_LOGGED_IN = 'IS_LOGGED_IN';
+export const LOGOUT = 'LOGOUT';
+export const PROCESS_CALLBACK = 'PROCESS_CALLBACK';
+export const CALLBACK_PROCESSED = 'CALLBACK_PROCESSED';
+export const UPDATE_USER_DETAILS = 'UPDATE_USER_DETAILS';
+
 /* filter actions */
 export function applyFilter (filterTerm, allResults) {
   return {
@@ -126,6 +134,45 @@ export function featureConfigFetched (configJson) {
   }
 }
 
+/* Authentication & Authorization */
+
+export function login () {
+  return {
+    type: LOGIN
+  }
+}
+
+export function processCallback(hash) {
+  return {
+    type: PROCESS_CALLBACK,
+    hash
+  }
+}
+
+export function callbackProcessed() {
+  return {
+    type: CALLBACK_PROCESSED
+  }
+}
+
+export function logout () {
+  return {
+    type: LOGOUT
+  }
+}
+
+export function isLoggedIn () {
+  return {
+    type: IS_LOGGED_IN
+  }
+}
+
+export function updateUserDetails (userDetails) {
+  return {
+    type: UPDATE_USER_DETAILS,
+    userDetails
+  }
+}
 /* save config */
 
 export function saveConfig (configJson) {

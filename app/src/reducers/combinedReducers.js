@@ -12,6 +12,7 @@ import {combineReducers} from "redux";
 import {ALERT_INFO_TYPE} from "../Alert";
 import filter from "./filterReducer";
 import page from "./pageReducer";
+import auth from "./authReducer";
 
 const emptyLoadingState = {
   allResults: [],
@@ -36,7 +37,9 @@ const emptySavingState = {
 };
 
 const emptyFeatureConfigState = {
-  editEnabled: false
+  editEnabled: false,
+  authURI: '',
+  authClientID: '',
 };
 
 let extractCategories = (allResults) => {
@@ -97,7 +100,11 @@ function saving (state = emptySavingState, action) {
 function featureConfig (state = emptyFeatureConfigState, action) {
   switch (action.type) {
     case FEATURE_CONFIG_FETCHED:
-      return Object.assign({}, state, {editEnabled: action.configJson.editEnabled});
+      return Object.assign({}, state, {
+        editEnabled: action.configJson.editEnabled,
+        authClientID: action.configJson.authClientID,
+        authURI: action.configJson.authURI,
+      });
     default:
       return state;
   }
@@ -110,7 +117,8 @@ const combinedReducers = combineReducers({
   alerting,
   git,
   saving,
-  featureConfig
+  featureConfig,
+  auth
 });
 
 export default combinedReducers;

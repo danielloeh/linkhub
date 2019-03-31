@@ -4,12 +4,16 @@ import "./index.css";
 import {Provider} from "react-redux";
 import {applyMiddleware, createStore} from "redux";
 import registerServiceWorker from "./registerServiceWorker";
-import LinkList from "./PropMapper";
+import PropMapper from "./PropMapper";
 import createSagaMiddleware from "redux-saga";
 import rootSaga from "./sagas";
 import combinedReducers from "./reducers/combinedReducers";
 import {checkGitConnection, fetchConfig, fetchFeatureConfig} from "./actions";
-import auth0Client from "./Auth";
+import AuthPropMapper from "./AuthPropMapper";
+import {Router, Route} from "react-router-dom";
+import history from './history';
+// import Login from "./Auth/Login";
+import Callback from './Callback';
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
@@ -22,18 +26,20 @@ store.dispatch(fetchConfig());
 store.dispatch(fetchFeatureConfig());
 store.dispatch(checkGitConnection());
 
+function Index(data) {
+    return (
+        <div>
+            <AuthPropMapper location={data.location}/>
+            <PropMapper/>
+        </div>)
+}
+
 render(
     <Provider store={store}>
-        <div>
-            {/*{*/}
-                {/*auth0Client.isAuthenticated() &&*/}
-                {/*<button className="btn btn-dark" onClick={auth0Client.signIn}>Sign In</button>*/}
-            {/*}*/}
-            {/*{*/}
-                {/*auth0Client.isAuthenticated() &&*/}
-                <LinkList/>
-            {/*}*/}
-        </div>
+        <Router history={history}>
+            <Route path="/" exact component={Index}/>
+            <Route path="/callback" render={(props) => <Callback {...props} />} />
+        </Router>
     </Provider>,
     document.getElementById('root')
 );

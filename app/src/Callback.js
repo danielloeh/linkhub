@@ -1,18 +1,16 @@
-import React, {Component} from 'react';
-// import {withRouter} from 'react-router-dom';
-import auth0Client from './Auth';
+import React from 'react';
+import {connect} from "react-redux";
+import {processCallback} from "./actions";
 
-class Callback extends Component {
-    async componentDidMount() {
-        await auth0Client.handleAuthentication();
-        this.props.history.replace('/');
-    }
+let Callback = ({dispatch, location}) => {
 
-    render() {
-        return (
-            <p>Loading profile...</p>
-        );
-    }
-}
+    dispatch(processCallback(location.hash));
+
+    return (
+        <div/>
+    );
+};
+
+Callback = connect()(Callback);
 
 export default Callback;

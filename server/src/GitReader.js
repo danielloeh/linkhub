@@ -80,14 +80,12 @@ module.exports = class GitReader {
       console.log(`Not connected (${this.connected}) or not uptodate (${this.upToDate}). Not committing.`);
       sendPosResult({config: config, persistedInGit: false});
     }
-  };
+  }
 
   checkRevisionAndSendResult (sendPosResult, sendNegResult) {
-    let masterResultLet;
 
     git.log(["origin/master", "-1", '--pretty=format:"%h"'])
       .then((masterResult) => {
-        masterResultLet = masterResult;
         return git.log(["-1", '--pretty=format:"%h"'])
           .then((localResult) => {
             if (localResult.latest.hash === masterResult.latest.hash) {
