@@ -25,4 +25,3 @@ yarn-error.log*
 
 # Avoid getting credentials being commited
 run_server_with_vars.sh
-

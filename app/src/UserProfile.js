@@ -47,8 +47,6 @@ class UserProfile extends Component {
 
     render() {
 
-        console.log(this.state);
-
         if (this.hasUserDetails(this.props.userDetails)) {
             return (
                 <div>
@@ -68,5 +66,3 @@ UserProfile.propTypes = {
 UserProfile = connect()(UserProfile);
 
 export default UserProfile;
-
-
