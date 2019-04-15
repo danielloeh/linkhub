@@ -8,5 +8,7 @@ services:
           - SSH_PRIVATE_KEY=${SSH_PRIVATE_KEY}
       environment:
           - EDIT_ENABLED=${EDIT_ENABLED}
+          - AUTH_SERVER_URI=${AUTH_SERVER_URI}
+          - AUTH_CLIENT_ID=${AUTH_CLIENT_ID}
       ports:
         - "8080:8080"

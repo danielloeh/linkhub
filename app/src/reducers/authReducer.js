@@ -5,17 +5,17 @@ import {
   AUTH_STATE_RESPONSE_RECEIVED,
   AUTH_STATE_UNAUTHENTICATED
 } from "../AuthClient";
-import {CALLBACK_PROCESSED, IS_LOGGED_IN, LOGIN, LOGOUT, PROCESS_CALLBACK, UPDATE_USER_DETAILS} from "../actions";
+import {CALLBACK_PROCESSED, IS_LOGGED_IN, LOGIN_ISSUED, LOGOUT, PROCESS_CALLBACK, UPDATE_USER_DETAILS} from "../actions";
 
 const emptyAuthenticationState = {
   authenticationState: AUTH_STATE_UNAUTHENTICATED,
   responseFragment: '',
-  userDetails: {}
+  userDetails: {fetched: false}
 };
 
 function auth ( state = emptyAuthenticationState, action){
   switch (action.type) {
-    case LOGIN:
+    case LOGIN_ISSUED:
       return Object.assign({}, state, {authenticationState: AUTH_STATE_LOGIN_ISSUED
       });
     case PROCESS_CALLBACK:
@@ -33,7 +33,6 @@ function auth ( state = emptyAuthenticationState, action){
       return Object.assign({}, state, {authenticationState: AUTH_STATE_IS_LOGGED_IN
       });
     case UPDATE_USER_DETAILS:
-      console.log(action.userDetails)
       return Object.assign({}, state, {userDetails: action.userDetails});
     default:
       return state;

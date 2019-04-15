@@ -19,13 +19,17 @@ describe("Filterbar test", () => {
 
   const gitConnection = gitConnectionMock;
 
+  const userDetails = {fetched: false};
+
+  const featureConfig = {editEnabled: true, authURI: 'some-uri', authClientID: 'some-client-id'};
+
   it('dispatches open link action with right number', () => {
     const someResults = [{categoryName: "acb", links: [{name: 'a', url: 'b'}]}];
 
     const store = mockStore({});
 
     const linkItemWrapper = mount(<Provider store={store}>
-      <FilterBar allResults={someResults} gitConnection={gitConnection} featureConfig={{editEnabled: true}}/>
+      <FilterBar allResults={someResults} gitConnection={gitConnection} featureConfig={featureConfig} userDetails={userDetails}/>
     </Provider>);
 
     let enterKeyCode = 13;
@@ -43,7 +47,7 @@ describe("Filterbar test", () => {
     const store = mockStore({});
 
     const linkItemWrapper = mount(<Provider store={store}>
-      <FilterBar allResults={someResults} gitConnection={gitConnection} featureConfig={{editEnabled: true}}/>
+      <FilterBar allResults={someResults} gitConnection={gitConnection} featureConfig={featureConfig} userDetails={userDetails} />
     </Provider>);
 
     expect(linkItemWrapper.find(GenericButton).length).toBe(4);
@@ -58,7 +62,7 @@ describe("Filterbar test", () => {
     const store = mockStore({});
 
     const linkItemWrapper = mount(<Provider store={store}>
-      <FilterBar allResults={someResults} gitConnection={gitConnection} featureConfig={{editEnabled: true}}/>
+      <FilterBar allResults={someResults} gitConnection={gitConnection} featureConfig={featureConfig} userDetails={userDetails} />
     </Provider>);
 
     linkItemWrapper.find(ToggleButton).prop("onToggle")({});
@@ -71,8 +75,8 @@ describe("Filterbar test", () => {
     const store = mockStore({});
 
     const linkItemWrapper = mount(<Provider store={store}>
-      <FilterBar allResults={someResults} gitConnection={gitConnection} featureConfig={{editEnabled: true}}
-                 pageMode='SHOW_FULL'/>
+      <FilterBar allResults={someResults} gitConnection={gitConnection} featureConfig={featureConfig}
+                 pageMode='SHOW_FULL' userDetails={userDetails}/>
     </Provider>);
 
     expect(linkItemWrapper.find(".toggle-page-mode-box").text()).toEqual("FULL  ONOFF");
@@ -84,7 +88,7 @@ describe("Filterbar test", () => {
     const store = mockStore({});
 
     const linkItemWrapper = mount(<Provider store={store}>
-      <FilterBar allResults={someResults} gitConnection={gitConnection} featureConfig={{editEnabled: true}}/>
+      <FilterBar allResults={someResults} gitConnection={gitConnection} featureConfig={featureConfig} userDetails={userDetails} />
     </Provider>);
 
     linkItemWrapper.find(Button).filter("#home").prop("onClick")({});
@@ -97,7 +101,7 @@ describe("Filterbar test", () => {
     const store = mockStore({});
 
     const linkItemWrapper = mount(<Provider store={store}>
-      <FilterBar allResults={someResults} gitConnection={gitConnection} featureConfig={{editEnabled: true}}/>
+      <FilterBar allResults={someResults} gitConnection={gitConnection} featureConfig={featureConfig} userDetails={userDetails}/>
     </Provider>);
 
     linkItemWrapper.find(Button).filter("#add-link").prop("onClick")({});
@@ -110,7 +114,7 @@ describe("Filterbar test", () => {
     const store = mockStore({});
 
     const linkItemWrapper = mount(<Provider store={store}>
-      <FilterBar allResults={someResults} gitConnection={gitConnection} featureConfig={{editEnabled: true}}/>
+      <FilterBar allResults={someResults} gitConnection={gitConnection} featureConfig={featureConfig} userDetails={userDetails}/>
     </Provider>);
 
 
@@ -128,7 +132,7 @@ describe("Filterbar test", () => {
     const store = mockStore({});
 
     const linkItemWrapper = mount(<Provider store={store}>
-      <FilterBar allResults={someResults} gitConnection={gitConnection} featureConfig={{editEnabled: true}}/>
+      <FilterBar allResults={someResults} gitConnection={gitConnection} featureConfig={featureConfig} userDetails={userDetails}/>
     </Provider>);
 
     linkItemWrapper.find(Input).prop('onChange')({target: {value: "some-text"}});
@@ -145,7 +149,7 @@ describe("Filterbar test", () => {
     const store = mockStore({});
 
     const linkItemWrapper = mount(<Provider store={store}>
-      <FilterBar allResults={someResults} gitConnection={gitConnection} featureConfig={{editEnabled: true}}/>
+      <FilterBar allResults={someResults} gitConnection={gitConnection} featureConfig={featureConfig} userDetails={userDetails}/>
     </Provider>);
 
     linkItemWrapper.find(Input).prop('onChange')({target: {value: "some-text"}});
@@ -163,7 +167,7 @@ describe("Filterbar test", () => {
     const store = mockStore({});
 
     const linkItemWrapper = mount(<Provider store={store}>
-      <FilterBar allResults={someResults} gitConnection={gitConnection} featureConfig={{editEnabled: true}}/>
+      <FilterBar allResults={someResults} gitConnection={gitConnection} featureConfig={featureConfig} userDetails={userDetails}/>
     </Provider>);
 
     let enterKeyCode = 27;
@@ -194,7 +198,7 @@ describe("Filterbar test", () => {
     };
 
     const linkItemWrapper = mount(<Provider store={store}>
-      <FilterBar allResults={someResults} gitConnection={gitConnectionOk} featureConfig={{editEnabled: true}}/>
+      <FilterBar allResults={someResults} gitConnection={gitConnectionOk} featureConfig={featureConfig} userDetails={userDetails}/>
     </Provider>);
 
     let gitStatusButton = linkItemWrapper.find("#git-status").filter(Button);
@@ -213,8 +217,11 @@ describe("Filterbar test", () => {
       upToDate: true
     };
 
+    const editDisabledConfig = featureConfig;
+    editDisabledConfig.editEnabled = false;
+
     const linkItemWrapper = mount(<Provider store={store}>
-      <FilterBar allResults={someResults} gitConnection={gitConnectionOk} featureConfig={{editEnabled: false}}/>
+      <FilterBar allResults={someResults} gitConnection={gitConnectionOk} featureConfig={editDisabledConfig} userDetails={userDetails}/>
     </Provider>);
 
     let addLinkButton = linkItemWrapper.find("#add-link").filter(Button);
@@ -236,7 +243,7 @@ describe("Filterbar test", () => {
     };
 
     const linkItemWrapper = mount(<Provider store={store}>
-      <FilterBar allResults={someResults} gitConnection={gitConnectionNotUpToDate} featureConfig={{editEnabled: true}}/>
+      <FilterBar allResults={someResults} gitConnection={gitConnectionNotUpToDate} featureConfig={featureConfig} userDetails={userDetails}/>
     </Provider>);
 
     let gitStatusButton = linkItemWrapper.find("#git-status").filter(Button);
@@ -256,7 +263,7 @@ describe("Filterbar test", () => {
     };
 
     const linkItemWrapper = mount(<Provider store={store}>
-      <FilterBar allResults={someResults} gitConnection={gitConnectionError} featureConfig={{editEnabled: true}}/>
+      <FilterBar allResults={someResults} gitConnection={gitConnectionError} featureConfig={featureConfig} userDetails={userDetails} />
     </Provider>);
 
     let gitStatusButton = linkItemWrapper.find("#git-status").filter(Button);

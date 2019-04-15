@@ -40,7 +40,7 @@ export const FEATURE_CONFIG_FETCHED = 'FEATURE_CONFIG_FETCHED';
 export const FETCH_FEATURE_CONFIG = 'FETCH_FEATURE_CONFIG';
 
 // auth
-export const LOGIN = 'LOGIN';
+export const LOGIN_ISSUED = 'LOGIN_ISSUED';
 export const IS_LOGGED_IN = 'IS_LOGGED_IN';
 export const LOGOUT = 'LOGOUT';
 export const PROCESS_CALLBACK = 'PROCESS_CALLBACK';
@@ -138,7 +138,7 @@ export function featureConfigFetched (configJson) {
 
 export function login () {
   return {
-    type: LOGIN
+    type: LOGIN_ISSUED
   }
 }
 

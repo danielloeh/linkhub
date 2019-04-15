@@ -51,7 +51,7 @@ it('has quick access if property is set', () => {
     name: "myName"
   };
 
-  const linkItemWrapper = shallow(<LinkItem quickAccess={{key: "3"}} link={someLink}/>, div);
+  const linkItemWrapper = shallow(<LinkItem quickAccess={{key: 3}} link={someLink}/>, div);
 
   let quickAccess = linkItemWrapper.find('.quick-access');
   expect(quickAccess.length).toBe(1);

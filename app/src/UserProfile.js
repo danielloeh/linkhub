@@ -16,7 +16,7 @@ class UserProfile extends Component {
     }
 
     hasUserDetails(userDetails) {
-        return userDetails.name !== undefined && userDetails.picture !== undefined;
+        return userDetails.fetched;
     }
 
     toggleMenu() {

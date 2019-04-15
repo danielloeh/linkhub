@@ -1,7 +1,7 @@
 import {SHOW_ADD_LINK, TOGGLE_PAGE_MODE, SHOW_CONFIG, SHOW_GIT_SETTINGS, SHOW_LINKS} from "../actions";
 
-const SHOW_COMPACT = 'SHOW_COMPACT';
-const SHOW_FULL = 'SHOW_FULL';
+export const SHOW_COMPACT = 'SHOW_COMPACT';
+export const SHOW_FULL = 'SHOW_FULL';
 
 const emptyPageState = {
   pageState: SHOW_LINKS,
