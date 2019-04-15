@@ -1,8 +1,8 @@
-import ConfigEditor from "./ConfigEditor";
+import ConfigEditor from './ConfigEditor';
 
 const fs = require('fs');
 
-describe("ConfigEditor Test", () => {
+describe('ConfigEditor Test', () => {
 
   beforeAll(() => {
     console.log = function () {
@@ -29,7 +29,7 @@ describe("ConfigEditor Test", () => {
       category: 'some-category',
       name: 'some-name',
       url: 'some-url',
-      description: 'some-description'
+      description: 'some-description',
     };
     let writtenResult;
 
@@ -42,12 +42,14 @@ describe("ConfigEditor Test", () => {
     const sendPositiveResultFn = jest.fn();
     const sendNegResult = jest.fn();
     const gitReader = {
-      commitConfig: jest.fn()
+      commitConfig: jest.fn(),
     };
 
     featureConfig.addLink(linkPayload, sendPositiveResultFn, sendNegResult, gitReader);
 
-    expect(writtenResult).toEqual("[{\"categoryName\":\"some-category\",\"links\":[{\"url\":\"https://www.muicss.com/\",\"name\":\"MUI CSS - React Components\"},{\"url\":\"some-url\",\"name\":\"some-name\",\"description\":\"some-description\"}]}]");
+    expect(writtenResult).
+      toEqual(
+        '[{"categoryName":"some-category","links":[{"url":"https://www.muicss.com/","name":"MUI CSS - React Components"},{"url":"some-url","name":"some-name","description":"some-description"}]}]');
     expect(gitReader.commitConfig.mock.calls.length).toBe(1);
     expect(gitReader.commitConfig.mock.calls[0][0]).toBe(sendPositiveResultFn);
     expect(gitReader.commitConfig.mock.calls[0][1]).toBe(sendNegResult);
@@ -75,7 +77,7 @@ describe("ConfigEditor Test", () => {
       category: 'some-other-category',
       name: 'some-name',
       url: 'some-url',
-      description: 'some-description'
+      description: 'some-description',
     };
 
     const readSpy = jest.spyOn(fs, 'readFileSync').mockImplementation(() => aMockConfig);
@@ -86,7 +88,7 @@ describe("ConfigEditor Test", () => {
     const sendPositiveResultFn = jest.fn();
     const sendNegResult = jest.fn();
     const gitReader = {
-      commitConfig: jest.fn()
+      commitConfig: jest.fn(),
     };
 
     featureConfig.addLink(linkPayload, sendPositiveResultFn, sendNegResult, gitReader);
@@ -99,7 +101,6 @@ describe("ConfigEditor Test", () => {
 
   it('sends negative result when validation fails', () => {
 
-
     const configFile = 'some-filename';
     const featureConfig = new ConfigEditor(configFile);
     const aMockConfig = `[
@@ -111,7 +112,7 @@ describe("ConfigEditor Test", () => {
       category: 'some-category',
       name: 'some-name',
       url: 'some-url',
-      description: 'some-description'
+      description: 'some-description',
     };
 
     const readSpy = jest.spyOn(fs, 'readFileSync').mockImplementation(() => aMockConfig);
@@ -119,7 +120,7 @@ describe("ConfigEditor Test", () => {
     const sendPositiveResultFn = jest.fn();
     const sendNegResult = jest.fn();
     const gitReader = {
-      commitConfig: jest.fn()
+      commitConfig: jest.fn(),
     };
 
     featureConfig.addLink(linkPayload, sendPositiveResultFn, sendNegResult, gitReader);

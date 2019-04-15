@@ -1,4 +1,4 @@
-import {FILTERED, UNFILTERED} from "../actions";
+import { FILTERED, UNFILTERED } from '../actions';
 
 const emptyFilterState = {
   filteredResults: [],
@@ -7,7 +7,8 @@ const emptyFilterState = {
 
 const cntsCaseInsns = (str, term) => str.toLowerCase().indexOf(term.toLowerCase()) !== -1;
 
-const linkItemContainsFilterTerm = (item, filterTerm) => cntsCaseInsns(item.url, filterTerm) || cntsCaseInsns(item.name, filterTerm);
+const linkItemContainsFilterTerm = (item, filterTerm) => cntsCaseInsns(item.url, filterTerm) ||
+  cntsCaseInsns(item.name, filterTerm);
 
 let containsFilterTerm = function (filterTerm) {
 
@@ -17,28 +18,28 @@ let containsFilterTerm = function (filterTerm) {
     category.links.find((item) => linkItemContainsFilterTerm(item, filterTerm));
 
   return (category) => categoryContainsFilterTerm(category, filterTerm)
-  || oneOfTheLinksContainsFilterTerm(category, filterTerm);
+    || oneOfTheLinksContainsFilterTerm(category, filterTerm);
 };
 
 let toCategoryWithoutUnmatchedLinks = function (filterTerm) {
   return (category) =>
     Object.assign({}, category, {
       links: category.links.filter((item) => cntsCaseInsns(category.categoryName, filterTerm) ||
-      linkItemContainsFilterTerm(item, filterTerm))
-    })
+        linkItemContainsFilterTerm(item, filterTerm)),
+    });
 };
 
 function filter (state = emptyFilterState, action) {
   switch (action.type) {
-    case FILTERED:
-      const newLinkList = action.allResults
-        .filter(containsFilterTerm(action.filterTerm))
+    case FILTERED: {
+      const newLinkList = action.allResults.filter(containsFilterTerm(action.filterTerm))
         .map(toCategoryWithoutUnmatchedLinks(action.filterTerm));
-      return Object.assign({}, state, {filteredResults: newLinkList, filterTerm: action.filterTerm});
+      return Object.assign({}, state, { filteredResults: newLinkList, filterTerm: action.filterTerm });
+    }
     case UNFILTERED:
-      return Object.assign({}, state, {filteredResults: [], filterTerm: ''});
+      return Object.assign({}, state, { filteredResults: [], filterTerm: '' });
     default:
-      return state
+      return state;
   }
 }
 

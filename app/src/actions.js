@@ -1,5 +1,6 @@
 // filter
-import {ALERT_ERROR_TYPE, ALERT_INFO_TYPE, ALERT_WARN_TYPE} from "./Alert";
+import { ALERT_ERROR_TYPE, ALERT_INFO_TYPE, ALERT_WARN_TYPE } from './Alert';
+
 export const FILTERED = 'FILTERED';
 export const UNFILTERED = 'UNFILTERED';
 export const OPEN_LINK = 'OPEN_LINK';
@@ -52,134 +53,135 @@ export function applyFilter (filterTerm, allResults) {
   return {
     type: FILTERED,
     filterTerm,
-    allResults
-  }
+    allResults,
+  };
 }
 
 export function displayAll () {
   return {
-    type: UNFILTERED
-  }
+    type: UNFILTERED,
+  };
 }
 
 export function openLink (number) {
   return {
     type: OPEN_LINK,
-    number
-  }
+    number,
+  };
 }
 
 /* pages */
 
 export function showConfig () {
   return {
-    type: SHOW_CONFIG
-  }
+    type: SHOW_CONFIG,
+  };
 }
 
 export function showLinks (linksJson) {
   return {
     type: SHOW_LINKS,
-    linksJson
-  }
+    linksJson,
+  };
 }
 
 export function showAddLink () {
   return {
-    type: SHOW_ADD_LINK
-  }
+    type: SHOW_ADD_LINK,
+  };
 }
 
 export function showGitSettings () {
   return {
-    type: SHOW_GIT_SETTINGS
-  }
+    type: SHOW_GIT_SETTINGS,
+  };
 }
 
 /* page modes */
 
 export function togglePageMode () {
   return {
-    type: TOGGLE_PAGE_MODE
-  }
+    type: TOGGLE_PAGE_MODE,
+  };
 }
 
 /* load config */
 
 export function fetchConfig () {
   return {
-    type: FETCH_CONFIG
-  }
+    type: FETCH_CONFIG,
+  };
 }
 
 export function configFetched (configJson) {
   return {
     type: CONFIG_FETCHED,
-    configJson
-  }
+    configJson,
+  };
 }
 
 /* load feature config */
 
 export function fetchFeatureConfig () {
   return {
-    type: FETCH_FEATURE_CONFIG
-  }
+    type: FETCH_FEATURE_CONFIG,
+  };
 }
 
 export function featureConfigFetched (configJson) {
   return {
     type: FEATURE_CONFIG_FETCHED,
-    configJson
-  }
+    configJson,
+  };
 }
 
 /* Authentication & Authorization */
 
 export function login () {
   return {
-    type: LOGIN_ISSUED
-  }
+    type: LOGIN_ISSUED,
+  };
 }
 
-export function processCallback(hash) {
+export function processCallback (hash) {
   return {
     type: PROCESS_CALLBACK,
-    hash
-  }
+    hash,
+  };
 }
 
-export function callbackProcessed() {
+export function callbackProcessed () {
   return {
-    type: CALLBACK_PROCESSED
-  }
+    type: CALLBACK_PROCESSED,
+  };
 }
 
 export function logout () {
   return {
-    type: LOGOUT
-  }
+    type: LOGOUT,
+  };
 }
 
 export function isLoggedIn () {
   return {
-    type: IS_LOGGED_IN
-  }
+    type: IS_LOGGED_IN,
+  };
 }
 
 export function updateUserDetails (userDetails) {
   return {
     type: UPDATE_USER_DETAILS,
-    userDetails
-  }
+    userDetails,
+  };
 }
+
 /* save config */
 
 export function saveConfig (configJson) {
   return {
     type: SAVE_CONFIG,
-    configJson
-  }
+    configJson,
+  };
 }
 
 /* alerts */
@@ -189,7 +191,7 @@ export function showInfoAlert (message) {
     type: SHOW_ALERT,
     alertType: ALERT_INFO_TYPE,
     message,
-  }
+  };
 }
 
 export function showWarnAlert (message) {
@@ -197,7 +199,7 @@ export function showWarnAlert (message) {
     type: SHOW_ALERT,
     alertType: ALERT_WARN_TYPE,
     message,
-  }
+  };
 }
 
 export function showErrorAlert (message) {
@@ -205,13 +207,13 @@ export function showErrorAlert (message) {
     type: SHOW_ALERT,
     alertType: ALERT_ERROR_TYPE,
     message,
-  }
+  };
 }
 
 export function hideAlert () {
   return {
-    type: HIDE_ALERT
-  }
+    type: HIDE_ALERT,
+  };
 }
 
 /* save link */
@@ -222,37 +224,37 @@ export function addLink (category, url, name, description) {
     category,
     url,
     name,
-    description
-  }
+    description,
+  };
 }
 
 /* git connection */
 
 export function checkGitConnection () {
   return {
-    type: CHECK_GIT_CONNECTION
-  }
+    type: CHECK_GIT_CONNECTION,
+  };
 }
 
-export function gitConnectionChecked ({connected, remoteUrl, upToDate}) {
+export function gitConnectionChecked ({ connected, remoteUrl, upToDate }) {
   return {
     type: GIT_CONNECTION_CHECKED,
     connected,
     remoteUrl,
-    upToDate
-  }
+    upToDate,
+  };
 }
 
 /* saving config*/
 
 export function savingConfig () {
   return {
-    type: SAVING_CONFIG
-  }
+    type: SAVING_CONFIG,
+  };
 }
 
 export function configSaved () {
   return {
-    type: CONFIG_SAVED
-  }
+    type: CONFIG_SAVED,
+  };
 }
