@@ -8,27 +8,26 @@ const path = require('path');
 const ConfigEditor = require('./ConfigEditor');
 const GitReader = require('./GitReader');
 const FeatureConfig = require('./FeatureConfig');
-// const jwt = require('express-jwt');
-// const jwksRsa = require('jwks-rsa');
+const jwt = require('express-jwt');
+const jwksRsa = require('jwks-rsa');
 
 const PORT = parseInt(process.env.PORT, 10) || 8080;
 
-// const AUTH_ISSUER_URI = process.env.AUTH_ISSUER_URI || "http://localhost";
-// const AUTH_CLIENT_ID = process.env.AUTH_CLIENT_ID  || "some-id";
+const AUTH_SERVER_URI = process.env.AUTH_SERVER_URI || 'http://localhost';
 
-// const checkJwt = jwt({
-//   secret: jwksRsa.expressJwtSecret({
-//     cache: true,
-//     rateLimit: true,
-//     jwksRequestsPerMinute: 5,
-//     jwksUri: `${AUTH_ISSUER_URI}/.well-known/jwks.json`  // to be configured via deployment
-//   }),
+const checkJwt = jwt({
+  secret: jwksRsa.expressJwtSecret({
+    cache: true,
+    rateLimit: true,
+    jwksRequestsPerMinute: 5,
+    jwksUri: `https://${AUTH_SERVER_URI}/.well-known/jwks.json`,
+  }),
 
-//   // Validate the audience and the issuer.
-//   audience: `${AUTH_CLIENT_ID}`,
-//   issuer: `${AUTH_ISSUER_URI}`,
-//   algorithms: ['RS256']
-// });
+  // Validate the audience and the issuer.
+  audience: `https://${AUTH_SERVER_URI}/api/v2/`,
+  issuer: `https://${AUTH_SERVER_URI}/`,
+  algorithms: ['RS256'],
+});
 
 const sendPosResultBuilder = (res, payload) => {
   res.status(200);
@@ -52,7 +51,7 @@ class LinkListServer {
 
     app.use(function (req, res, next) {
       if (req.method === 'OPTIONS') {  // send out CORS inflight response
-        res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+        res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
         res.header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT, PATCH, DELETE');
         res.header('Access-Control-Allow-Origin', '*');
         res.header('Access-Control-Allow-Credentials', true);
@@ -60,7 +59,7 @@ class LinkListServer {
       } else { // Send out cors headers for all other requests
         res.header('Access-Control-Allow-Origin', '*');
         res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-        res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+        res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
         return next();
       }
     });
@@ -90,7 +89,7 @@ class LinkListServer {
       this.gitReader.checkConnectionAndReturnResult(sendPosResult, sendNegResult);
     });
 
-    app.get('/api/config', (req, res) => {
+    app.get('/api/config', checkJwt, (req, res) => {
       res.send(this.configEditor.getLinks());
     });
 
@@ -98,7 +97,7 @@ class LinkListServer {
       res.send(this.featureConfig.getFeatureConfig());
     });
 
-    app.post('/api/config', (req, res) => {
+    app.post('/api/config', checkJwt, (req, res) => {
 
       const sendPosResult = (payload) => sendPosResultBuilder(res, payload);
       const sendNegResult = () => sendNegResultBuilder(res);
@@ -111,7 +110,7 @@ class LinkListServer {
       }
     });
 
-    app.post('/api/links', (req, res) => {
+    app.post('/api/links', checkJwt, (req, res) => {
 
       const sendPosResult = (payload) => sendPosResultBuilder(res, payload);
       const sendNegResult = () => sendNegResultBuilder(res);

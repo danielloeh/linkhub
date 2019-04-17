@@ -4,11 +4,11 @@ import {processCallback} from "./actions";
 
 let Callback = ({dispatch, location}) => {
 
-    dispatch(processCallback(location.hash));
+  dispatch(processCallback(location.hash));
 
-    return (
-        <div/>
-    );
+  return (
+    <div/>
+  );
 };
 
 Callback = connect()(Callback);

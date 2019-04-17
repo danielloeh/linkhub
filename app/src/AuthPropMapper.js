@@ -1,27 +1,25 @@
-import {connect} from "react-redux";
-import {
-  auth,
-  featureConfig,
-} from "./reducers/selectors";
-import AuthComponent from "./AuthComponent";
-import {isLoggedIn,updateUserDetails} from "./actions";
+import { connect } from 'react-redux';
+import { auth, featureConfig } from './reducers/selectors';
+import AuthComponent from './AuthComponent';
+import { isLoggedIn, saveAuthCredentials, updateUserDetails } from './actions';
 
 const mapStateToProps = (state) => {
 
   return {
     featureConfig: featureConfig(state),
-    authentication: auth(state)
+    authentication: auth(state),
   };
 };
 
 const mapDispatchToProps = {
   isLoggedIn,
-  updateUserDetails
+  updateUserDetails,
+  saveAuthCredentials,
 };
 
 const AuthPropMapper = connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(AuthComponent);
 
-export default AuthPropMapper
+export default AuthPropMapper;

@@ -47,6 +47,7 @@ export const LOGOUT = 'LOGOUT';
 export const PROCESS_CALLBACK = 'PROCESS_CALLBACK';
 export const CALLBACK_PROCESSED = 'CALLBACK_PROCESSED';
 export const UPDATE_USER_DETAILS = 'UPDATE_USER_DETAILS';
+export const SAVE_AUTH_CREDENTIALS = 'SAVE_AUTH_CREDENTIALS';
 
 /* filter actions */
 export function applyFilter (filterTerm, allResults) {
@@ -172,6 +173,13 @@ export function updateUserDetails (userDetails) {
   return {
     type: UPDATE_USER_DETAILS,
     userDetails,
+  };
+}
+
+export function saveAuthCredentials (authCredentials) {
+  return {
+    type: SAVE_AUTH_CREDENTIALS,
+    authCredentials,
   };
 }
 

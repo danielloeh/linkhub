@@ -1,6 +1,6 @@
-import {connect} from "react-redux";
-import LinkHub from "./LinkHub";
-import {applyFilter, showConfig, showLinks} from "./actions";
+import { connect } from 'react-redux';
+import LinkHub from './LinkHub';
+import { applyFilter, showConfig, showLinks } from './actions';
 import {
   alerting,
   allResults,
@@ -11,8 +11,8 @@ import {
   filterTerm,
   gitConnection,
   page,
-  saving
-} from "./reducers/selectors";
+  saving,
+} from './reducers/selectors';
 
 const mapStateToProps = state => {
 
@@ -33,7 +33,7 @@ const mapStateToProps = state => {
     gitConnection: gitConnection(state),
     saving: saving(state),
     featureConfig: featureConfig(state),
-    auth: auth(state)
+    auth: auth(state),
   };
 };
 
@@ -41,20 +41,20 @@ const mapDispatchToProps = dispatch => {
 
   return {
     onFilterChange: (filterTerm) => {
-      dispatch(applyFilter(filterTerm))
+      dispatch(applyFilter(filterTerm));
     },
     onShowConfig: () => {
-      dispatch(showConfig())
+      dispatch(showConfig());
     },
     onShowLinks: () => {
       dispatch(showLinks());
     },
-  }
+  };
 };
 
 const PropMapper = connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(LinkHub);
 
-export default PropMapper
+export default PropMapper;

@@ -17,31 +17,29 @@ import Callback from './Callback';
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
-    combinedReducers,
-    applyMiddleware(sagaMiddleware)
+  combinedReducers,
+  applyMiddleware(sagaMiddleware)
 );
 
 sagaMiddleware.run(rootSaga);
-store.dispatch(fetchConfig());
 store.dispatch(fetchFeatureConfig());
-store.dispatch(checkGitConnection());
 
-function Index(data) {
-    return (
-        <div>
-            <AuthPropMapper location={data.location}/>
-            <PropMapper/>
-        </div>)
+function Index (data) {
+  return (
+    <div>
+      <AuthPropMapper location={data.location}/>
+      <PropMapper/>
+    </div>);
 }
 
 render(
-    <Provider store={store}>
-        <Router history={history}>
-            <Route path="/" exact component={Index}/>
-            <Route path="/callback" render={(props) => <Callback {...props} />} />
-        </Router>
-    </Provider>,
-    document.getElementById('root')
+  <Provider store={store}>
+    <Router history={history}>
+      <Route path="/" exact component={Index}/>
+      <Route path="/callback" render={(props) => <Callback {...props} />} />
+    </Router>
+  </Provider>,
+  document.getElementById('root')
 );
 
 registerServiceWorker();
