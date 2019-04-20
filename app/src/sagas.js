@@ -21,7 +21,7 @@ import {
   showLinks,
   showWarnAlert,
 } from './actions';
-import { postData } from './httpHelpers';
+import { getData, postData } from './httpHelpers';
 import * as selectors from './reducers/selectors';
 import history from './history';
 import { AUTH_STATE_IS_LOGGED_IN } from './AuthClient';
@@ -44,28 +44,21 @@ const checkResponse = (response) => {
   return response.json();
 };
 
-const fetchConfigFromBackend = (headers) => fetch(configEndpoint, { headers: headers }).then(checkResponse);
-const fetchFeatureConfig = (headers) => fetch(featureConfigEndpoint, { headers: headers }).then(checkResponse);
-const checkGitConnectionFetch = (headers) => fetch(gitCheckEndpoint, { headers: headers }).then(checkResponse);
-const saveConfigToBackend = (data, headers) => postData(configEndpoint, headers, data).then(checkResponse);
-const addLinkToBackend = (data, headers) => postData(linkEndpoint, headers, data).then(checkResponse);
+const fetchConfigFromBackend = (authToken) => getData({url: configEndpoint, authToken}).then(checkResponse);
+const fetchFeatureConfig = () => getData({url: featureConfigEndpoint}).then(checkResponse);
+const checkGitConnectionFetch = (authToken) => getData({url: gitCheckEndpoint, authToken}).then(checkResponse);
+const saveConfigToBackend = (data, authToken) => postData({url: configEndpoint, authToken, data}).then(checkResponse);
+const addLinkToBackend = (data, authToken) => postData({url: linkEndpoint, authToken, data}).then(checkResponse);
 
 function * getAccessTokenHeader () {
-  const authState = yield select((state) => state.auth.authenticationState);
-  if (authState === AUTH_STATE_IS_LOGGED_IN) {
-    const accessToken = yield select((state) => state.auth.authCredentials.accessToken);
-    return { 'Authorization': `Bearer ${accessToken}` };
-  }
-  return '';
+  return yield select((state) => state.auth.authCredentials.accessToken);
 }
 
 function * onFetchConfig () {
+  const accessTokenHeader = yield call(getAccessTokenHeader);
   try {
-    const accessTokenHeader = yield call(getAccessTokenHeader);
-    if (accessTokenHeader) {
-      const links = yield call(fetchConfigFromBackend, accessTokenHeader);
-      yield put(configFetched(links));
-    }
+    const links = yield call(fetchConfigFromBackend, accessTokenHeader);
+    yield put(configFetched(links));
   } catch (e) {
     console.error('Load Config Failed' + e.message);
     yield put(showErrorAlert('Load Config Failed: ' + e.message));
@@ -84,8 +77,9 @@ function * onFetchFeatureConfig () {
 
 function * onSaveConfig (action) {
   try {
+    const accessTokenHeader = yield call(getAccessTokenHeader);
     yield put(savingConfig());
-    const updatedConfig = yield call(saveConfigToBackend, action.configJson);
+    const updatedConfig = yield call(saveConfigToBackend, action.configJson, accessTokenHeader);
     yield put(configFetched(updatedConfig.config));
     yield put(showLinks());
     if (updatedConfig.persistedInGit) {
@@ -115,7 +109,8 @@ function * onOpenLink (action) {
 
 function * onCheckGitConnection () {
   try {
-    const gitConnectionResult = yield call(checkGitConnectionFetch);
+    const accessTokenHeader = yield call(getAccessTokenHeader);
+    const gitConnectionResult = yield call(checkGitConnectionFetch, accessTokenHeader);
     yield put(gitConnectionChecked(gitConnectionResult));
   } catch (e) {
     console.error('Cant check git connection: ' + e.message);
@@ -125,6 +120,7 @@ function * onCheckGitConnection () {
 
 function * onAddLink (action) {
   try {
+    const accessTokenHeader = yield call(getAccessTokenHeader);
     yield put(savingConfig());
     const updatedConfig = {
       category: action.category,
@@ -132,7 +128,7 @@ function * onAddLink (action) {
       name: action.name,
       description: action.description,
     };
-    const updatedLinks = yield call(addLinkToBackend, JSON.stringify(updatedConfig));
+    const updatedLinks = yield call(addLinkToBackend, JSON.stringify(updatedConfig), accessTokenHeader);
     yield put(configFetched(updatedLinks.config));
     yield put(showLinks());
     if (updatedLinks.persistedInGit) {
@@ -166,13 +162,20 @@ function * onLoggedIn () {
   }
 }
 
+function * authed (saga, action) {
+  const authState = yield select((state) => state.auth.authenticationState);
+  if (authState === AUTH_STATE_IS_LOGGED_IN) {
+    yield call(saga, action);
+  }
+}
+
 function * rootSaga () {
-  yield takeLatest(FETCH_CONFIG, onFetchConfig);
-  yield takeLatest(FETCH_FEATURE_CONFIG, onFetchFeatureConfig);
-  yield takeLatest(SAVE_CONFIG, onSaveConfig);
+  yield takeLatest(FETCH_CONFIG, authed, onFetchConfig);
+  yield takeLatest(FETCH_FEATURE_CONFIG,  onFetchFeatureConfig);
+  yield takeLatest(SAVE_CONFIG, authed, onSaveConfig);
   yield takeLatest(OPEN_LINK, onOpenLink);
-  yield takeLatest(ADD_LINK, onAddLink);
-  yield takeLatest(CHECK_GIT_CONNECTION, onCheckGitConnection);
+  yield takeLatest(ADD_LINK, authed, onAddLink);
+  yield takeLatest(CHECK_GIT_CONNECTION, authed, onCheckGitConnection);
   yield takeLatest(PROCESS_CALLBACK, onProcessCallback);
   yield takeLatest(IS_LOGGED_IN, onLoggedIn);
 }
