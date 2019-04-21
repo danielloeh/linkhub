@@ -15,10 +15,12 @@ export class AuthClient extends Component {
 
     if (featureConfig.authURI && featureConfig.authClientID) {
 
+      let server = window.location.origin;
+
       this.auth0 = new auth0.WebAuth({
         domain: `${featureConfig.authURI}`,
         clientID: `${featureConfig.authClientID}`,
-        redirectUri: 'http://localhost:3000/callback',
+        redirectUri: `http://${server}/callback`,
         audience: `https://${featureConfig.authURI}/api/v2/`,
         responseType: 'id_token token',
         scope: 'openid profile',
