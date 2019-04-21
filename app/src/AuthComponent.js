@@ -5,6 +5,7 @@ import { AUTH_STATE_IS_LOGGED_IN, AuthClient } from './AuthClient';
 import GenericButton from './GenericButton';
 import { login } from './actions';
 import { authPropTypes } from './AuthPropTypes';
+import LoginPage from './LoginPage';
 
 function notAuthenticated (authentication) {
   return authentication.authenticationState !== AUTH_STATE_IS_LOGGED_IN;
@@ -16,7 +17,7 @@ const AuthComponent = ({ featureConfig, authentication, location, isLoggedIn, up
     <div>
       {
         notAuthenticated(authentication) &&
-        <GenericButton id="login" size="small" actions={[login]} label="Login"/>
+        <LoginPage />
       }
       <AuthClient featureConfig={featureConfig} authentication={authentication} location={location}
         isLoggedIn={isLoggedIn} updateUserDetails={updateUserDetails} saveAuthCredentials={saveAuthCredentials}/>

@@ -24,7 +24,7 @@ describe("GenericButton Test", () => {
     const action = () => {
       return {
         type: "SOME_ACTION"
-      }
+      };
     };
 
     const GenericButtonWrapper = mount(<GenericButton store={store} actions={[action]} label="my-button"/>);
@@ -42,13 +42,13 @@ describe("GenericButton Test", () => {
     const action = () => {
       return {
         type: "SOME_ACTION"
-      }
+      };
     };
 
     const additionalClasses = "some-more class-entries";
 
     const GenericButtonWrapper = mount(<GenericButton store={store} id="a-button" actions={[action]} label="my-button"
-                                                      additionalClasses={additionalClasses}/>);
+      additionalClasses={additionalClasses}/>);
 
     const classNames = GenericButtonWrapper.find("#a-button").find(Button).prop("className");
 
@@ -61,13 +61,13 @@ describe("GenericButton Test", () => {
     const action = () => {
       return {
         type: "SOME_ACTION"
-      }
+      };
     };
 
     const additionalClasses = "some-more class-entries";
 
     const GenericButtonWrapper = mount(<GenericButton store={store} id="a-button" actions={[action]} label="my-button"
-                                                      additionalClasses={additionalClasses} enabled={true}/>);
+      additionalClasses={additionalClasses} enabled={true}/>);
 
     const disabled = GenericButtonWrapper.find("#a-button").find(Button).prop("disabled");
 
@@ -80,13 +80,13 @@ describe("GenericButton Test", () => {
     const action = () => {
       return {
         type: "SOME_ACTION"
-      }
+      };
     };
 
     const additionalClasses = "some-more class-entries";
 
     const GenericButtonWrapper = mount(<GenericButton store={store} id="a-button" actions={[action]} label="my-button"
-                                                      additionalClasses={additionalClasses} enabled={false}/>);
+      additionalClasses={additionalClasses} enabled={false}/>);
 
     const disabled = GenericButtonWrapper.find("#a-button").find(Button).prop("disabled");
 
@@ -99,17 +99,17 @@ describe("GenericButton Test", () => {
     const action = () => {
       return {
         type: "SOME_ACTION"
-      }
+      };
     };
 
     const someOtherAction = () => {
       return {
         type: "SOME_OTHER_ACTION"
-      }
+      };
     };
 
     const GenericButtonWrapper = mount(<GenericButton store={store} actions={[action, someOtherAction]}
-                                                      label="my-button"/>);
+      label="my-button"/>);
 
     GenericButtonWrapper.find(Button).prop("onClick")();
 
