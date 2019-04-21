@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import {
   applyFilter,
   displayAll,
@@ -9,57 +9,57 @@ import {
   showGitSettings,
   showLinks,
   togglePageMode,
-} from './actions'
-import './FilterBar.css'
-import { connect } from 'react-redux'
-import Appbar from 'muicss/lib/react/appbar'
-import Input from 'muicss/lib/react/input'
-import GenericButton from './GenericButton'
-import { gitConnectionPropType, resultsPropType } from './LinkPropTypes'
-import { featureConfigPropType } from './FeatureConfigPropTypes'
-import PropTypes from 'prop-types'
-import ToggleButton from 'react-toggle-button'
-import UserProfile from './UserProfile'
+} from './actions';
+import './FilterBar.css';
+import { connect } from 'react-redux';
+import Appbar from 'muicss/lib/react/appbar';
+import Input from 'muicss/lib/react/input';
+import GenericButton from './GenericButton';
+import { gitConnectionPropType, resultsPropType } from './LinkPropTypes';
+import { featureConfigPropType } from './FeatureConfigPropTypes';
+import PropTypes from 'prop-types';
+import ToggleButton from 'react-toggle-button';
+import UserProfile from './UserProfile';
 
 let FilterBar = ({ dispatch, allResults, gitConnection, featureConfig, pageMode, userDetails }) => {
 
   function onToggleDisplayMode () {
-    dispatch(togglePageMode())
+    dispatch(togglePageMode());
   }
 
   let onChange = (ev) => {
     if (ev.target.value.trim()) {
-      dispatch(applyFilter(ev.target.value, allResults))
+      dispatch(applyFilter(ev.target.value, allResults));
     } else {
-      dispatch(displayAll())
+      dispatch(displayAll());
     }
-  }
+  };
 
   let onKeyUpFilter = (ev) => {
     if (ev.keyCode === 13) { //enter
-      ev.preventDefault()
-      dispatch(openLink(1))
+      ev.preventDefault();
+      dispatch(openLink(1));
     }
 
     if (ev.keyCode === 27) { //escape
-      ev.preventDefault()
-      ev.target.value = ''
-      dispatch(displayAll())
+      ev.preventDefault();
+      ev.target.value = '';
+      dispatch(displayAll());
     } else if (ev.shiftKey && (ev.keyCode >= 49 && ev.keyCode <= 52)) { // 1 - 4
-      ev.preventDefault()
-      dispatch(openLink(ev.keyCode - 48))
+      ev.preventDefault();
+      dispatch(openLink(ev.keyCode - 48));
     } else {
 
     }
-  }
+  };
 
-  let gitButtonColor
+  let gitButtonColor;
   if (gitConnection.connected && gitConnection.upToDate) {
-    gitButtonColor = 'git-ok'
+    gitButtonColor = 'git-ok';
   } else if (gitConnection.connected && !gitConnection.upToDate) {
-    gitButtonColor = 'git-not-up-to-date'
+    gitButtonColor = 'git-not-up-to-date';
   } else {
-    gitButtonColor = 'git-disconnected'
+    gitButtonColor = 'git-disconnected';
   }
 
   return (
@@ -104,16 +104,16 @@ let FilterBar = ({ dispatch, allResults, gitConnection, featureConfig, pageMode,
         enabled={featureConfig.editEnabled}/>
       <UserProfile userDetails={userDetails}/>
     </Appbar>
-  )
-}
+  );
+};
 
 FilterBar.propTypes = {
   allResults: resultsPropType,
   gitConnection: gitConnectionPropType,
   featureConfig: featureConfigPropType,
   pageMode: PropTypes.string,
-}
+};
 
-FilterBar = connect()(FilterBar)
+FilterBar = connect()(FilterBar);
 
-export default FilterBar
+export default FilterBar;

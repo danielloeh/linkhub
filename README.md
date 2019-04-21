@@ -2,6 +2,9 @@
 Linkhub is a tool for documenting and storing relevant links for a project in a central place. It will display all the links and their description configured in `links.json` and has the optional
 functionality of persisting the file into a remote git repository with little setup.
 
+Currently its behind auth0 OIDC.
+Note: I'm currently migrating to postgres because of reasons
+
 Test it on: https://linkhub-danielloeh.herokuapp.com/ (give the instance a few seconds to wake up until anything gets displayed)
 
 [![Build Status](https://travis-ci.org/danielloeh/linkhub.svg?branch=master)](https://travis-ci.org/danielloeh/linkhub)
@@ -17,6 +20,13 @@ Vision:
 ## Running
 
 You can run it via `docker-compose` as single docker image, or run them as separate FE and BE server.
+
+- Access PGAdmin with under `http://localhost:5555/` & pgadmin4@pgadmin.org/admin. Local postgres address is: `postgres:5432` with postgres/changeme.
+
+# Database setup:
+
+- Manual step: Create database `linkhub`
+- Creating Tables: `npm run createdb`
 
 ### Separate Servers with NPM
 
@@ -50,7 +60,7 @@ Note: This currently only works if the its you use the whole directory for runni
 
 ### Auth 
 The app is supporting an OAuth2 flow (e.g. via Auth0). You need to set the environment variables when baking the docker image:
- `AUTH_ISSUER_URI` (including http(s))
+ `AUTH_AUTH_URI`
  `AUTH_CLIENT_ID` 
 
 ### Feature Config
@@ -71,14 +81,12 @@ There are different test suites for app and server.
 * Intellij: Make sure to set your working directory to `<rootdir>/app` to pickup the right `package.json` and add `--env=jsdom` to the jest run parameters.
 
 
-
 ### Known Issues   
 - The checkbox "save to git" has currently no function
 
 ## Features Planned
 - A groups concept
 - A page with general information 
-- Optional Authentication
 
 ## Deployment
 Its can be easily deployed e.g. via travis to heroku. Heroku requires the app to run on $PORT though.

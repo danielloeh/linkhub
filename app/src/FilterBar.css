@@ -3,6 +3,7 @@
     flex-direction: row;
     align-items: center;
     min-height: 40px;
+    padding-right: 10px;
 }
 
 .filter-input {

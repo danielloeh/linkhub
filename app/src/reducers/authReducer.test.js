@@ -77,7 +77,7 @@ describe('Auth Reducer', () => {
     ).toEqual(
       {
         authenticationState: AUTH_STATE_IS_LOGGED_IN,
-        userDetails: { userName: 'some-user-name' },
+        userDetails: { fetched: true, userName: 'some-user-name' },
       },
     );
   });

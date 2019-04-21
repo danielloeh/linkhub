@@ -42,6 +42,7 @@ function auth ( state = emptyAuthenticationState, action){
       return Object.assign({}, state, {authenticationState: AUTH_STATE_IS_LOGGED_IN
       });
     case UPDATE_USER_DETAILS:
+      action.userDetails.fetched = true;
       return Object.assign({}, state, {userDetails: action.userDetails});
     case SAVE_AUTH_CREDENTIALS:
       return Object.assign({}, state, {authCredentials: action.authCredentials});
