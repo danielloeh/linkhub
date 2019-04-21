@@ -11,7 +11,7 @@ describe('Combined Reducers', () => {
       page: {"pageState": "SHOW_LINKS", "pageMode": "SHOW_COMPACT"},
       saving: {"saving": false},
       featureConfig: {"editEnabled": false, "authClientID": "", "authURI": ""},
-      auth:  { "authenticationState": "UNAUTHENTICATED", "responseFragment": "", "userDetails": {"fetched": false}}
+      auth:  {"authCredentials": {}, "authenticationState": "UNAUTHENTICATED", "responseFragment": "", "userDetails": {"fetched": false}}
     })
   });
 

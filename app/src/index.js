@@ -8,7 +8,7 @@ import PropMapper from "./PropMapper";
 import createSagaMiddleware from "redux-saga";
 import rootSaga from "./sagas";
 import combinedReducers from "./reducers/combinedReducers";
-import {checkGitConnection, fetchConfig, fetchFeatureConfig} from "./actions";
+import {fetchFeatureConfig} from "./actions";
 import AuthPropMapper from "./AuthPropMapper";
 import {Router, Route} from "react-router-dom";
 import history from './history';
