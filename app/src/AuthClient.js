@@ -45,7 +45,6 @@ export class AuthClient extends Component {
         return console.log(err);
       }
 
-      console.log(authResult);
       self.props.saveAuthCredentials(authResult);
 
       self.auth0.client.userInfo(authResult.accessToken, function (err, user) {
