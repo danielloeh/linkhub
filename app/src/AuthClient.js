@@ -20,7 +20,7 @@ export class AuthClient extends Component {
       this.auth0 = new auth0.WebAuth({
         domain: `${featureConfig.authURI}`,
         clientID: `${featureConfig.authClientID}`,
-        redirectUri: `http://${server}/callback`,
+        redirectUri: `${server}/callback`,
         audience: `https://${featureConfig.authURI}/api/v2/`,
         responseType: 'id_token token',
         scope: 'openid profile',
