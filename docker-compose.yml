@@ -1,14 +1,55 @@
-version: '2'
+version: '3'
 
 services:
+
   linkhub:
-      build:
-        context: .
-        args:
-          - SSH_PRIVATE_KEY=${SSH_PRIVATE_KEY}
-      environment:
-          - EDIT_ENABLED=${EDIT_ENABLED}
-          - AUTH_SERVER_URI=${AUTH_SERVER_URI}
-          - AUTH_CLIENT_ID=${AUTH_CLIENT_ID}
-      ports:
-        - "8080:8080"
+    build:
+      context: .
+      args:
+        - SSH_PRIVATE_KEY=${SSH_PRIVATE_KEY}
+    environment:
+      - EDIT_ENABLED=${EDIT_ENABLED}
+      - AUTH_SERVER_URI=${AUTH_SERVER_URI}
+      - AUTH_CLIENT_ID=${AUTH_CLIENT_ID}
+    ports:
+      - "8080:8080"
+    links:
+      - postgres
+
+  postgres:
+    restart: always
+    image: postgres:11.2
+    ports:
+      - "5432:5432"
+    networks:
+      - postgres
+    environment:
+      POSTGRES_DB: linkhub
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
+      PGDATA: /data/postgres
+    volumes:
+      - postgres:/data/postgres
+
+  pgadmin:
+    image: dpage/pgadmin4
+    depends_on:
+      - postgres
+    networks:
+      - postgres
+    ports:
+      - "5555:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: pgadmin4@pgadmin.org
+      PGADMIN_DEFAULT_PASSWORD: admin
+    volumes:
+      - pgadmin:/root/.pgadmin
+    restart: unless-stopped
+
+networks:
+  postgres:
+    driver: bridge
+
+volumes:
+  postgres:
+  pgadmin:
