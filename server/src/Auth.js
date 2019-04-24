@@ -17,6 +17,4 @@ const jwtCheck = ({ AUTH_SERVER_URI = 'http://localhost:3333' }) => {
   });
 };
 
-module.exports = {
-  jwtCheck,
-};
+module.exports = jwtCheck;

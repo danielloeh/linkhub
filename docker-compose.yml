@@ -11,8 +11,8 @@ services:
       - EDIT_ENABLED=${EDIT_ENABLED-true}
       - AUTH_SERVER_URI=${AUTH_SERVER_URI-localhost:3333}
       - AUTH_CLIENT_ID=${AUTH_CLIENT_ID-someid}
-      - DATABASE_USER=${DATABASE_USER-postgres} \
-      - DATABASE_PASSWORD=${DATABASE_PASSWORD-changeme} \
+      - DATABASE_USER=${DATABASE_USER-postgres}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD-changeme}
     ports:
       - "8080:8080"
     links:
