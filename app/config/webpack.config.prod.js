@@ -29,8 +29,8 @@ const shouldInlineRuntimeChunk = process.env.INLINE_RUNTIME_CHUNK !== 'false';
 // Webpack uses `publicPath` to determine where the app is being served from.
 // It requires a trailing slash, or the file assets will get an incorrect path.
 const publicPath = isEnvProduction
-    ? paths.servedPath
-    : isEnvDevelopment && '/';
+  ? paths.servedPath
+  : isEnvDevelopment && '/';
 // Some apps do not use client-side routing with pushState.
 // For these, "homepage" can be set to "." to enable relative asset paths.
 const shouldUseRelativeAssetPaths = publicPath === './';
@@ -40,8 +40,8 @@ const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false';
 // as %PUBLIC_URL% in `index.html` and `process.env.PUBLIC_URL` in JavaScript.
 // Omit trailing slash as %PUBLIC_URL%/xyz looks better than %PUBLIC_URL%xyz.
 const publicUrl = isEnvProduction
-    ? publicPath.slice(0, -1)
-    : isEnvDevelopment && '';
+  ? publicPath.slice(0, -1)
+  : isEnvDevelopment && '';
 // Get environment variables to inject into our app.
 const env = getClientEnvironment(publicUrl);
 
@@ -51,9 +51,9 @@ const useTypeScript = fs.existsSync(paths.appTsConfig);
 
 // style files regexes
 const cssRegex = /\.css$/;
-const cssModuleRegex = /\.module\.css$/;
-const sassRegex = /\.(scss|sass)$/;
-const sassModuleRegex = /\.module\.(scss|sass)$/;
+// const cssModuleRegex = /\.module\.css$/;
+// const sassRegex = /\.(scss|sass)$/;
+// const sassModuleRegex = /\.module\.(scss|sass)$/;
 
 // common function to get style loaders
 const getStyleLoaders = (cssOptions, preProcessor) => {
@@ -62,8 +62,8 @@ const getStyleLoaders = (cssOptions, preProcessor) => {
     isEnvProduction && {
       loader: MiniCssExtractPlugin.loader,
       options: Object.assign(
-          {},
-          shouldUseRelativeAssetPaths ? { publicPath: '../../' } : undefined
+        {},
+        shouldUseRelativeAssetPaths ? { publicPath: '../../' } : undefined
       ),
     },
     {
@@ -110,7 +110,7 @@ if (env.stringified['process.env'].NODE_ENV !== '"production"') {
 }
 
 // Note: defined here because it will be used more than once.
-const cssFilename = 'static/css/[name].[contenthash:8].css';
+// const cssFilename = 'static/css/[name].[contenthash:8].css';
 
 // This is the production configuration.
 // It compiles slowly and is focused on producing a fast and minimal bundle.
@@ -118,6 +118,7 @@ const cssFilename = 'static/css/[name].[contenthash:8].css';
 module.exports = {
   // Don't attempt to continue if there are any errors.
   bail: true,
+  mode: 'production',
   // We generate sourcemaps in production. This is slow but gives good results.
   // You can exclude the *.map files from the build during deployment.
   devtool: shouldUseSourceMap ? 'source-map' : false,
@@ -190,15 +191,15 @@ module.exports = {
         cssProcessorOptions: {
           parser: safePostCssParser,
           map: shouldUseSourceMap
-              ? {
-                // `inline: false` forces the sourcemap to be output into a
-                // separate file
-                inline: false,
-                // `annotation: true` appends the sourceMappingURL to the end of
-                // the css file, helping the browser find the sourcemap
-                annotation: true,
-              }
-              : false,
+            ? {
+              // `inline: false` forces the sourcemap to be output into a
+              // separate file
+              inline: false,
+              // `annotation: true` appends the sourceMappingURL to the end of
+              // the css file, helping the browser find the sourcemap
+              annotation: true,
+            }
+            : false,
         },
       }),
     ],
@@ -219,8 +220,8 @@ module.exports = {
     // if there are any conflicts. This matches Node resolution mechanism.
     // https://github.com/facebook/create-react-app/issues/253
     modules: ['node_modules'].concat(
-        // It is guaranteed to exist because we tweak it in `env.js`
-        process.env.NODE_PATH.split(path.delimiter).filter(Boolean)
+      // It is guaranteed to exist because we tweak it in `env.js`
+      process.env.NODE_PATH.split(path.delimiter).filter(Boolean)
     ),
     // These are the reasonable defaults supported by the Node ecosystem.
     // We also include JSX as a common component filename extension to support
@@ -229,8 +230,8 @@ module.exports = {
     // `web` extension prefixes have been added for better support
     // for React Native Web.
     extensions: paths.moduleFileExtensions
-        .map(ext => `.${ext}`)
-        .filter(ext => useTypeScript || !ext.includes('ts')),
+      .map(ext => `.${ext}`)
+      .filter(ext => useTypeScript || !ext.includes('ts')),
     alias: {
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
@@ -299,8 +300,33 @@ module.exports = {
             include: paths.appSrc,
             loader: require.resolve('babel-loader'),
             options: {
-              
               compact: true,
+            },
+          },
+          // Process any JS outside of the app with Babel.
+          // Unlike the application JS, we only compile the standard ES features.
+          {
+            test: /\.(js|mjs)$/,
+            exclude: /@babel(?:\/|\\{1,2})runtime/,
+            loader: require.resolve('babel-loader'),
+            options: {
+              babelrc: false,
+              configFile: false,
+              compact: false,
+              presets: [
+                [
+                  require.resolve('babel-preset-react-app/dependencies'),
+                  { helpers: true },
+                ],
+              ],
+              cacheDirectory: true,
+              cacheCompression: isEnvProduction,
+
+              // If an error happens in a package, it's possible to be
+              // because it was compiled. Thus, we don't want the browser
+              // debugger to show the original code. Instead, the code
+              // being evaluated would be much more helpful.
+              sourceMaps: false,
             },
           },
           // The notation here is somewhat confusing.
@@ -351,29 +377,29 @@ module.exports = {
   plugins: [
     // Generates an `index.html` file with the <script> injected.
     new HtmlWebpackPlugin(
-        Object.assign(
-            {},
-            {
-              inject: true,
-              template: paths.appHtml,
+      Object.assign(
+        {},
+        {
+          inject: true,
+          template: paths.appHtml,
+        },
+        isEnvProduction
+          ? {
+            minify: {
+              removeComments: true,
+              collapseWhitespace: true,
+              removeRedundantAttributes: true,
+              useShortDoctype: true,
+              removeEmptyAttributes: true,
+              removeStyleLinkTypeAttributes: true,
+              keepClosingSlash: true,
+              minifyJS: true,
+              minifyCSS: true,
+              minifyURLs: true,
             },
-            isEnvProduction
-                ? {
-                  minify: {
-                    removeComments: true,
-                    collapseWhitespace: true,
-                    removeRedundantAttributes: true,
-                    useShortDoctype: true,
-                    removeEmptyAttributes: true,
-                    removeStyleLinkTypeAttributes: true,
-                    keepClosingSlash: true,
-                    minifyJS: true,
-                    minifyCSS: true,
-                    minifyURLs: true,
-                  },
-                }
-                : undefined
-        )
+          }
+          : undefined
+      )
     ),
     // Inlines the webpack runtime script. This script is too small to warrant
     // a network request.

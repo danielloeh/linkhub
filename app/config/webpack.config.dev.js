@@ -29,8 +29,8 @@ const shouldInlineRuntimeChunk = process.env.INLINE_RUNTIME_CHUNK !== 'false';
 // Webpack uses `publicPath` to determine where the app is being served from.
 // It requires a trailing slash, or the file assets will get an incorrect path.
 const publicPath = isEnvProduction
-    ? paths.servedPath
-    : isEnvDevelopment && '/';
+  ? paths.servedPath
+  : isEnvDevelopment && '/';
 // Some apps do not use client-side routing with pushState.
 // For these, "homepage" can be set to "." to enable relative asset paths.
 const shouldUseRelativeAssetPaths = publicPath === './';
@@ -40,8 +40,8 @@ const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false';
 // as %PUBLIC_URL% in `index.html` and `process.env.PUBLIC_URL` in JavaScript.
 // Omit trailing slash as %PUBLIC_URL%/xyz looks better than %PUBLIC_URL%xyz.
 const publicUrl = isEnvProduction
-    ? publicPath.slice(0, -1)
-    : isEnvDevelopment && '';
+  ? publicPath.slice(0, -1)
+  : isEnvDevelopment && '';
 // Get environment variables to inject into our app.
 const env = getClientEnvironment(publicUrl);
 
@@ -51,9 +51,9 @@ const useTypeScript = fs.existsSync(paths.appTsConfig);
 
 // style files regexes
 const cssRegex = /\.css$/;
-const cssModuleRegex = /\.module\.css$/;
-const sassRegex = /\.(scss|sass)$/;
-const sassModuleRegex = /\.module\.(scss|sass)$/;
+// const cssModuleRegex = /\.module\.css$/;
+// const sassRegex = /\.(scss|sass)$/;
+// const sassModuleRegex = /\.module\.(scss|sass)$/;
 
 // common function to get style loaders
 const getStyleLoaders = (cssOptions, preProcessor) => {
@@ -62,8 +62,8 @@ const getStyleLoaders = (cssOptions, preProcessor) => {
     isEnvProduction && {
       loader: MiniCssExtractPlugin.loader,
       options: Object.assign(
-          {},
-          shouldUseRelativeAssetPaths ? { publicPath: '../../' } : undefined
+        {},
+        shouldUseRelativeAssetPaths ? { publicPath: '../../' } : undefined
       ),
     },
     {
@@ -110,7 +110,7 @@ if (env.stringified['process.env'].NODE_ENV !== '"development"') {
 }
 
 // Note: defined here because it will be used more than once.
-const cssFilename = 'static/css/[name].[contenthash:8].css';
+// const cssFilename = 'static/css/[name].[contenthash:8].css';
 
 // This is the production configuration.
 // It compiles slowly and is focused on producing a fast and minimal bundle.
@@ -136,9 +136,9 @@ module.exports = {
     publicPath: publicPath,
     // Point sourcemap entries to original disk location (format as URL on Windows)
     devtoolModuleFilenameTemplate: info =>
-        path
-            .relative(paths.appSrc, info.absoluteResourcePath)
-            .replace(/\\/g, '/'),
+      path
+        .relative(paths.appSrc, info.absoluteResourcePath)
+        .replace(/\\/g, '/'),
   },
   optimization: {
     minimize: isEnvProduction,
@@ -160,8 +160,8 @@ module.exports = {
     // if there are any conflicts. This matches Node resolution mechanism.
     // https://github.com/facebook/create-react-app/issues/253
     modules: ['node_modules'].concat(
-        // It is guaranteed to exist because we tweak it in `env.js`
-        process.env.NODE_PATH.split(path.delimiter).filter(Boolean)
+      // It is guaranteed to exist because we tweak it in `env.js`
+      process.env.NODE_PATH.split(path.delimiter).filter(Boolean)
     ),
     // These are the reasonable defaults supported by the Node ecosystem.
     // We also include JSX as a common component filename extension to support
@@ -170,8 +170,8 @@ module.exports = {
     // `web` extension prefixes have been added for better support
     // for React Native Web.
     extensions: paths.moduleFileExtensions
-        .map(ext => `.${ext}`)
-        .filter(ext => useTypeScript || !ext.includes('ts')),
+      .map(ext => `.${ext}`)
+      .filter(ext => useTypeScript || !ext.includes('ts')),
     alias: {
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
@@ -240,7 +240,6 @@ module.exports = {
             include: paths.appSrc,
             loader: require.resolve('babel-loader'),
             options: {
-
               compact: true,
             },
           },
@@ -318,14 +317,14 @@ module.exports = {
   plugins: [
     // Generates an `index.html` file with the <script> injected.
     new HtmlWebpackPlugin(
-        Object.assign(
-            {},
-            {
-              inject: true,
-              template: paths.appHtml,
-            },
-            undefined
-        )
+      Object.assign(
+        {},
+        {
+          inject: true,
+          template: paths.appHtml,
+        },
+        undefined
+      )
     ),
     // Makes some environment variables available in index.html.
     // The public URL is available as %PUBLIC_URL% in index.html, e.g.:

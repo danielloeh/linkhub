@@ -1,4 +1,4 @@
-version: '3'
+version: '2'
 
 services:
 
@@ -8,11 +8,11 @@ services:
       args:
         - SSH_PRIVATE_KEY=${SSH_PRIVATE_KEY}
     environment:
-      - EDIT_ENABLED=${EDIT_ENABLED-true}
-      - AUTH_SERVER_URI=${AUTH_SERVER_URI-localhost:3333}
-      - AUTH_CLIENT_ID=${AUTH_CLIENT_ID-someid}
-      - DATABASE_USER=${DATABASE_USER-postgres}
-      - DATABASE_PASSWORD=${DATABASE_PASSWORD-changeme}
+      - EDIT_ENABLED=${EDIT_ENABLED}
+      - AUTH_SERVER_URI=${AUTH_SERVER_URI}
+      - AUTH_CLIENT_ID=${AUTH_CLIENT_ID}
+      - DATABASE_USER=${DATABASE_USER}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
     ports:
       - "8080:8080"
     links:
@@ -27,8 +27,8 @@ services:
       - postgres
     environment:
       POSTGRES_DB: linkhub
-      POSTGRES_USER: ${POSTGRES_USER:-postgres}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
       PGDATA: /data/postgres
     volumes:
       - postgres:/data/postgres
@@ -46,7 +46,6 @@ services:
       PGADMIN_DEFAULT_PASSWORD: admin
     volumes:
       - pgadmin:/root/.pgadmin
-    restart: unless-stopped
 
 networks:
   postgres:

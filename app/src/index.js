@@ -12,7 +12,6 @@ import {fetchFeatureConfig} from "./actions";
 import AuthPropMapper from "./AuthPropMapper";
 import {Router, Route} from "react-router-dom";
 import history from './history';
-// import Login from "./Auth/Login";
 import Callback from './Callback';
 
 const sagaMiddleware = createSagaMiddleware();
