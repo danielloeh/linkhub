@@ -1,7 +1,9 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
 # Local env variables for docker-compose
-.env*
+.env
+# Avoid getting credentials being commited
+run_server_with_vars.sh
 
 # IntelliJ
 /.idea
@@ -26,5 +28,3 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Avoid getting credentials being commited
-run_server_with_vars.sh
