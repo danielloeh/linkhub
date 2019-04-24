@@ -36,8 +36,7 @@
   "scripts": {
     "lint": "./node_modules/.bin/eslint ./server/",
     "start": "node server/src/server.js",
-    "test": "node server/scripts/test.js --env=jsdom",
-    "setupdb": "node ./server/src/db setupDatabase"
+    "test": "node server/scripts/test.js --env=jsdom"
   },
   "jest": {
     "collectCoverageFrom": [

@@ -2,8 +2,6 @@ import React from 'react';
 import { featureConfigPropType } from './FeatureConfigPropTypes';
 import './LinkHub.css';
 import { AUTH_STATE_IS_LOGGED_IN, AuthClient } from './AuthClient';
-import GenericButton from './GenericButton';
-import { login } from './actions';
 import { authPropTypes } from './AuthPropTypes';
 import LoginPage from './LoginPage';
 

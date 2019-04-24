@@ -4,28 +4,15 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const ConfigEditor = require('./ConfigEditor');
+const ConfigEditorDB = require('./ConfigEditorDB');
 const GitReader = require('./GitReader');
 const FeatureConfig = require('./FeatureConfig');
-const jwt = require('express-jwt');
-const jwksRsa = require('jwks-rsa');
+const Database = require('./Database');
+const jwtCheck = require('./Auth');
 
 const PORT = parseInt(process.env.PORT, 10) || 8080;
 
-const AUTH_SERVER_URI = process.env.AUTH_SERVER_URI || 'http://localhost';
-
-const checkJwt = jwt({
-  secret: jwksRsa.expressJwtSecret({
-    cache: true,
-    rateLimit: true,
-    jwksRequestsPerMinute: 5,
-    jwksUri: `https://${AUTH_SERVER_URI}/.well-known/jwks.json`,
-  }),
-
-  // Validate the audience and the issuer.
-  audience: `https://${AUTH_SERVER_URI}/api/v2/`,
-  issuer: `https://${AUTH_SERVER_URI}/`,
-  algorithms: ['RS256'],
-});
+const checkJwt = jwtCheck(process.env);
 
 const sendPosResultBuilder = (res, payload) => {
   res.status(200);
@@ -45,6 +32,8 @@ class LinkListServer {
     const config_file = 'links.json';
     this.configEditor = new ConfigEditor(config_file);
     this.featureConfig = new FeatureConfig(process.env);
+    const database = new Database(process.env);
+    this.configEditorDB = new ConfigEditorDB(database);
     this.gitReader = GitReader.createGitReader({ configfile: config_file });
 
     app.use(function (req, res, next) {

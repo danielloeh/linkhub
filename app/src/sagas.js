@@ -27,7 +27,7 @@ import history from './history';
 import { AUTH_STATE_IS_LOGGED_IN } from './AuthClient';
 
 let server = window.location.origin;
-// let server = 'http://localhost:8080';
+
 const configEndpoint = server + '/api/config';
 const linkEndpoint = server + '/api/links';
 const gitCheckEndpoint = server + '/api/git/check';

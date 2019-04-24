@@ -30,10 +30,9 @@
     padding: 2em;
     display: flex;
     flex-direction: column;
-    justify-content: start;
+    justify-content: flex-start;
     -webkit-box-align: center;
     -webkit-align-items: center;
     -ms-flex-align: center;
     align-items: center;
 }
-
