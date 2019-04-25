@@ -14,6 +14,8 @@ const PORT = parseInt(process.env.PORT, 10) || 8080;
 
 const checkJwt = jwtCheck(process.env);
 
+let user = 'my-user';
+
 const sendPosResultBuilder = (res, payload) => {
   res.status(200);
   res.set('content-type', 'application/json');
@@ -78,6 +80,8 @@ class LinkListServer {
 
     app.get('/api/config', checkJwt, (req, res) => {
       res.send(this.configEditor.getLinks());
+
+      console.log(this.configEditorDB.getLinks(user));
     });
 
     app.get('/api/featureConfig', (req, res) => {
@@ -91,6 +95,7 @@ class LinkListServer {
 
       if (req.body !== null && this.featureConfig.getFeatureConfig().editEnabled) {
         this.configEditor.saveConfig(req.body, sendPosResult, sendNegResult, this.gitReader);
+        this.configEditorDB.saveConfig(user, req.body, sendPosResult, sendNegResult);
       } else {
         console.error(`Failed request to /api/config `);
         sendNegResult();
@@ -104,6 +109,7 @@ class LinkListServer {
 
       if (req.body !== null && this.featureConfig.getFeatureConfig().editEnabled) {
         this.configEditor.addLink(req.body, sendPosResult, sendNegResult, this.gitReader);
+        this.configEditorDB.addLink(user, req.body, sendPosResult, sendNegResult);
       } else {
         sendNegResult();
       }
