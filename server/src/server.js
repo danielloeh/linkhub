@@ -65,14 +65,15 @@ class LinkListServer {
   configureEndpoints (app) {
     app.get('/api/health', (req, res) => res.send('OK'));
 
-    app.get('/api/git/check', (req, res) => {
+    app.get('/api/git/check', checkJwt, (req, res) => {
 
       const sendNegResult = () => sendNegResultBuilder(res);
 
       sendNegResult();
     });
 
-    app.get('/api/config', (req, res) => {
+    app.get('/api/config', checkJwt, (req, res) => {
+
       const sendPosResult = (payload) => sendPosResultBuilder(res, payload);
       const sendNegResult = () => sendNegResultBuilder(res);
 
@@ -83,7 +84,7 @@ class LinkListServer {
       res.send(this.featureConfig.getFeatureConfig());
     });
 
-    app.post('/api/config', (req, res) => {
+    app.post('/api/config', checkJwt, (req, res) => {
 
       const sendPosResult = (payload) => sendPosResultBuilder(res, payload);
       const sendNegResult = () => sendNegResultBuilder(res);
@@ -96,9 +97,9 @@ class LinkListServer {
       }
     });
 
-    app.post('/api/links', (req, res) => {
+    app.post('/api/links', checkJwt, (req, res) => {
 
-      const sendPosResult = (payload) => sendPosResultBuilder(res, {config: payload});
+      const sendPosResult = (payload) => sendPosResultBuilder(res, payload);
       const sendNegResult = () => sendNegResultBuilder(res);
 
       if (req.body !== null && this.featureConfig.getFeatureConfig().editEnabled) {

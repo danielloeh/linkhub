@@ -58,7 +58,7 @@ function loading (state = emptyLoadingState, action) {
         categories: extractCategories(action.configJson)
       });
     default:
-      return state
+      return state;
   }
 }
 

@@ -80,7 +80,7 @@ function * onSaveConfig (action) {
     const accessTokenHeader = yield call(getAccessTokenHeader);
     yield put(savingConfig());
     const updatedConfig = yield call(saveConfigToBackend, action.configJson, accessTokenHeader);
-    yield put(configFetched(updatedConfig.config));
+    yield put(configFetched(updatedConfig));
     yield put(showLinks());
     if (updatedConfig.persistedInGit) {
       yield put(showInfoAlert('Config Saved (Persisted in Git)'));
@@ -129,7 +129,7 @@ function * onAddLink (action) {
       description: action.description,
     };
     const updatedLinks = yield call(addLinkToBackend, JSON.stringify(updatedConfig), accessTokenHeader);
-    yield put(configFetched(updatedLinks.config));
+    yield put(configFetched(JSON.parse(updatedLinks)));
     yield put(showLinks());
     if (updatedLinks.persistedInGit) {
       yield put(showInfoAlert('Link added (Persisted in Git)'));

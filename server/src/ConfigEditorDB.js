@@ -74,8 +74,6 @@ module.exports = class ConfigEditorDB {
       }
     };
 
-
     this.database.read({ table: TABLE_NAME, user: user, callback: callback });
-
   }
 };
