@@ -2,12 +2,11 @@ import React from "react";
 import {connect} from "react-redux";
 import {saveConfig, showErrorAlert} from "./actions";
 import Button from "muicss/lib/react/button";
-import Checkbox from "muicss/lib/react/checkbox";
 import TextArea from "muicss/lib/react/textarea";
 import "./ConfigEditor";
 import Joi from "joi-browser";
 import PropTypes from "prop-types";
-import {gitConnectionPropType, resultsPropType} from "./LinkPropTypes";
+import {resultsPropType} from "./LinkPropTypes";
 
 const configSchema = Joi.array().items(Joi.object().keys({
   categoryName: Joi.string().min(1).max(50).required(),
@@ -18,7 +17,7 @@ const configSchema = Joi.array().items(Joi.object().keys({
   }))
 }));
 
-let ConfigEditor = ({dispatch, allResults, gitConnection, saving = false}) => {
+let ConfigEditor = ({dispatch, allResults, saving = false}) => {
   let input;
 
   const prettyPrint = (json) => {
@@ -55,12 +54,9 @@ let ConfigEditor = ({dispatch, allResults, gitConnection, saving = false}) => {
     input = ev.target;
   };
 
-  const goodToPush = gitConnection.connected && gitConnection.upToDate;
-
   return (
     <div className="config-editor">
       <div className="save-config">
-        <Checkbox className="git-checkbox" name="inputA1" label="Save to Git" defaultChecked={goodToPush} disabled={!goodToPush} />
         <Button disabled={saving} id="save-config-button" color="primary" onClick={onSubmit}>Save Config</Button>
       </div>
       <TextArea rows={prettyPrint(allResults).split(/\r\n|\r|\n/).length} defaultValue={prettyPrint(allResults)}
@@ -72,7 +68,6 @@ let ConfigEditor = ({dispatch, allResults, gitConnection, saving = false}) => {
 
 ConfigEditor.propTypes = {
   allResults: resultsPropType,
-  gitConnection: gitConnectionPropType,
   saving: PropTypes.bool
 };
 

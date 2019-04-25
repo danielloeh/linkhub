@@ -7,29 +7,6 @@ FROM node:11.12.0-alpine
 
 WORKDIR /usr/src/app
 
-## GIT SETUP
-
-RUN apk update && apk upgrade && apk add --no-cache bash git openssh
-
-# Settings up access token
-RUN mkdir -p /root/.ssh
-ARG SSH_PRIVATE_KEY
-RUN (if [ -n "$SSH_PRIVATE_KEY" ]; then set -uex && echo ${SSH_PRIVATE_KEY} > /root/.ssh/id_rsa; fi)
-RUN (if [ -f "/root/.ssh/id_rsa" ]; then chmod 700 /root/.ssh/id_rsa; fi)
-
-# Create known_hosts and add remote repos' key
-RUN touch /root/.ssh/known_hosts
-# Get remote URL
-RUN export GIT_HOST=`git remote -v get-url origin`
-# Strip username and folders from host
-RUN export GIT_HOST=`echo $GIT_HOST | cut -d'@' -f2 | cut -d':' -f1`
-# Export the SSH key to the known host
-RUN (if [ -n "$GIT_HOST" ]; then ssh-keyscan ${GIT_HOST} >> /root/.ssh/known_hosts; fi)
-
-# Identifying to git
-RUN git config --global user.email "linkhub-app@link.hub"
-RUN git config --global user.name "linkhub-app"
-
 ## APP SETUP
 
 COPY package*.json ./

@@ -6,7 +6,6 @@ import {
   openLink,
   showAddLink,
   showConfig,
-  showGitSettings,
   showLinks,
   togglePageMode,
 } from './actions';
@@ -15,13 +14,13 @@ import { connect } from 'react-redux';
 import Appbar from 'muicss/lib/react/appbar';
 import Input from 'muicss/lib/react/input';
 import GenericButton from './GenericButton';
-import { gitConnectionPropType, resultsPropType } from './LinkPropTypes';
+import {resultsPropType } from './LinkPropTypes';
 import { featureConfigPropType } from './FeatureConfigPropTypes';
 import PropTypes from 'prop-types';
 import ToggleButton from 'react-toggle-button';
 import UserProfile from './UserProfile';
 
-let FilterBar = ({ dispatch, allResults, gitConnection, featureConfig, pageMode, userDetails }) => {
+let FilterBar = ({ dispatch, allResults, featureConfig, pageMode, userDetails }) => {
 
   function onToggleDisplayMode () {
     dispatch(togglePageMode());
@@ -49,18 +48,8 @@ let FilterBar = ({ dispatch, allResults, gitConnection, featureConfig, pageMode,
       ev.preventDefault();
       dispatch(openLink(ev.keyCode - 48));
     } else {
-
     }
   };
-
-  let gitButtonColor;
-  if (gitConnection.connected && gitConnection.upToDate) {
-    gitButtonColor = 'git-ok';
-  } else if (gitConnection.connected && !gitConnection.upToDate) {
-    gitButtonColor = 'git-not-up-to-date';
-  } else {
-    gitButtonColor = 'git-disconnected';
-  }
 
   return (
     <Appbar className="app-bar mui--bg-primary">
@@ -82,9 +71,6 @@ let FilterBar = ({ dispatch, allResults, gitConnection, featureConfig, pageMode,
         </div>
       </div>
 
-      <GenericButton id="git-status" size="small" actions={[showGitSettings]}
-        additionalClasses={gitButtonColor}
-        label="GIT"/>
       <div className="mui-panel toggle-page-mode-box">
         <span>FULL&nbsp;&nbsp;</span>
 
@@ -109,7 +95,6 @@ let FilterBar = ({ dispatch, allResults, gitConnection, featureConfig, pageMode,
 
 FilterBar.propTypes = {
   allResults: resultsPropType,
-  gitConnection: gitConnectionPropType,
   featureConfig: featureConfigPropType,
   pageMode: PropTypes.string,
 };

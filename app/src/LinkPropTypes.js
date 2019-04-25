@@ -15,12 +15,6 @@ export const linkPropType = PropTypes.shape({
 export const linksPropTypes = PropTypes.arrayOf(
   linkPropType).isRequired;
 
-export const gitConnectionPropType = PropTypes.shape({
-  connected: PropTypes.bool.isRequired,
-  upToDate: PropTypes.bool.isRequired,
-  remoteUrl: PropTypes.string.isRequired,
-}).isRequired;
-
 export const resultsPropType = PropTypes.arrayOf(
   PropTypes.shape({
     categoryName: PropTypes.string.isRequired,

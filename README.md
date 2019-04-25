@@ -1,6 +1,5 @@
 # Linkhub  
-Linkhub is a tool for documenting and storing relevant links for a project in a central place. It will display all the links and their description configured in `links.json` and has the optional
-functionality of persisting the file into a remote git repository with little setup.
+Linkhub is a tool for documenting and storing relevant links for a project in a central place (postgres)
 
 Currently its behind auth0 OIDC.
 Note: I'm currently migrating to postgres because of reasons
@@ -46,18 +45,6 @@ Here its other way around: the backend will deliver the minified and packaged fr
  
  `docker-compose up -d` 
  
-### Persisting in git
-
-The backend is using the remote repository of this folder to persist the `links.json`. This is optional - in order to activate it you have to:
-
-1. Make sure your origin/master of this repo uses ssh (not https) (e.g. `git@github.com:danielloeh/linkhub.git`)
-2. Have a public key added to your git remote repository.
-3. Provide the matching private key (no password) as ENV variable in `SSH_PRIVATE_KEY` and `GIT_HOST` for authentification during the docker build.
-
-Voilà - a simple persisting solution without further setup. For security reasons, I recommend to create a special user for this, which has only access to the the linkhub repository.
-
-Note: This currently only works if the its you use the whole directory for running the app including the git files, e.g. via the docker container. Other ways e.g. how heroku is handling running container don't find the git files and can't connect.
-
 ### Auth 
 The app is supporting an OAuth2 flow (e.g. via Auth0). You need to set the environment variables when baking the docker image:
  `AUTH_AUTH_URI`
@@ -80,9 +67,6 @@ There are different test suites for app and server.
 * Console: `cd app && npm test` (will spawn a watcher)
 * Intellij: Make sure to set your working directory to `<rootdir>/app` to pickup the right `package.json` and add `--env=jsdom` to the jest run parameters.
 
-
-### Known Issues   
-- The checkbox "save to git" has currently no function
 
 ## Features Planned
 - A groups concept

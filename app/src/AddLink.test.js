@@ -14,19 +14,13 @@ describe("AddLink test", () => {
 
   const mockStore = configureMockStore([sagaMiddleware]);
 
-  const gitConnection = {
-    connected: false,
-    remoteUrl: "some-url",
-    upToDate: false
-  };
-
   it('displays items', () => {
     const store = mockStore({});
 
     const categories = ["some-category", "some-other-category"];
 
     const addLinkWrapper = mount(<Provider store={store}>
-    <AddLink categories={categories} gitConnection={gitConnection} saving={false}/>
+    <AddLink categories={categories} saving={false}/>
     </Provider>);
 
     expect(addLinkWrapper.find(Input).length).toBe(3);
@@ -42,7 +36,7 @@ describe("AddLink test", () => {
     const categories = ["some-category", "some-other-category"];
 
     const addLinkWrapper = mount(<Provider store={store}>
-      <AddLink categories={categories} gitConnection={gitConnection} saving={false} />
+      <AddLink categories={categories} saving={false} />
     </Provider>);
 
     const eventMock = {
@@ -65,7 +59,7 @@ describe("AddLink test", () => {
     const categories = ["some-category", "some-other-category"];
 
     const addLinkWrapper = mount(<Provider store={store}>
-      <AddLink categories={categories} gitConnection={gitConnection} saving={false} />
+      <AddLink categories={categories} saving={false} />
     </Provider>);
 
     const eventMock = {
@@ -90,7 +84,7 @@ describe("AddLink test", () => {
     const categories = ["some-category", "some-other-category"];
 
     const addLinkWrapper = mount(<Provider store={store}>
-      <AddLink categories={categories} gitConnection={gitConnection} saving={false} />
+      <AddLink categories={categories} saving={false} />
     </Provider>);
 
     const eventMock = {
@@ -116,7 +110,7 @@ describe("AddLink test", () => {
     const categories = ["some-category", "some-other-category"];
 
     const addLinkWrapper = mount(<Provider store={store}>
-      <AddLink categories={categories} gitConnection={gitConnection} saving={true} />
+      <AddLink categories={categories} saving={true} />
     </Provider>);
 
     const buttonIsDisabled = addLinkWrapper.find(Button).filter("#add-link-submit").prop("disabled");

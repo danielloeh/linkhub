@@ -3,7 +3,6 @@ export const allResults = (state) => state.loading.allResults;
 export const categories = (state) => state.loading.categories;
 export const page = (state) => state.page;
 export const alerting = (state) => state.alerting;
-export const gitConnection = (state) => state.git;
 export const saving = (state) => state.saving.saving;
 export const filterTerm = (state) => state.filter.filterTerm;
 export const featureConfig = (state) => state.featureConfig;

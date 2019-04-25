@@ -7,7 +7,7 @@ import FilterBar from "./FilterBar";
 import Alert from "./Alert";
 import {SHOW_CONFIG} from "./actions";
 import Config from "./Config";
-import {alertingMock, featureConfigMock, gitConnectionMock, authMock} from "./TestHelpers";
+import {alertingMock, featureConfigMock, authMock} from "./TestHelpers";
 import {SHOW_FULL} from "./reducers/pageReducer";
 
 describe("LinkHub test", () => {
@@ -25,7 +25,6 @@ describe("LinkHub test", () => {
                  alerting={alertingMock}
                  filteredResults={[]} categories={[]}
                  page={{pageState: SHOW_CONFIG, pageMode: SHOW_FULL}}
-                 gitConnection={gitConnectionMock}
                  saving={false}
                  featureConfig={featureConfigMock}
                  auth={authMock}

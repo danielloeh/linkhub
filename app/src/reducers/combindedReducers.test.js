@@ -6,7 +6,6 @@ describe('Combined Reducers', () => {
     expect(combinedReducers(undefined, {})).toEqual({
       alerting: {"alertType": "info", "message": "", "show": false},
       filter: {"filterTerm": "", "filteredResults": []},
-      git: {"connected": false, "remoteUrl": "", "saving": false, "upToDate": false},
       loading: {"allResults": [], "categories": []},
       page: {"pageState": "SHOW_LINKS", "pageMode": "SHOW_COMPACT"},
       saving: {"saving": false},

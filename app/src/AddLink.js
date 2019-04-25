@@ -7,9 +7,9 @@ import {Button, Checkbox, Form, Input, Option, Select} from "muicss/react";
 import "./AddLink.css";
 import PropTypes from "prop-types";
 import Joi from "joi-browser";
-import {categoriesPropTypes, gitConnectionPropType} from "./LinkPropTypes";
+import {categoriesPropTypes} from "./LinkPropTypes";
 
-let AddLink = ({dispatch, categories, gitConnection, saving = false}) => {
+let AddLink = ({dispatch, categories, saving = false}) => {
   let name, url, description, category = categories[0];
 
   const linkSchema = Joi.object().keys({
@@ -60,8 +60,6 @@ let AddLink = ({dispatch, categories, gitConnection, saving = false}) => {
     }
   };
 
-  const goodToPush = gitConnection.connected && gitConnection.upToDate;
-
   return (
     <div>
       <div className="add-link">
@@ -76,8 +74,6 @@ let AddLink = ({dispatch, categories, gitConnection, saving = false}) => {
           <Input id="description-input" placeholder="Description" className="add-link-input" type="text"
                  onChange={onChangeDescription.bind(this)}/>
           <div className="save-config">
-            <Checkbox className="git-checkbox" name="inputA1" label="Save to Git" defaultChecked={goodToPush}
-                      disabled={!goodToPush}/>
             <Button id="add-link-submit" disabled={saving} color="primary" onClick={onAddLinkClick.bind(this)}>Add
               Link</Button>
           </div>
@@ -89,7 +85,6 @@ let AddLink = ({dispatch, categories, gitConnection, saving = false}) => {
 
 AddLink.propTypes = {
   categories: categoriesPropTypes,
-  gitConnection: gitConnectionPropType,
   saving: PropTypes.bool.isRequired
 };
 

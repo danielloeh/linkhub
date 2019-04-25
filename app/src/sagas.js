@@ -2,15 +2,12 @@ import { call, put, select, takeLatest } from 'redux-saga/effects';
 import {
   ADD_LINK,
   callbackProcessed,
-  CHECK_GIT_CONNECTION,
-  checkGitConnection,
   configFetched,
   configSaved,
   featureConfigFetched,
   FETCH_CONFIG,
   FETCH_FEATURE_CONFIG,
   fetchConfig,
-  gitConnectionChecked,
   IS_LOGGED_IN,
   OPEN_LINK,
   PROCESS_CALLBACK,
@@ -30,7 +27,6 @@ let server = window.location.origin;
 
 const configEndpoint = server + '/api/config';
 const linkEndpoint = server + '/api/links';
-const gitCheckEndpoint = server + '/api/git/check';
 const featureConfigEndpoint = server + '/api/featureConfig';
 
 let openUrlInNewTab = (linkList, number) => {
@@ -46,7 +42,6 @@ const checkResponse = (response) => {
 
 const fetchConfigFromBackend = (authToken) => getData({url: configEndpoint, authToken}).then(checkResponse);
 const fetchFeatureConfig = () => getData({url: featureConfigEndpoint}).then(checkResponse);
-const checkGitConnectionFetch = (authToken) => getData({url: gitCheckEndpoint, authToken}).then(checkResponse);
 const saveConfigToBackend = (data, authToken) => postData({url: configEndpoint, authToken, data}).then(checkResponse);
 const addLinkToBackend = (data, authToken) => postData({url: linkEndpoint, authToken, data}).then(checkResponse);
 
@@ -82,11 +77,6 @@ function * onSaveConfig (action) {
     const updatedConfig = yield call(saveConfigToBackend, action.configJson, accessTokenHeader);
     yield put(configFetched(updatedConfig));
     yield put(showLinks());
-    if (updatedConfig.persistedInGit) {
-      yield put(showInfoAlert('Config Saved (Persisted in Git)'));
-    } else {
-      yield put(showWarnAlert('Config Saved (Not persisted in Git. Please persist manually.)'));
-    }
     yield put(configSaved());
   } catch (e) {
     console.error('Save Config Failed' + e.message);
@@ -107,17 +97,6 @@ function * onOpenLink (action) {
   yield put(showLinks());
 }
 
-function * onCheckGitConnection () {
-  try {
-    const accessTokenHeader = yield call(getAccessTokenHeader);
-    const gitConnectionResult = yield call(checkGitConnectionFetch, accessTokenHeader);
-    yield put(gitConnectionChecked(gitConnectionResult));
-  } catch (e) {
-    console.error('Cant check git connection: ' + e.message);
-    yield put(showErrorAlert('Checking git connection failed: ' + e.message));
-  }
-}
-
 function * onAddLink (action) {
   try {
     const accessTokenHeader = yield call(getAccessTokenHeader);
@@ -131,11 +110,6 @@ function * onAddLink (action) {
     const updatedLinks = yield call(addLinkToBackend, JSON.stringify(updatedConfig), accessTokenHeader);
     yield put(configFetched(JSON.parse(updatedLinks)));
     yield put(showLinks());
-    if (updatedLinks.persistedInGit) {
-      yield put(showInfoAlert('Link added (Persisted in Git)'));
-    } else {
-      yield put(showWarnAlert('Link added (Not persisted in Git. Please persist manually.)'));
-    }
     yield put(configSaved());
   } catch (e) {
     console.error('Add Link Failed' + e.message);
@@ -156,7 +130,6 @@ function * onProcessCallback () {
 function * onLoggedIn () {
   try {
     yield put(fetchConfig());
-    yield put(checkGitConnection());
   } catch (e) {
     console.error('Redirect failed' + e.message);
   }
@@ -175,7 +148,6 @@ function * rootSaga () {
   yield takeLatest(SAVE_CONFIG, authed, onSaveConfig);
   yield takeLatest(OPEN_LINK, onOpenLink);
   yield takeLatest(ADD_LINK, authed, onAddLink);
-  yield takeLatest(CHECK_GIT_CONNECTION, authed, onCheckGitConnection);
   yield takeLatest(PROCESS_CALLBACK, onProcessCallback);
   yield takeLatest(IS_LOGGED_IN, onLoggedIn);
 }

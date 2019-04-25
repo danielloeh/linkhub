@@ -65,13 +65,6 @@ class LinkListServer {
   configureEndpoints (app) {
     app.get('/api/health', (req, res) => res.send('OK'));
 
-    app.get('/api/git/check', checkJwt, (req, res) => {
-
-      const sendNegResult = () => sendNegResultBuilder(res);
-
-      sendNegResult();
-    });
-
     app.get('/api/config', checkJwt, (req, res) => {
 
       const sendPosResult = (payload) => sendPosResultBuilder(res, payload);

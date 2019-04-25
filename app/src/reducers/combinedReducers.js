@@ -3,7 +3,6 @@ import {
   CONFIG_SAVED,
   FEATURE_CONFIG_FETCHED,
   FETCH_CONFIG,
-  GIT_CONNECTION_CHECKED,
   HIDE_ALERT,
   SAVING_CONFIG,
   SHOW_ALERT
@@ -23,13 +22,6 @@ const emptyAlertingState = {
   message: '',
   alertType: ALERT_INFO_TYPE,
   show: false
-};
-
-const emptyGitState = {
-  connected: false,
-  remoteUrl: '',
-  upToDate: false,
-  saving: false
 };
 
 const emptySavingState = {
@@ -73,19 +65,6 @@ function alerting (state = emptyAlertingState, action) {
   }
 }
 
-function git (state = emptyGitState, action) {
-  switch (action.type) {
-    case GIT_CONNECTION_CHECKED:
-      return Object.assign({}, state, {
-        connected: action.connected,
-        upToDate: action.upToDate,
-        remoteUrl: action.remoteUrl
-      });
-    default:
-      return state;
-  }
-}
-
 function saving (state = emptySavingState, action) {
   switch (action.type) {
     case SAVING_CONFIG:
@@ -115,7 +94,6 @@ const combinedReducers = combineReducers({
   page,
   loading,
   alerting,
-  git,
   saving,
   featureConfig,
   auth

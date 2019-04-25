@@ -7,7 +7,6 @@ import Input from "muicss/lib/react/input";
 import {Provider} from "react-redux";
 import GenericButton from "./GenericButton";
 import Button from "muicss/lib/react/button";
-import {gitConnectionMock} from "./TestHelpers";
 import ToggleButton from "react-toggle-button";
 
 describe("Filterbar test", () => {
@@ -15,8 +14,6 @@ describe("Filterbar test", () => {
   const sagaMiddleware = createSagaMiddleware();
 
   const mockStore = configureMockStore([sagaMiddleware]);
-
-  const gitConnection = gitConnectionMock;
 
   const userDetails = {fetched: false};
 
@@ -28,7 +25,7 @@ describe("Filterbar test", () => {
     const store = mockStore({});
 
     const linkItemWrapper = mount(<Provider store={store}>
-      <FilterBar allResults={someResults} gitConnection={gitConnection} featureConfig={featureConfig}
+      <FilterBar allResults={someResults} featureConfig={featureConfig}
         userDetails={userDetails}/>
     </Provider>);
 
@@ -47,7 +44,7 @@ describe("Filterbar test", () => {
     const store = mockStore({});
 
     const linkItemWrapper = mount(<Provider store={store}>
-      <FilterBar allResults={someResults} gitConnection={gitConnection} featureConfig={featureConfig}
+      <FilterBar allResults={someResults} featureConfig={featureConfig}
         userDetails={userDetails}/>
     </Provider>);
 
@@ -63,7 +60,7 @@ describe("Filterbar test", () => {
     const store = mockStore({});
 
     const linkItemWrapper = mount(<Provider store={store}>
-      <FilterBar allResults={someResults} gitConnection={gitConnection} featureConfig={featureConfig}
+      <FilterBar allResults={someResults} featureConfig={featureConfig}
         userDetails={userDetails}/>
     </Provider>);
 
@@ -77,7 +74,7 @@ describe("Filterbar test", () => {
     const store = mockStore({});
 
     const linkItemWrapper = mount(<Provider store={store}>
-      <FilterBar allResults={someResults} gitConnection={gitConnection} featureConfig={featureConfig}
+      <FilterBar allResults={someResults} featureConfig={featureConfig}
         pageMode='SHOW_FULL' userDetails={userDetails}/>
     </Provider>);
 
@@ -90,7 +87,7 @@ describe("Filterbar test", () => {
     const store = mockStore({});
 
     const linkItemWrapper = mount(<Provider store={store}>
-      <FilterBar allResults={someResults} gitConnection={gitConnection} featureConfig={featureConfig}
+      <FilterBar allResults={someResults} featureConfig={featureConfig}
         userDetails={userDetails}/>
     </Provider>);
 
@@ -104,7 +101,7 @@ describe("Filterbar test", () => {
     const store = mockStore({});
 
     const linkItemWrapper = mount(<Provider store={store}>
-      <FilterBar allResults={someResults} gitConnection={gitConnection} featureConfig={featureConfig}
+      <FilterBar allResults={someResults} featureConfig={featureConfig}
         userDetails={userDetails}/>
     </Provider>);
 
@@ -118,7 +115,7 @@ describe("Filterbar test", () => {
     const store = mockStore({});
 
     const linkItemWrapper = mount(<Provider store={store}>
-      <FilterBar allResults={someResults} gitConnection={gitConnection} featureConfig={featureConfig}
+      <FilterBar allResults={someResults} featureConfig={featureConfig}
         userDetails={userDetails}/>
     </Provider>);
 
@@ -137,7 +134,7 @@ describe("Filterbar test", () => {
     const store = mockStore({});
 
     const linkItemWrapper = mount(<Provider store={store}>
-      <FilterBar allResults={someResults} gitConnection={gitConnection} featureConfig={featureConfig}
+      <FilterBar allResults={someResults} featureConfig={featureConfig}
         userDetails={userDetails}/>
     </Provider>);
 
@@ -155,7 +152,7 @@ describe("Filterbar test", () => {
     const store = mockStore({});
 
     const linkItemWrapper = mount(<Provider store={store}>
-      <FilterBar allResults={someResults} gitConnection={gitConnection} featureConfig={featureConfig}
+      <FilterBar allResults={someResults} featureConfig={featureConfig}
         userDetails={userDetails}/>
     </Provider>);
 
@@ -174,7 +171,7 @@ describe("Filterbar test", () => {
     const store = mockStore({});
 
     const linkItemWrapper = mount(<Provider store={store}>
-      <FilterBar allResults={someResults} gitConnection={gitConnection} featureConfig={featureConfig}
+      <FilterBar allResults={someResults} featureConfig={featureConfig}
         userDetails={userDetails}/>
     </Provider>);
 
@@ -193,44 +190,16 @@ describe("Filterbar test", () => {
       {"type": "UNFILTERED"}]);
   });
 
-
-  it('displays green button if connection ok and up to date', () => {
-    const someResults = [];
-
-    const store = mockStore({});
-
-    const gitConnectionOk = {
-      connected: true,
-      remoteUrl: "some-url",
-      upToDate: true
-    };
-
-    const linkItemWrapper = mount(<Provider store={store}>
-      <FilterBar allResults={someResults} gitConnection={gitConnectionOk} featureConfig={featureConfig}
-        userDetails={userDetails}/>
-    </Provider>);
-
-    let gitStatusButton = linkItemWrapper.find("#git-status").filter(Button);
-
-    expect(gitStatusButton.prop('className')).toContain("git-ok");
-  });
-
   it('disabled buttons if edit is disabled', () => {
     const someResults = [];
 
     const store = mockStore({});
 
-    const gitConnectionOk = {
-      connected: true,
-      remoteUrl: "some-url",
-      upToDate: true
-    };
-
     const editDisabledConfig = featureConfig;
     editDisabledConfig.editEnabled = false;
 
     const linkItemWrapper = mount(<Provider store={store}>
-      <FilterBar allResults={someResults} gitConnection={gitConnectionOk} featureConfig={editDisabledConfig}
+      <FilterBar allResults={someResults} featureConfig={editDisabledConfig}
         userDetails={userDetails}/>
     </Provider>);
 
@@ -239,47 +208,5 @@ describe("Filterbar test", () => {
 
     expect(addLinkButton.prop('disabled')).toEqual(true);
     expect(editConfigButton.prop('disabled')).toEqual(true);
-  });
-
-  it('displays warning button if connection ok but not up to date', () => {
-    const someResults = [];
-
-    const store = mockStore({});
-
-    const gitConnectionNotUpToDate = {
-      connected: true,
-      remoteUrl: "some-url",
-      upToDate: false
-    };
-
-    const linkItemWrapper = mount(<Provider store={store}>
-      <FilterBar allResults={someResults} gitConnection={gitConnectionNotUpToDate} featureConfig={featureConfig}
-        userDetails={userDetails}/>
-    </Provider>);
-
-    let gitStatusButton = linkItemWrapper.find("#git-status").filter(Button);
-
-    expect(gitStatusButton.prop('className')).toContain("git-not-up-to-date");
-  });
-
-  it('displays error button if not connected to remote git', () => {
-    const someResults = [];
-
-    const store = mockStore({});
-
-    const gitConnectionError = {
-      connected: false,
-      remoteUrl: "",
-      upToDate: false
-    };
-
-    const linkItemWrapper = mount(<Provider store={store}>
-      <FilterBar allResults={someResults} gitConnection={gitConnectionError} featureConfig={featureConfig}
-        userDetails={userDetails}/>
-    </Provider>);
-
-    let gitStatusButton = linkItemWrapper.find("#git-status").filter(Button);
-
-    expect(gitStatusButton.prop('className')).toContain("git-disconnected");
   });
 });

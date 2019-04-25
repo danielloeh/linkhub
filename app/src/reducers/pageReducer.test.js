@@ -65,15 +65,4 @@ describe('Page Reducer', () => {
       {pageState: actions.SHOW_ADD_LINK}
     );
   });
-
-  it('handles show git settings', () => {
-    expect(
-      pageReducer([], {
-        type: actions.SHOW_GIT_SETTINGS
-      })
-    ).toEqual(
-      {pageState: actions.SHOW_GIT_SETTINGS}
-    );
-  });
-
 });

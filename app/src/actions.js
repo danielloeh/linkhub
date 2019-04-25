@@ -9,7 +9,6 @@ export const OPEN_LINK = 'OPEN_LINK';
 export const SHOW_CONFIG = 'SHOW_CONFIG';
 export const SHOW_LINKS = 'SHOW_LINKS';
 export const SHOW_ADD_LINK = 'SHOW_ADD_LINK';
-export const SHOW_GIT_SETTINGS = 'SHOW_GIT_SETTINGS';
 
 // page mode
 export const TOGGLE_PAGE_MODE = 'TOGGLE_PAGE_MODE';
@@ -27,10 +26,6 @@ export const HIDE_ALERT = 'HIDE_ALERT';
 
 // add link
 export const ADD_LINK = 'ADD_LINK';
-
-// git connection
-export const GIT_CONNECTION_CHECKED = 'GIT_CONNECTION_CHECKED';
-export const CHECK_GIT_CONNECTION = 'CHECK_GIT_CONNECTION';
 
 // save config
 export const SAVING_CONFIG = 'SAVING_CONFIG';
@@ -89,12 +84,6 @@ export function showLinks (linksJson) {
 export function showAddLink () {
   return {
     type: SHOW_ADD_LINK,
-  };
-}
-
-export function showGitSettings () {
-  return {
-    type: SHOW_GIT_SETTINGS,
   };
 }
 
@@ -233,23 +222,6 @@ export function addLink (category, url, name, description) {
     url,
     name,
     description,
-  };
-}
-
-/* git connection */
-
-export function checkGitConnection () {
-  return {
-    type: CHECK_GIT_CONNECTION,
-  };
-}
-
-export function gitConnectionChecked ({ connected, remoteUrl, upToDate }) {
-  return {
-    type: GIT_CONNECTION_CHECKED,
-    connected,
-    remoteUrl,
-    upToDate,
   };
 }
 

@@ -76,15 +76,6 @@ describe('actions', () => {
     expect(actions.addLink()).toEqual(expectedAction)
   });
 
-  it('creates an action to git settings page', () => {
-
-    const expectedAction = {
-      type: actions.SHOW_GIT_SETTINGS
-    };
-
-    expect(actions.showGitSettings()).toEqual(expectedAction)
-  });
-
   it('creates an action for fetching feature config', () => {
 
     const expectedAction = {

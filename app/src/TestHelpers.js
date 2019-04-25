@@ -1,12 +1,6 @@
 import {ALERT_ERROR_TYPE} from "./Alert";
 import {AUTH_STATE_IS_LOGGED_IN} from "./AuthClient";
 
-export const gitConnectionMock = {
-  connected: false,
-  remoteUrl: "some-url",
-  upToDate: false
-};
-
 export const alertingMock = {
   message: '',
   show: false,
