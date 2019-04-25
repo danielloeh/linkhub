@@ -22,24 +22,27 @@ module.exports = class ConfigEditorDB {
     this.database = database;
   }
 
-  getLinks (user) {
-    const jsonString = this.database.read({ user: user, table: TABLE_NAME });
+  getLinks (user, sendPosResult, sendNegResult) {
 
-    const result = Joi.validate(JSON.parse(jsonString), configSchema);
-    if (result.error !== null) {
-      console.error('Invalid config format: ' + result.error.details[0].message);
-      return {};
-    } else {
-      return JSON.parse(jsonString);
-    }
+    const parseContents = (jsonString) => {
+      const result = Joi.validate(JSON.parse(jsonString), configSchema);
+      if (result.error !== null) {
+        console.error('Invalid config format: ' + result.error.details[0].message);
+        sendNegResult(result.error);
+      } else {
+        sendPosResult(JSON.parse(jsonString));
+      }
+    };
+
+    this.database.read({ user: user, table: TABLE_NAME, callback: parseContents });
   }
 
   saveConfig (user, data, sendPositiveResultFn, sendNegResult) {
 
     const result = Joi.validate(data, configSchema);
-
     if (result.error === null) {
-      this.database.upsert({ user: user, data: JSON.stringify(data), table: TABLE_NAME });
+      this.database.upsert(
+        { user: user, data: JSON.stringify(data), table: TABLE_NAME, callback: sendPositiveResultFn });
     } else {
       console.error('Invalid config format: ' + result.error.details[0].message);
       sendNegResult();
@@ -48,27 +51,31 @@ module.exports = class ConfigEditorDB {
 
   addLink (user, linkPayload, sendPositiveResultFn, sendNegResult) {
 
-    const jsonString = this.database.read({ table: TABLE_NAME, user: user });
+    const callback = (jsonString) => {
+      const result = Joi.validate(JSON.parse(jsonString), configSchema);
 
-    const result = Joi.validate(JSON.parse(jsonString), configSchema);
+      if (result.error === null) {
+        const updatedContent = JSON.parse(jsonString).map((category) => {
+          if (category.categoryName === linkPayload.category) {
+            category.links.push({ url: linkPayload.url, name: linkPayload.name, description: linkPayload.description });
+          }
+          return category;
+        });
 
-    if (result.error === null) {
-      const updatedContent = this.getLinks().map((category) => {
-        if (category.categoryName === linkPayload.category) {
-          category.links.push({ url: linkPayload.url, name: linkPayload.name, description: linkPayload.description });
+        if (stringRepresentationIsNotTheSame(updatedContent, jsonString)) {
+          this.database.upsert({ table: TABLE_NAME, user: user, data: JSON.stringify(updatedContent), callback: sendPositiveResultFn });
+        } else {
+          console.error('No valid link added');
+          sendNegResult();
         }
-        return category;
-      });
-
-      if (stringRepresentationIsNotTheSame(updatedContent, jsonString)) {
-        this.database.upsert({ table: TABLE_NAME, user: user, data: JSON.stringify(updatedContent) });
       } else {
-        console.error('No valid link added');
+        console.error('Invalid config format: ' + result.error.details[0].message);
         sendNegResult();
       }
-    } else {
-      console.error('Invalid config format: ' + result.error.details[0].message);
-      sendNegResult();
-    }
+    };
+
+
+    this.database.read({ table: TABLE_NAME, user: user, callback: callback });
+
   }
 };

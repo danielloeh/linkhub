@@ -1,4 +1,4 @@
-const pg = require('pg');
+const { Pool, Client } = require('pg');
 
 const TABLE_NAME = 'links';
 
@@ -15,7 +15,7 @@ module.exports = class Database {
       idleTimeoutMillis: 30000,
     };
 
-    this.pool = new pg.Pool(config);
+    this.pool = new Pool(config);
 
     this.pool.on('connect', () => {
       console.log('Connected to the Database');
@@ -28,32 +28,40 @@ module.exports = class Database {
     this.createTables();
   }
 
-  upsert ({ table, user, data }) {
-    const upsert = `INSERT INTO ${table}(user_name, data) VALUES ($1, $2) ON CONFLICT (data) DO 
-    UPDATE SET data=$2 `;
-    const values= ['my-user', JSON.stringify(data)];
+  upsert ({ table, user, data, callback }) {
+    const upsert = `INSERT INTO ${table}(user_name, data) VALUES ($1, $2) ON CONFLICT (user_name) DO 
+    UPDATE SET data=$2 RETURNING data`;
+    const values = [user, JSON.stringify(data)];
 
-    this.executeQuery(upsert, values);
+    console.log(JSON.stringify(data));
+
+    this.executeQuery(upsert, values).then((res) => {
+      console.log(res.rows[0].data);
+      callback(res.rows[0].data);
+    }).catch((err) => {
+      console.log(err);
+      callback(err);
+    });
   }
 
-  read ({ table, user }) {
-    console.log(`${table} -> ${user}}`);
+  read ({ table, user, callback }) {
 
     const read = `SELECT data FROM ${table} where user_name=$1`;
     const values = [user];
 
-    this.executeQuery(read, values);
-  }
-
-  async executeQuery (qry, values = []) {
-    await this.pool.query(qry, values).then((res) => {
-      console.log(res);
+    this.executeQuery(read, values).then((res) => {
+      callback(res.rows[0].data);
     }).catch((err) => {
       console.log(err);
+      callback(undefined);
     });
   }
 
-  async createTables () {
+  executeQuery (qry, values = []) {
+    return this.pool.query(qry, values);
+  }
+
+  createTables () {
 
     const createExtension = `CREATE EXTENSION IF NOT EXISTS "uuid-ossp";`;
     this.executeQuery(createExtension);

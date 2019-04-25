@@ -3,9 +3,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const ConfigEditor = require('./ConfigEditor');
 const ConfigEditorDB = require('./ConfigEditorDB');
-const GitReader = require('./GitReader');
 const FeatureConfig = require('./FeatureConfig');
 const Database = require('./Database');
 const jwtCheck = require('./Auth');
@@ -31,12 +29,9 @@ class LinkListServer {
 
     const app = express();
 
-    const config_file = 'links.json';
-    this.configEditor = new ConfigEditor(config_file);
     this.featureConfig = new FeatureConfig(process.env);
     const database = new Database(process.env);
     this.configEditorDB = new ConfigEditorDB(database);
-    this.gitReader = GitReader.createGitReader({ configfile: config_file });
 
     app.use(function (req, res, next) {
       if (req.method === 'OPTIONS') {  // send out CORS inflight response
@@ -72,29 +67,28 @@ class LinkListServer {
 
     app.get('/api/git/check', (req, res) => {
 
+      const sendNegResult = () => sendNegResultBuilder(res);
+
+      sendNegResult();
+    });
+
+    app.get('/api/config', (req, res) => {
       const sendPosResult = (payload) => sendPosResultBuilder(res, payload);
       const sendNegResult = () => sendNegResultBuilder(res);
 
-      this.gitReader.checkConnectionAndReturnResult(sendPosResult, sendNegResult);
-    });
-
-    app.get('/api/config', checkJwt, (req, res) => {
-      res.send(this.configEditor.getLinks());
-
-      console.log(this.configEditorDB.getLinks(user));
+      this.configEditorDB.getLinks(user, sendPosResult, sendNegResult);
     });
 
     app.get('/api/featureConfig', (req, res) => {
       res.send(this.featureConfig.getFeatureConfig());
     });
 
-    app.post('/api/config', checkJwt, (req, res) => {
+    app.post('/api/config', (req, res) => {
 
       const sendPosResult = (payload) => sendPosResultBuilder(res, payload);
       const sendNegResult = () => sendNegResultBuilder(res);
 
       if (req.body !== null && this.featureConfig.getFeatureConfig().editEnabled) {
-        this.configEditor.saveConfig(req.body, sendPosResult, sendNegResult, this.gitReader);
         this.configEditorDB.saveConfig(user, req.body, sendPosResult, sendNegResult);
       } else {
         console.error(`Failed request to /api/config `);
@@ -102,13 +96,12 @@ class LinkListServer {
       }
     });
 
-    app.post('/api/links', checkJwt, (req, res) => {
+    app.post('/api/links', (req, res) => {
 
-      const sendPosResult = (payload) => sendPosResultBuilder(res, payload);
+      const sendPosResult = (payload) => sendPosResultBuilder(res, {config: payload});
       const sendNegResult = () => sendNegResultBuilder(res);
 
       if (req.body !== null && this.featureConfig.getFeatureConfig().editEnabled) {
-        this.configEditor.addLink(req.body, sendPosResult, sendNegResult, this.gitReader);
         this.configEditorDB.addLink(user, req.body, sendPosResult, sendNegResult);
       } else {
         sendNegResult();
