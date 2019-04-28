@@ -31,9 +31,20 @@ You can run it via `docker-compose` as single docker image, or run them as separ
 
 Runs as two different servers including a webpack router that routes requests on `localhost:3000/api` to `:8080` (default backend port), so that the frontend can send backend requests to `window.location.origin`.
 
-`AUTH_SERVER_URI=some-auth-uri AUTH_CLIENT_ID=the-client-id EDIT_ENABLED=true npm start` - Starts the backend on :8080
+````
+#!/usr/bin/env bash
 
-`./app/npm start` : - Start the frontend on :3000
+AUTH_SERVER_URI=my-auth-server-uri (auth0) \
+AUTH_CLIENT_ID=my-client-id \
+EDIT_ENABLED=true \
+DATABASE_USER=postgres \
+DATABASE_PASSWORD=changeme \
+npm start` 
+````
+Starts the backend on :8080
+
+````./app/npm start```` 
+Start the frontend on :3000
 
 Note: make sure you have $PORT not set. Changing the port only works when running it via docker.
  
@@ -83,6 +94,7 @@ Daniel Löffelholz - daniel.loeffelholz@gmail.com  // dloeffel@thoughtworks.com 
 
 -> deployed version
 
+* add category management
 ** Spinner for loading times
 ** Deactivate non functional buttons
 * customize name
