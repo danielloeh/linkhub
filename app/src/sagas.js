@@ -38,13 +38,13 @@ const checkResponse = (response) => {
   return response.json();
 };
 
-const fetchConfigFromBackend = (authToken, idToken) => getData({ url: configEndpoint, authToken, idToken }).
-  then(checkResponse);
+const fetchConfigFromBackend =
+  (authToken, idToken) => getData({ url: configEndpoint, authToken, idToken }).then(checkResponse);
 const fetchFeatureConfig = () => getData({ url: featureConfigEndpoint }).then(checkResponse);
-const saveConfigToBackend = (data, authToken, idToken) => postData({ url: configEndpoint, authToken, idToken, data }).
-  then(checkResponse);
-const addLinkToBackend = (data, authToken, idToken) => postData({ url: linkEndpoint, authToken, idToken, data }).
-  then(checkResponse);
+const saveConfigToBackend =
+  (data, authToken, idToken) => postData({ url: configEndpoint, authToken, idToken, data }).then(checkResponse);
+const addLinkToBackend =
+  (data, authToken, idToken) => postData({ url: linkEndpoint, authToken, idToken, data }).then(checkResponse);
 
 function * getAccessTokenHeader () {
   return yield select((state) => state.auth.authCredentials.accessToken);

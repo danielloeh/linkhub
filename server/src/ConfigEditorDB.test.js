@@ -18,7 +18,7 @@ describe('ConfigEditorDB Test', () => {
 
     database = {
       upsert: jest.fn(({ data }) => data),
-      read: jest.fn(() => aMockConfig),
+      read: jest.fn(({callback}) => callback(aMockConfig)),
     };
   });
 
@@ -46,10 +46,11 @@ describe('ConfigEditorDB Test', () => {
 
     configEditor.addLink(someUser, linkPayload, sendPositiveResultFn, sendNegResult);
 
-    expect(database.upsert.mock.calls.length).toBe(1);
-    expect(database.read).toBeCalledWith({ user: someUser, table: tableName });
+    expect(database.read.mock.calls.length).toBe(1);
+    expect(database.read).toBeCalledWith({ user: someUser, table: tableName, callback: expect.any(Function)});
+
     expect(database.upsert).toBeCalledWith({
-      table: tableName, user: someUser, data:
+      callback: sendPositiveResultFn, table: tableName, user: someUser, data:
         '[{"categoryName":"some-category","links":[{"url":"https://www.muicss.com/","name":"MUI CSS - React Components"},' +
         '{"url":"some-url","name":"some-name","description":"some-description"}]}]',
     });
@@ -105,7 +106,7 @@ describe('ConfigEditorDB Test', () => {
       description: 'some-description',
     };
 
-    const readSpy = jest.spyOn(database, 'read').mockImplementation(() => aMockConfig);
+    const readSpy = jest.spyOn(database, 'read').mockImplementation(({callback}) => callback(aMockConfig));
 
     const sendPositiveResultFn = jest.fn();
     const sendNegResult = jest.fn();

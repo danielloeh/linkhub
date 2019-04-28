@@ -5,7 +5,6 @@ import configureMockStore from "redux-mock-store";
 import createSagaMiddleware from "redux-saga";
 import Input from "muicss/lib/react/input";
 import {Provider} from "react-redux";
-import GenericButton from "./GenericButton";
 import Button from "muicss/lib/react/button";
 import ToggleButton from "react-toggle-button";
 
@@ -47,8 +46,6 @@ describe("Filterbar test", () => {
       <FilterBar allResults={someResults} featureConfig={featureConfig}
         userDetails={userDetails}/>
     </Provider>);
-
-    expect(linkItemWrapper.find(GenericButton).length).toBe(4);
 
     linkItemWrapper.find(Button).filter("#edit-config").prop("onClick")({});
     expect(store.getActions()).toEqual([{type: 'SHOW_CONFIG'}]);

@@ -3,7 +3,7 @@ import "./FilterBar.css";
 import {connect} from "react-redux";
 import "./Alert";
 import {addLink, showErrorAlert} from "./actions";
-import {Button, Checkbox, Form, Input, Option, Select} from "muicss/react";
+import {Button, Form, Input, Option, Select} from "muicss/react";
 import "./AddLink.css";
 import PropTypes from "prop-types";
 import Joi from "joi-browser";
@@ -32,7 +32,7 @@ let AddLink = ({dispatch, categories, saving = false}) => {
   let SelectItems = ({categories}) => {
     return (categories.map((category, index) => (
       <Option name={category} label={category} defaultChecked={index === 0} key={index}/>
-    )))
+    )));
   };
 
 
@@ -68,11 +68,11 @@ let AddLink = ({dispatch, categories, saving = false}) => {
             <SelectItems categories={categories}/>
           </Select>
           <Input id="name-input" placeholder="Name" className="add-link-input" type="text"
-                 onChange={onChangeName.bind(this)}/>
+            onChange={onChangeName.bind(this)}/>
           <Input id="url-input" placeholder="URL" className="add-link-input" type="text"
-                 onChange={onChangeURL.bind(this)}/>
+            onChange={onChangeURL.bind(this)}/>
           <Input id="description-input" placeholder="Description" className="add-link-input" type="text"
-                 onChange={onChangeDescription.bind(this)}/>
+            onChange={onChangeDescription.bind(this)}/>
           <div className="save-config">
             <Button id="add-link-submit" disabled={saving} color="primary" onClick={onAddLinkClick.bind(this)}>Add
               Link</Button>

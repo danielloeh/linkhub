@@ -7,6 +7,7 @@ const ConfigEditorDB = require('./ConfigEditorDB');
 const FeatureConfig = require('./FeatureConfig');
 const Database = require('./Database');
 const auth = require('./Auth');
+const connection = require('./Connection');
 
 const PORT = parseInt(process.env.PORT, 10) || 8080;
 
@@ -32,20 +33,7 @@ class LinkListServer {
     const database = new Database(process.env);
     this.configEditorDB = new ConfigEditorDB(database);
 
-    app.use(function (req, res, next) {
-      if (req.method === 'OPTIONS') {  // send out CORS inflight response
-        res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization, IDToken');
-        res.header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT, PATCH, DELETE');
-        res.header('Access-Control-Allow-Origin', '*');
-        res.header('Access-Control-Allow-Credentials', true);
-        return res.sendStatus(200);
-      } else { // Send out cors headers for all other requests
-        res.header('Access-Control-Allow-Origin', '*');
-        res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-        res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization, IDToken');
-        return next();
-      }
-    });
+    app.use(connection.configureCors);
 
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ strict: false, extended: true }));
@@ -69,8 +57,6 @@ class LinkListServer {
       const sendPosResult = (payload) => sendPosResultBuilder(res, payload);
       const sendNegResult = () => sendNegResultBuilder(res);
 
-      console.log(req.user.name);
-
       this.configEditorDB.getLinks(req.user.name, sendPosResult, sendNegResult);
     });
 
@@ -79,8 +65,6 @@ class LinkListServer {
     });
 
     app.post('/api/config', validateAuthToken, validateIDToken, (req, res) => {
-
-      console.log(req.user.name);
 
       const sendPosResult = (payload) => sendPosResultBuilder(res, payload);
       const sendNegResult = () => sendNegResultBuilder(res);

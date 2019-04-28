@@ -1,4 +1,4 @@
-const { Pool, Client } = require('pg');
+const { Pool } = require('pg');
 
 const TABLE_NAME = 'links';
 
@@ -49,9 +49,9 @@ module.exports = class Database {
     const values = [user];
 
     this.executeQuery(read, values).then((res) => {
-      if(res.rows.length > 0){
+      if (res.rows.length > 0) {
         callback(res.rows[0].data);
-      }else{
+      } else {
         callback('[]');
       }
     }).catch((err) => {
@@ -69,11 +69,13 @@ module.exports = class Database {
     const createExtension = `CREATE EXTENSION IF NOT EXISTS "uuid-ossp";`;
     this.executeQuery(createExtension);
 
-    // const dropTable = `DROP
-    //     TABLE
-    //     IF EXISTS ${TABLE_NAME}`;
-    //
-    // this.executeQuery(dropTable);
+    const recreate = false;
+    if (recreate) {
+      const dropTable = `DROP
+          TABLE
+          IF EXISTS ${TABLE_NAME}`;
+      this.executeQuery(dropTable);
+    }
 
     const createTable = `CREATE TABLE IF NOT EXISTS ${TABLE_NAME}
                          (

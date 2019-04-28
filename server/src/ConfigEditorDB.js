@@ -24,6 +24,8 @@ module.exports = class ConfigEditorDB {
 
   getLinks (user, sendPosResult, sendNegResult) {
 
+    console.log(`Fetching config for ${user}`);
+
     const parseContents = (jsonString) => {
 
       const result = Joi.validate(JSON.parse(jsonString), configSchema);
@@ -40,6 +42,8 @@ module.exports = class ConfigEditorDB {
   }
 
   saveConfig (user, payload, sendPositiveResultFn, sendNegResult) {
+
+    console.log(`Saving config for ${user}`);
 
     const result = Joi.validate(payload, configSchema);
 

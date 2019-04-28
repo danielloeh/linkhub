@@ -15,6 +15,8 @@ describe("FeatureConfig Test", () => {
     const resultingConfig = featureConfig.getFeatureConfig();
 
     expect(resultingConfig.editEnabled).toEqual(true);
+    expect(resultingConfig.authClientID).toEqual('some-id');
+    expect(resultingConfig.authURI).toEqual('some-uri');
   });
 
   it('defaults to true', () => {
