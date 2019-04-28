@@ -1,7 +1,7 @@
 const jwt = require('express-jwt');
 const jwksRsa = require('jwks-rsa');
 
-const jwtCheck = ({ AUTH_SERVER_URI = 'http://localhost:3333' }) => {
+const validateAuthToken = ({ AUTH_SERVER_URI = 'http://localhost:3333' }) => {
   return jwt({
     secret: jwksRsa.expressJwtSecret({
       cache: true,
@@ -17,4 +17,28 @@ const jwtCheck = ({ AUTH_SERVER_URI = 'http://localhost:3333' }) => {
   });
 };
 
-module.exports = jwtCheck;
+const validateIDToken = ({ AUTH_SERVER_URI = 'http://localhost:3333', AUTH_CLIENT_ID }) => {
+  return jwt({
+    secret: jwksRsa.expressJwtSecret({
+      cache: true,
+      rateLimit: true,
+      jwksRequestsPerMinute: 5,
+      jwksUri: `https://${AUTH_SERVER_URI}/.well-known/jwks.json`,
+    }),
+
+    getToken: function getIDToken (req) {
+      if (req.headers.idtoken) {
+        return req.headers.idtoken;
+      } else {
+        console.log('no id-token found');
+      }
+      return null;
+    },
+
+    audience: `${AUTH_CLIENT_ID}`,
+    issuer: `https://${AUTH_SERVER_URI}/`,
+    algorithms: ['RS256'],
+  });
+};
+
+module.exports = { validateAuthToken, validateIDToken };

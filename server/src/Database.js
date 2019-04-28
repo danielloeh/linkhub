@@ -36,7 +36,6 @@ module.exports = class Database {
     console.log(JSON.stringify(data));
 
     this.executeQuery(upsert, values).then((res) => {
-      console.log(res.rows[0].data);
       callback(res.rows[0].data);
     }).catch((err) => {
       console.log(err);
@@ -50,7 +49,11 @@ module.exports = class Database {
     const values = [user];
 
     this.executeQuery(read, values).then((res) => {
-      callback(res.rows[0].data);
+      if(res.rows.length > 0){
+        callback(res.rows[0].data);
+      }else{
+        callback('[]');
+      }
     }).catch((err) => {
       console.log(err);
       callback(undefined);

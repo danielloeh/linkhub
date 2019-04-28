@@ -6,13 +6,12 @@ const path = require('path');
 const ConfigEditorDB = require('./ConfigEditorDB');
 const FeatureConfig = require('./FeatureConfig');
 const Database = require('./Database');
-const jwtCheck = require('./Auth');
+const auth = require('./Auth');
 
 const PORT = parseInt(process.env.PORT, 10) || 8080;
 
-const checkJwt = jwtCheck(process.env);
-
-let user = 'my-user';
+const validateAuthToken = auth.validateAuthToken(process.env);
+const validateIDToken = auth.validateIDToken(process.env);
 
 const sendPosResultBuilder = (res, payload) => {
   res.status(200);
@@ -35,7 +34,7 @@ class LinkListServer {
 
     app.use(function (req, res, next) {
       if (req.method === 'OPTIONS') {  // send out CORS inflight response
-        res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+        res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization, IDToken');
         res.header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT, PATCH, DELETE');
         res.header('Access-Control-Allow-Origin', '*');
         res.header('Access-Control-Allow-Credentials', true);
@@ -43,7 +42,7 @@ class LinkListServer {
       } else { // Send out cors headers for all other requests
         res.header('Access-Control-Allow-Origin', '*');
         res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-        res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+        res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization, IDToken');
         return next();
       }
     });
@@ -65,38 +64,42 @@ class LinkListServer {
   configureEndpoints (app) {
     app.get('/api/health', (req, res) => res.send('OK'));
 
-    app.get('/api/config', checkJwt, (req, res) => {
+    app.get('/api/config/', validateAuthToken, validateIDToken, (req, res) => {
 
       const sendPosResult = (payload) => sendPosResultBuilder(res, payload);
       const sendNegResult = () => sendNegResultBuilder(res);
 
-      this.configEditorDB.getLinks(user, sendPosResult, sendNegResult);
+      console.log(req.user.name);
+
+      this.configEditorDB.getLinks(req.user.name, sendPosResult, sendNegResult);
     });
 
     app.get('/api/featureConfig', (req, res) => {
       res.send(this.featureConfig.getFeatureConfig());
     });
 
-    app.post('/api/config', checkJwt, (req, res) => {
+    app.post('/api/config', validateAuthToken, validateIDToken, (req, res) => {
+
+      console.log(req.user.name);
 
       const sendPosResult = (payload) => sendPosResultBuilder(res, payload);
       const sendNegResult = () => sendNegResultBuilder(res);
 
       if (req.body !== null && this.featureConfig.getFeatureConfig().editEnabled) {
-        this.configEditorDB.saveConfig(user, req.body, sendPosResult, sendNegResult);
+        this.configEditorDB.saveConfig(req.user.name, req.body, sendPosResult, sendNegResult);
       } else {
         console.error(`Failed request to /api/config `);
         sendNegResult();
       }
     });
 
-    app.post('/api/links', checkJwt, (req, res) => {
+    app.post('/api/links', validateAuthToken, validateIDToken, (req, res) => {
 
       const sendPosResult = (payload) => sendPosResultBuilder(res, payload);
       const sendNegResult = () => sendNegResultBuilder(res);
 
       if (req.body !== null && this.featureConfig.getFeatureConfig().editEnabled) {
-        this.configEditorDB.addLink(user, req.body, sendPosResult, sendNegResult);
+        this.configEditorDB.addLink(req.user.name, req.body, sendPosResult, sendNegResult);
       } else {
         sendNegResult();
       }

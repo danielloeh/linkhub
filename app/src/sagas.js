@@ -14,9 +14,7 @@ import {
   SAVE_CONFIG,
   savingConfig,
   showErrorAlert,
-  showInfoAlert,
   showLinks,
-  showWarnAlert,
 } from './actions';
 import { getData, postData } from './httpHelpers';
 import * as selectors from './reducers/selectors';
@@ -40,19 +38,28 @@ const checkResponse = (response) => {
   return response.json();
 };
 
-const fetchConfigFromBackend = (authToken) => getData({url: configEndpoint, authToken}).then(checkResponse);
-const fetchFeatureConfig = () => getData({url: featureConfigEndpoint}).then(checkResponse);
-const saveConfigToBackend = (data, authToken) => postData({url: configEndpoint, authToken, data}).then(checkResponse);
-const addLinkToBackend = (data, authToken) => postData({url: linkEndpoint, authToken, data}).then(checkResponse);
+const fetchConfigFromBackend = (authToken, idToken) => getData({ url: configEndpoint, authToken, idToken }).
+  then(checkResponse);
+const fetchFeatureConfig = () => getData({ url: featureConfigEndpoint }).then(checkResponse);
+const saveConfigToBackend = (data, authToken, idToken) => postData({ url: configEndpoint, authToken, idToken, data }).
+  then(checkResponse);
+const addLinkToBackend = (data, authToken, idToken) => postData({ url: linkEndpoint, authToken, idToken, data }).
+  then(checkResponse);
 
 function * getAccessTokenHeader () {
   return yield select((state) => state.auth.authCredentials.accessToken);
 }
 
+function * getIdToken () {
+  return yield select((state) => state.auth.authCredentials.idToken);
+}
+
 function * onFetchConfig () {
   const accessTokenHeader = yield call(getAccessTokenHeader);
+  const idToken = yield call(getIdToken);
+
   try {
-    const links = yield call(fetchConfigFromBackend, accessTokenHeader);
+    const links = yield call(fetchConfigFromBackend, accessTokenHeader, idToken);
     yield put(configFetched(links));
   } catch (e) {
     console.error('Load Config Failed' + e.message);
@@ -73,8 +80,12 @@ function * onFetchFeatureConfig () {
 function * onSaveConfig (action) {
   try {
     const accessTokenHeader = yield call(getAccessTokenHeader);
+    const idToken = yield call(getIdToken);
+
     yield put(savingConfig());
-    const updatedConfig = yield call(saveConfigToBackend, action.configJson, accessTokenHeader);
+    const payload = action.configJson;
+
+    const updatedConfig = yield call(saveConfigToBackend, payload, accessTokenHeader, idToken);
     yield put(configFetched(updatedConfig));
     yield put(showLinks());
     yield put(configSaved());
@@ -100,6 +111,8 @@ function * onOpenLink (action) {
 function * onAddLink (action) {
   try {
     const accessTokenHeader = yield call(getAccessTokenHeader);
+    const idToken = yield call(getIdToken);
+
     yield put(savingConfig());
     const updatedConfig = {
       category: action.category,
@@ -107,8 +120,8 @@ function * onAddLink (action) {
       name: action.name,
       description: action.description,
     };
-    const updatedLinks = yield call(addLinkToBackend, JSON.stringify(updatedConfig), accessTokenHeader);
-    yield put(configFetched(JSON.parse(updatedLinks)));
+    const updatedLinks = yield call(addLinkToBackend, JSON.stringify(updatedConfig), accessTokenHeader, idToken);
+    yield put(configFetched(updatedLinks));
     yield put(showLinks());
     yield put(configSaved());
   } catch (e) {
@@ -144,7 +157,7 @@ function * authed (saga, action) {
 
 function * rootSaga () {
   yield takeLatest(FETCH_CONFIG, authed, onFetchConfig);
-  yield takeLatest(FETCH_FEATURE_CONFIG,  onFetchFeatureConfig);
+  yield takeLatest(FETCH_FEATURE_CONFIG, onFetchFeatureConfig);
   yield takeLatest(SAVE_CONFIG, authed, onSaveConfig);
   yield takeLatest(OPEN_LINK, onOpenLink);
   yield takeLatest(ADD_LINK, authed, onAddLink);

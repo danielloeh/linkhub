@@ -3,12 +3,13 @@
 //   .then(data => console.log(data)) // JSON from `response.json()` call
 //   .catch(error => console.error(error))
 
-export function postData ({url, authToken, data}) {
+export function postData ({url, authToken, idToken, data}) {
 
   const request = {
     body: `${data}`,
     headers: {
       'Authorization': `Bearer ${authToken}`,
+      'IDToken': `${idToken}`,
       'Content-type': 'application/json',
     },
     method: 'POST',
@@ -18,10 +19,13 @@ export function postData ({url, authToken, data}) {
   return fetch(url, request);
 }
 
-export function getData ({url, authToken}) {
+export function getData ({url, authToken, idToken}) {
 
   const options = {
-    headers: { 'Authorization': `Bearer ${authToken}` },
+    headers: {
+      'Authorization': `Bearer ${authToken}`,
+      'IDToken': `${idToken}`
+    },
   };
 
   if (authToken) {

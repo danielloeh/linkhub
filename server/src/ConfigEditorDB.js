@@ -25,24 +25,27 @@ module.exports = class ConfigEditorDB {
   getLinks (user, sendPosResult, sendNegResult) {
 
     const parseContents = (jsonString) => {
+
       const result = Joi.validate(JSON.parse(jsonString), configSchema);
-      if (result.error !== null) {
+
+      if (result.error === null) {
+        sendPosResult(JSON.parse(jsonString));
+      } else {
         console.error('Invalid config format: ' + result.error.details[0].message);
         sendNegResult(result.error);
-      } else {
-        sendPosResult(JSON.parse(jsonString));
       }
     };
 
     this.database.read({ user: user, table: TABLE_NAME, callback: parseContents });
   }
 
-  saveConfig (user, data, sendPositiveResultFn, sendNegResult) {
+  saveConfig (user, payload, sendPositiveResultFn, sendNegResult) {
 
-    const result = Joi.validate(data, configSchema);
+    const result = Joi.validate(payload, configSchema);
+
     if (result.error === null) {
       this.database.upsert(
-        { user: user, data: JSON.stringify(data), table: TABLE_NAME, callback: sendPositiveResultFn });
+        { user: user, data: JSON.stringify(payload), table: TABLE_NAME, callback: sendPositiveResultFn });
     } else {
       console.error('Invalid config format: ' + result.error.details[0].message);
       sendNegResult();
@@ -63,7 +66,8 @@ module.exports = class ConfigEditorDB {
         });
 
         if (stringRepresentationIsNotTheSame(updatedContent, jsonString)) {
-          this.database.upsert({ table: TABLE_NAME, user: user, data: JSON.stringify(updatedContent), callback: sendPositiveResultFn });
+          this.database.upsert(
+            { table: TABLE_NAME, user: user, data: JSON.stringify(updatedContent), callback: sendPositiveResultFn });
         } else {
           console.error('No valid link added');
           sendNegResult();
