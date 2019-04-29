@@ -4,8 +4,7 @@ const TABLE_NAME = 'links';
 
 module.exports = class Database {
 
-  constructor ({ DATABASE_USER = 'postgres', DATABASE_PASSWORD = 'postgres', DATABASE_URL }) {
-
+  constructor ({ DATABASE_URL }) {
 
     const config = {
       connectionString: DATABASE_URL,
@@ -67,7 +66,8 @@ module.exports = class Database {
   createTables () {
 
     const createExtension = `CREATE EXTENSION IF NOT EXISTS "uuid-ossp";`;
-    this.executeQuery(createExtension);
+    this.executeQuery(createExtension).then((res) => console.log(`Creating extensions complete ${res}`)).catch(
+      err => console.error('Error executing query', err.stack));
 
     const recreate = false;
     if (recreate) {
@@ -83,7 +83,9 @@ module.exports = class Database {
                              user_name VARCHAR(100) UNIQUE NOT NULL,
                              data      json                NOT NULL
                          );`;
-    this.executeQuery(createTable);
+
+    this.executeQuery(createTable).then((res) => console.log(`Creating table complete ${res}`)).catch(
+      err => console.error('Error executing query', err.stack));
   }
 
 };
