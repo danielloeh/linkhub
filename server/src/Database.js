@@ -4,11 +4,11 @@ const TABLE_NAME = 'links';
 
 module.exports = class Database {
 
-  constructor ({ DATABASE_USER = 'postgres', DATABASE_PASSWORD = 'postgres', DATABASE_URI }) {
+  constructor ({ DATABASE_USER = 'postgres', DATABASE_PASSWORD = 'postgres', DATABASE_URL }) {
 
 
     const config = {
-      connectionString: `${DATABASE_URI}`,
+      connectionString: DATABASE_URL,
       max: 10, // max number of clients in the pool
       idleTimeoutMillis: 30000,
     };
