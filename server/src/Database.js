@@ -4,16 +4,16 @@ const TABLE_NAME = 'links';
 
 module.exports = class Database {
 
-  constructor ({ DATABASE_USER = 'postgres', DATABASE_PASSWORD = 'postgres' }) {
+  constructor ({ DATABASE_USER = 'postgres', DATABASE_PASSWORD = 'postgres', DATABASE_URI }) {
+
 
     const config = {
-      user: DATABASE_USER,
-      database: 'linkhub',
-      password: DATABASE_PASSWORD,
-      port: 5432,
+      connectionString: `${DATABASE_URI}`,
       max: 10, // max number of clients in the pool
       idleTimeoutMillis: 30000,
     };
+
+    console.log(config);
 
     this.pool = new Pool(config);
 
